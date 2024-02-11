@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useFetch, useForm } from "../../hooks"
 import { Link } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
 
 
 
@@ -13,6 +14,7 @@ export const LoginForm = () => {
     })
 
     const [errors, setErrors] = useState({})
+    const { login } = useContext(AuthContext);
 
     const onLoginSubmit = async (e) => {
         e.preventDefault();
@@ -56,6 +58,7 @@ export const LoginForm = () => {
                 // console.log('Usuario logueado:', json.userId);
                 // window.location.href = './index.html';  // Redireccionar al usuario a index.html
                 console.log('Usuario logueado:', json);
+                login(json.userId)
             } else {
                 setErrors({ credentials: `${json.message}*`});
                 // console.error('Error en el login:', json.message);

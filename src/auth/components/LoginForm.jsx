@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { useForm } from "../../hooks"
+import { useFetch, useForm } from "../../hooks"
+import { Link } from "react-router-dom";
 
 
 
@@ -13,7 +14,7 @@ export const LoginForm = () => {
 
     const [errors, setErrors] = useState({})
 
-    const onLoginSubmit = (e) => {
+    const onLoginSubmit = async (e) => {
         e.preventDefault();
         // console.log({ email, password })
 
@@ -34,11 +35,35 @@ export const LoginForm = () => {
 
         
         setErrors(newErrors);
-        if (Object.keys(newErrors).length > 0){
-            return;
+        if ( Object.keys(newErrors).length > 0){
+            return
         }
-        
-        console.log('Formulario válido');
+    
+
+        try {
+            const response = await fetch('https://sniffnear-api.onrender.com/api/users/auth', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email, password }),
+            });
+
+            const json = await response.json();
+
+            if (response.ok) {  
+                // localStorage.setItem('userId', json.userId);
+                // console.log('Usuario logueado:', json.userId);
+                // window.location.href = './index.html';  // Redireccionar al usuario a index.html
+                console.log('Usuario logueado:', json);
+            } else {
+                setErrors({ credentials: `${json.message}*`});
+                // console.error('Error en el login:', json.message);
+            }
+
+        } catch (error) {
+            setErrors({ credentials: `Hubo un error en el servidor, por favor intenta más tarde*`});
+        }
 
     }
 
@@ -49,6 +74,7 @@ export const LoginForm = () => {
 
 
     return (
+        <>
         <form onSubmit={ onLoginSubmit }>
             {errors.credentials && <p className='errorInput'>{errors.credentials}</p>}
 
@@ -79,10 +105,13 @@ export const LoginForm = () => {
 
             <div>
                 <button type="submit">Iniciar sesión</button>
-                {/* <p>¿Ya tenés una cuenta? <Link to="/register">Registrate</Link></p> */}
+                <p>¿No tenés una cuenta? <Link to="/register">Registrate</Link></p>
             </div>
 
 
         </form>
+        
+        
+        </>
     )
 }

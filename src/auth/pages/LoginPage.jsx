@@ -1,3 +1,4 @@
+import { LoginForm } from "../components/LoginForm"
 
 
 export const LoginPage = () => {
@@ -15,6 +16,7 @@ export const LoginPage = () => {
                 <p>¡Bienvenido a <span>SniffNear</span>!</p>
             </div>
 
+            <LoginForm />
         
         </div>
     

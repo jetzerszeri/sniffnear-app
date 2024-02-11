@@ -1,12 +1,12 @@
 import { useContext, useState } from "react";
-import { useFetch, useForm } from "../../hooks"
-import { Link } from "react-router-dom";
+import { useForm } from "../../hooks"
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
-
 
 
 export const LoginForm = () => {
 
+    const navigate = useNavigate();
 
     const { onInputChange, email, password } = useForm({
         email: '',
@@ -54,14 +54,12 @@ export const LoginForm = () => {
             const json = await response.json();
 
             if (response.ok) {  
-                // localStorage.setItem('userId', json.userId);
-                // console.log('Usuario logueado:', json.userId);
-                // window.location.href = './index.html';  // Redireccionar al usuario a index.html
-                console.log('Usuario logueado:', json);
+
                 login(json.userId)
+                navigate('/', { replace: true });
+
             } else {
                 setErrors({ credentials: `${json.message}*`});
-                // console.error('Error en el login:', json.message);
             }
 
         } catch (error) {

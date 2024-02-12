@@ -392,6 +392,7 @@ main h1, main h2, h3{
 h3{
     font-weight: 400;
 }
+
 /* secciones del main */
 main section{
     background-color: var(--color-neutral-0);
@@ -401,13 +402,17 @@ main section{
 }
 
 
-.welcomeCard, .petNameCard{
+.welcomeCard{
     display: flex;
     gap: 15px;
     align-items: center;
 }
 
-.welcomeCard img, .petNameCard img{
+.welcomeCard{
+    background-color: var(--color-green);
+}
+
+.welcomeCard img{
     width: 70px;
     height: 70px;
     border-radius: 8px;
@@ -415,11 +420,43 @@ main section{
     object-fit: cover; 
 }
 
-.welcomeCard h1, .petNameCard h2{
+.welcomeCard h1{
     margin-bottom: 2px;
+    color: var(--color-neutral-0);
 }
 
 .welcomeCard p{
-    font-size: 0.8em;
-    color: var(--color-neutral-50);
+    font-size: 0.9em;
+    color: var(--color-neutral-20);
+}
+
+.welcomeCard2{
+    /* border: 2px solid var(--color-darkblue); */
+    text-align: center;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    box-shadow: 0px 0px 20px #00656736;
+}
+
+.welcomeCard2 > div{
+    padding-right: 150px;
+    background: url(/public/img/littlecat1.png) no-repeat right;
+    background-size: 130px ;
+    min-height: 180px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 425px;
+}
+
+.welcomeCard2 h1{
+    color: var(--color-darkblue);
+    margin-bottom: 10px;
+}
+
+.welcomeCard2 p{
+    color: var(--color-darkblue);
+    font-size: 0.9em;
+    margin-bottom: 16px;
 }

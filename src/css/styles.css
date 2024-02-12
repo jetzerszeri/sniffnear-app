@@ -370,3 +370,56 @@ form > div{
 scale: 1;
 transform-origin: left;
 }
+
+
+
+
+/* Home */
+main{
+    padding: 20px 20px 80px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+main h1, main h2, h3{
+    font-size: 1.2em;
+    font-weight: 500;
+    color: var(--color-neutral-90);
+    margin: 8px 0 14px 0;
+}
+
+h3{
+    font-weight: 400;
+}
+/* secciones del main */
+main section{
+    background-color: var(--color-neutral-0);
+    box-shadow: 0px 0px 20px rgba(0,0,0,0.05);
+    padding: 16px;
+    border-radius: 8px;
+}
+
+
+.welcomeCard, .petNameCard{
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.welcomeCard img, .petNameCard img{
+    width: 70px;
+    height: 70px;
+    border-radius: 8px;
+    overflow: hidden;
+    object-fit: cover; 
+}
+
+.welcomeCard h1, .petNameCard h2{
+    margin-bottom: 2px;
+}
+
+.welcomeCard p{
+    font-size: 0.8em;
+    color: var(--color-neutral-50);
+}

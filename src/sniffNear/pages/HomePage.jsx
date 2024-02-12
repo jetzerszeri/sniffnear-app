@@ -1,12 +1,15 @@
 import { NavBar } from "../components/NavBar"
+import { WelcomeCard } from "../components/WelcomeCard"
 
 
 export const HomePage = () => {
   return (
     <>
       <NavBar />
-      <h1>HomePage</h1>
-      <hr />
+      
+      <main>
+        <WelcomeCard name="Usuario" imgUrl='/img/avatarPorDefecto.webp'/>
+      </main>
     </>
   )
 }

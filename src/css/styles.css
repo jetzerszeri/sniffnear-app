@@ -275,8 +275,8 @@ form > div{
     height: 100%;
     background-color: transparent;
     z-index: 100;
-    transition: background-color 1s ease;
-    /* transform: translateX(-100%); */
+    transition: background-color 0.5s ease;
+    transform: translateX(-100%);
 }
 
 .sidebar.show {
@@ -293,8 +293,8 @@ form > div{
     background-color: var(--color-neutral-0);
     box-shadow: 0px 0px 20px rgba(0,0,0,0.3);
     padding: 30px;
-    /* transform: translateX(-100%); */
-    transition: all 1s ease;
+    transform: translateX(-100%);
+    transition: all 0.5s ease;
 }
 
 .sidebar nav.show{

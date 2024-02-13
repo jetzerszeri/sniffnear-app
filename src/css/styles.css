@@ -45,6 +45,14 @@ a{
 
 
 /* formulario de crear cuenta */
+.singUpBackground{
+    background-color: var(--color-green);
+    background-image: url(/public/img/pattern1.svg);
+    position: relative;
+    min-height: 100vh;
+    height:max-content;
+}
+
 .singUpView{
     background-color: var(--color-neutral-0);
     box-shadow: 0px 0px 20px rgba(0,0,0,0.1);

@@ -3,7 +3,7 @@ import { LoginForm } from "../components/LoginForm"
 
 export const LoginPage = () => {
   return (
-    <>
+    <div className="singUpBackground">
         <div className="singUpView">
             <div>
                 <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -20,6 +20,6 @@ export const LoginPage = () => {
         
         </div>
     
-    </>
+    </div>
   )
 }

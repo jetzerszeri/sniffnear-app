@@ -67,7 +67,6 @@ export const RegisterForm = () => {
             const json = await response.json();
 
             if (response.ok) {  
-                console.log(json)
 
                 login( json.user._id, json.user.name, json.user.email );
                 navigate('/', { replace: true });
@@ -137,7 +136,7 @@ export const RegisterForm = () => {
                     <input
                     type={showPassword ? 'text' : 'password'}
                     name="validatePassword"
-                    placeholder="Ingresa tu contraseña nuevamente"
+                    placeholder="Ingresá tu contraseña nuevamente"
                     id="validatePassword"
                     value={validatePassword}
                     onChange={onInputChange}

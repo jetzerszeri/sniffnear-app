@@ -60,7 +60,7 @@ export const LoginForm = () => {
 
             if (response.ok) {  
 
-                login(json.userId)
+                login( json.user._id, json.user.name, json.user.email );
                 navigate('/', { replace: true });
 
             } else {

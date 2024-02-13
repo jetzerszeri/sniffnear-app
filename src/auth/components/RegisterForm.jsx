@@ -1,6 +1,7 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
 import { useForm } from "../../hooks"
 import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
 
 
 export const RegisterForm = () => {
@@ -16,6 +17,7 @@ export const RegisterForm = () => {
 
     const [ errors, setErrors ] = useState( {} );
     const [ showPassword, setShowPassword ] = useState( false );
+    const { login } = useContext( AuthContext );
     
     const togglePassword = () => {
         setShowPassword(!showPassword)
@@ -67,8 +69,8 @@ export const RegisterForm = () => {
             if (response.ok) {  
                 console.log(json)
 
-                // login(json.userId)
-                // navigate('/', { replace: true });
+                login( json.user._id, json.user.name, json.user.email );
+                navigate('/', { replace: true });
 
             } else {
                 setErrors({ credentials: `${json.message}*`});
@@ -77,11 +79,6 @@ export const RegisterForm = () => {
         } catch (error) {
             setErrors({ credentials: `Hubo un error en el servidor, por favor intenta más tarde*`});
         }
-
-
-
-
-
 
 
     }

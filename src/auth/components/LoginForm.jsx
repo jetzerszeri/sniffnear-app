@@ -13,8 +13,13 @@ export const LoginForm = () => {
         password: ''
     })
 
-    const [errors, setErrors] = useState({})
-    const { login } = useContext(AuthContext);
+    const [ errors, setErrors ] = useState( {} )
+    const [ showPassword, setShowPassword ] = useState( false )
+    const { login } = useContext( AuthContext );
+
+    const togglePassword = () => {
+        setShowPassword(!showPassword)
+    }
 
     const onLoginSubmit = async (e) => {
         e.preventDefault();
@@ -93,14 +98,21 @@ export const LoginForm = () => {
 
             <div>
                 <label htmlFor="password">Contraseña</label>
-                <input
-                type="password"
-                name="password"
-                placeholder="Ingresá tu contraseña"
-                id="password"
-                value={password}
-                onChange={onInputChange}
-                />
+                <div className="pswdInput">
+                    <input
+                    type={showPassword ? 'text' : 'password'}
+                    name="password"
+                    placeholder="Ingresá tu contraseña"
+                    id="password"
+                    value={password}
+                    onChange={onInputChange}
+                    />
+                    <i 
+                        className={`bi ${showPassword ? 'bi-eye-slash' : 'bi-eye'}`} 
+                        onClick={togglePassword}
+                    ></i>
+                </div>
+
                 {errors.password && <p className='errorInput'>{errors.password}</p>}
             </div>
 

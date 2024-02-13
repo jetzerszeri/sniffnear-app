@@ -1,5 +1,7 @@
 import { Link, NavLink } from 'react-router-dom';
 import { SidebarBlogIcon, SidebarChatIcon, SidebarHomeIcon, SidebarLogoutIcon, SniffNearLogotipo } from '../../ui/customIcons';
+import { useContext } from 'react';
+import { AuthContext } from '../../auth/context';
 
 
 export const SideBar = ( { displaySidebar, hideSidebar } ) => {
@@ -7,6 +9,8 @@ export const SideBar = ( { displaySidebar, hideSidebar } ) => {
     const sidebarBackgroundStyle = {
         transform: displaySidebar.backTranslateX ? 'translateX(0)' : 'translateX(-100%)'
     }
+
+    const { isLogged } = useContext(AuthContext);
 
     return (
         <div 
@@ -55,12 +59,26 @@ export const SideBar = ( { displaySidebar, hideSidebar } ) => {
                         </NavLink>
                     </li>
 
-                    <li>
-                        <Link to="/login">
-                            <SidebarLogoutIcon />
-                        </Link>
-                    </li>
+                    {
+                        isLogged && 
+                            <li>
+                            <Link to="/login">
+                                <SidebarLogoutIcon />
+                            </Link>
+                        </li>
+                    }
+                    
                 </ul>
+
+                {
+                    !isLogged &&
+                    <div className='sidebarLogInBtn'>
+                        <Link className='btn' to='/login'>Ingresar</Link>
+                    </div>
+                }
+
+
+
             </nav>
         </div>
     )

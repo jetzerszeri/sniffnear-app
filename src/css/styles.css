@@ -371,7 +371,9 @@ scale: 1;
 transform-origin: left;
 }
 
-
+.sidebarLogInBtn{
+    margin-top: 20px;
+}
 
 
 /* Home */

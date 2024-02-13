@@ -6,7 +6,7 @@ export const WelcomeCardNoUserLogged = () => {
         <section className="welcomeCard2">
             <div>
                 <h1>¡Hola!</h1>
-                <p>¡Sumate ahora y conectá con otros dueños para ayudar a reencontrar familias con sus mascotas! 🐾</p>
+                <p>¡Sumate ahora y conectá con otros dueños para ayudar a reencontrar mascotas con sus familias! 🐾</p>
                 <Link to="/login" className="btn">Ingresar</Link>
             </div>
         </section>

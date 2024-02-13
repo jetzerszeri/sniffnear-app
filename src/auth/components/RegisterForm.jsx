@@ -1,9 +1,11 @@
 import { useState } from "react"
 import { useForm } from "../../hooks"
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 
 export const RegisterForm = () => {
+
+    const navigate = useNavigate();
 
     const { onInputChange, name, email, password, validatePassword } = useForm({
         name: '',
@@ -49,6 +51,39 @@ export const RegisterForm = () => {
         if ( Object.keys(newErrors).length > 0){
             return
         }
+
+
+        try {
+            const response = await fetch('https://sniffnear-api.onrender.com/api/users/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email, password, name }),
+            });
+
+            const json = await response.json();
+
+            if (response.ok) {  
+                console.log(json)
+
+                // login(json.userId)
+                // navigate('/', { replace: true });
+
+            } else {
+                setErrors({ credentials: `${json.message}*`});
+            }
+
+        } catch (error) {
+            setErrors({ credentials: `Hubo un error en el servidor, por favor intenta más tarde*`});
+        }
+
+
+
+
+
+
+
     }
 
     return (

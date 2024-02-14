@@ -152,7 +152,7 @@ export const RegisterForm = () => {
 
             <div>
                 <button type="submit">Registrarme</button>
-                <p>¿Ya tenés una cuenta? <Link to="/login">Iniciá sesión</Link></p>
+                <p>¿Ya tenés una cuenta? <Link to="/auth/login">Iniciá sesión</Link></p>
             </div>
 
 

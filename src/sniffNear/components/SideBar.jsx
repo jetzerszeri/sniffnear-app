@@ -62,7 +62,7 @@ export const SideBar = ( { displaySidebar, hideSidebar } ) => {
                     {
                         isLogged && 
                             <li>
-                            <Link to="/login">
+                            <Link to="/auth">
                                 <SidebarLogoutIcon />
                             </Link>
                         </li>
@@ -73,7 +73,7 @@ export const SideBar = ( { displaySidebar, hideSidebar } ) => {
                 {
                     !isLogged &&
                     <div className='sidebarLogInBtn'>
-                        <Link className='btn' to='/login'>Ingresar</Link>
+                        <Link className='btn' to='/auth'>Ingresar</Link>
                     </div>
                 }
 

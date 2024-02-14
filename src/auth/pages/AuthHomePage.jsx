@@ -12,8 +12,8 @@ export const AuthHomePage = () => {
 
             <div>
                 <p>Unite a la misión o ingresá</p>
-                <Link to="/register" className="btn secundary">Crear cuenta</Link>
-                <Link to="/login" className="btn secundary">Ingresar</Link>
+                <Link to="./register" className="btn secundary">Crear cuenta</Link>
+                <Link to="./login" className="btn secundary">Ingresar</Link>
 
                 <p>¿Extraviaste a tu mascota o encontraste una?</p>
                 <Link to="/alert" className="btn">Crear alerta rápida</Link>

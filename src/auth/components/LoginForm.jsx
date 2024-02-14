@@ -118,7 +118,7 @@ export const LoginForm = () => {
 
             <div>
                 <button type="submit">Iniciar sesión</button>
-                <p>¿No tenés una cuenta? <Link to="/register">Registrate</Link></p>
+                <p>¿No tenés una cuenta? <Link to="/auth/register">Registrate</Link></p>
             </div>
 
 

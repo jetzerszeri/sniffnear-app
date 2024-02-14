@@ -564,3 +564,63 @@ main section{
     font-size: 0.9em;
     margin-bottom: 16px;
 }
+
+
+
+
+/* input para cargar imagen */
+#imgUrl{
+    display: none;
+}
+
+.labelImgInput{
+    width: 200px;
+    height: 200px;
+    border-radius: 8px;
+    background-color: var(--color-neutral-0);
+    border: 2px dashed var(--color-neutral-20);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+    cursor: pointer;
+    margin: 50px auto;
+    gap: 10px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    transition: all 0.2s ease;
+}
+
+.labelImgInput p {
+    color: var(--color-neutral-50);
+}
+
+.labelImgInput svg, .labelImgInput p{
+    transition: all 0.2s ease;
+}
+
+.labelImgInput:hover{
+    border-color: var(--color-green);
+}
+
+.labelImgInput:hover svg{
+    transform: scale(1.1);
+}
+
+.labelImgInput:hover p{
+    color: var(--color-green);
+}
+
+.labelImgInput + p{
+    margin: -30px auto 40px auto;
+    /* font-size: 0.9em; */
+    color: var(--color-neutral-50);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.labelImgInput + p:hover{
+    color: var(--color-oragne);
+}

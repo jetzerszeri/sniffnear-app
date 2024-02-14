@@ -44,6 +44,86 @@ a{
 
 
 
+
+
+/* authHome */
+.authHome{
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px;
+    justify-content: space-between;
+    text-align: center;
+    background-image: url(/public/img/pattern2.svg);
+    background-color: var(--color-neutral-0);
+}
+
+.authHome h1{
+    font-size: 1.1em;
+    font-weight: 400;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 16px;
+}
+
+.authHome h1 span{
+    font-size: 0;
+    width: 160px;
+    height: 39px;
+    display: block;
+    background-image: url(/public/img/logohorizontal2.svg);
+    margin: auto;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.authHome h1 + p {
+    padding: 0 10px;
+    font-size: 1em;
+    font-weight: 300;
+    max-width: 250px;
+}
+
+.authHome img{
+    width: 100%;
+    max-width: 200px;
+    margin: 20px 0;
+}
+
+.authHome div:last-of-type{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    max-width: 300px;
+}
+
+.authHome div:last-of-type p{
+    font-size: 0.9em;
+    font-weight: 300;
+    margin-top: 16px;
+}
+
+.authHome div:last-of-type a:last-of-type{
+    color: var(--color-darkblue);
+    text-decoration: underline;
+    font-size: 0.95em;
+    margin-top: 10px;
+    transition: all 0.2s ease;
+}
+
+.authHome div:last-of-type a:last-of-type:hover{
+    color: var(--color-green);
+}
+
+
+
+
+
+
 /* formulario de crear cuenta */
 .singUpBackground{
     background-color: var(--color-green);
@@ -127,27 +207,6 @@ textarea{
     padding: 10px;
 }
 
-/* .singUpView form > div:nth-of-type(1){
-    text-align: left;
-    font-size: 12px;
-    display: flex;
-    align-items: center;
-    gap : 10px;
-    color: var(--color-neutral-50);
-    margin-bottom: 10px;
-} */
-
-/* .singUpView form > div:nth-of-type(1) a{
-    color: var(--color-neutral-50);
-    font-weight: 600;
-} */
-/* 
-.singUpView form > div:nth-of-type(2){
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-} */
-
 .singUpView form div{
     padding-top: 0 !important;
 }
@@ -202,7 +261,7 @@ button[disabled] {
 }
 
 .btn.secundary:hover{
-    background-color: var(--color-neutral-20) !important;
+    background-color: var(--color-green-background) !important;
     /* color: var(--color-neutral-0) !important; */
 }
 
@@ -237,23 +296,23 @@ form > div{
     margin-top: -10px;
   }
   
-  .pswdInput input {
+.pswdInput input {
     flex: 1;
     padding-right: 40px;
-  }
-  
-  .pswdInput i {
+}
+
+.pswdInput i {
     position: absolute;
     right: 12px;
     cursor: pointer;
     font-size: 1.2em;
     color: var(--color-neutral-50);
     transition: all 0.2s ease;
-  }
+}
 
-  .pswdInput i:hover{
+.pswdInput i:hover{
     color: var(--color-green);
-  }
+}
   
 
 

@@ -10,7 +10,7 @@ export const SideBar = ( { displaySidebar, hideSidebar } ) => {
         transform: displaySidebar.backTranslateX ? 'translateX(0)' : 'translateX(-100%)'
     }
 
-    const { isLogged } = useContext(AuthContext);
+    const { isLogged, logout } = useContext(AuthContext);
 
     return (
         <div 
@@ -61,7 +61,7 @@ export const SideBar = ( { displaySidebar, hideSidebar } ) => {
 
                     {
                         isLogged && 
-                            <li>
+                        <li onClick={ logout }>
                             <Link to="/auth">
                                 <SidebarLogoutIcon />
                             </Link>

@@ -30,13 +30,24 @@ export const AuthProvider = ( { children } ) => {
         localStorage.setItem('user', JSON.stringify(user) ); // Aunque podemos hacer un efecto que esté pendiente del estado del use Reducer.
 
         authDispatch( action );
+    };
+
+    const logout = () => {
+
+        localStorage.removeItem('user');
+        const action = { type: types.logout }
+
+        authDispatch( action );
+
     }
+
 
 
     return (
         <AuthContext.Provider value={{
             ...authState,
             login,
+            logout,
         }}>
             { children }
         </AuthContext.Provider>

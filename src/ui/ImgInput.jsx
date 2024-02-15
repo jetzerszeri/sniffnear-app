@@ -1,6 +1,6 @@
 import { UploadImgIcon } from './customIcons';
 
-export const ImgInput = ( {imageSelected, setImgFile,  resetImg} ) => {
+export const ImgInput = ( {imageSelected, setImgFile,  resetImg}) => {
 
 
     const imgLabelBackground = {

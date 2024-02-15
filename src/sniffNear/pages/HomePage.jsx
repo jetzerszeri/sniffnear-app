@@ -9,6 +9,8 @@ export const HomePage = () => {
 
   const { user, isLogged } = useContext(AuthContext);
 
+  const imgUrl = user.profileImg ? user.profileImg : '/img/avatarPorDefecto.webp';
+
   return (
     <>
       <NavBar />
@@ -16,7 +18,7 @@ export const HomePage = () => {
       <main>
         {
           isLogged 
-            ? <WelcomeCard name={user.name} imgUrl='/img/avatarPorDefecto.webp' />
+            ? <WelcomeCard name={user.name} imgUrl={ imgUrl } />
             : <WelcomeCardNoUserLogged />
         }
       </main>

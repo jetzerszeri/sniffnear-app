@@ -60,7 +60,7 @@ export const LoginForm = () => {
 
             if (response.ok) {  
 
-                login( json.user._id, json.user.name, json.user.email );
+                login( json.user._id, json.user.name, json.user.email, json.user.profileImg);
                 navigate('/', { replace: true });
 
             } else {

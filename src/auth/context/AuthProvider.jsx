@@ -41,6 +41,19 @@ export const AuthProvider = ( { children } ) => {
 
     }
 
+    const singup = ( id, name, email  ) => {
+
+        const user = { id, name, email }
+
+        const action = {
+            type: types.singup,
+            payload: user
+        }
+
+        // localStorage.setItem('user', JSON.stringify(user) ); // Aunque podemos hacer un efecto que esté pendiente del estado del use Reducer.
+        authDispatch( action );
+    };
+
 
 
     return (
@@ -48,6 +61,7 @@ export const AuthProvider = ( { children } ) => {
             ...authState,
             login,
             logout,
+            singup,
         }}>
             { children }
         </AuthContext.Provider>

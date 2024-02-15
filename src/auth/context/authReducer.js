@@ -17,7 +17,14 @@ export const authReducer = (state = {}, action ) => {
                 user: null,
                 isLogged: false,
             };
-
+            
+        case types.singup:
+            return {
+                ...state,
+                isLogged: false,
+                user: action.payload,
+            };
+        
         default:
             return state;
     }

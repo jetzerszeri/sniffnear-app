@@ -25,8 +25,12 @@ export const usePreviewAndUploadImg = () => {
 
     const uploadImg = async ( folder, name ) => {
         setUploadStatus(true);
-        setImgLink( await uploadImgToFirestore( imgFile, folder, name ) );
+
+        const link = await uploadImgToFirestore( imgFile, folder, name );
+        setImgLink( link );
         setUploadStatus(false);
+        
+        return link;
     }
     
 

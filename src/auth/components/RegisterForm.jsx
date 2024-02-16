@@ -1,12 +1,11 @@
-import { useContext, useState } from "react"
-import { useForm } from "../../hooks"
-import { Link, useNavigate } from "react-router-dom";
+import { useContext, useEffect, useState } from "react"
+import { useFetchSniffNearApi, useForm } from "../../hooks"
+import { Link } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
+import { Loader } from "../../ui";
 
 
 export const RegisterForm = ( { accountStatus } ) => {
-
-    const navigate = useNavigate();
 
     const { onInputChange, name, email, password, validatePassword } = useForm({
         name: '',
@@ -17,7 +16,22 @@ export const RegisterForm = ( { accountStatus } ) => {
 
     const [ errors, setErrors ] = useState( {} );
     const [ showPassword, setShowPassword ] = useState( false );
-    const { login, singup } = useContext( AuthContext );
+    const { singup } = useContext( AuthContext );
+    const { data, isLoading, error, createUser } = useFetchSniffNearApi();
+
+    useEffect(() => {
+        if (data && data.user) {
+            const user = data.user;
+            singup( user._id, user.name, user.email );
+            accountStatus( { created: true } );
+        }
+    }, [ data, singup, accountStatus ]);
+
+    useEffect(() => {
+        if (error) {
+            setErrors({ credentials: `${error}*`});
+        }
+    }, [ error ]); 
     
     const togglePassword = () => {
         setShowPassword(!showPassword)
@@ -52,39 +66,17 @@ export const RegisterForm = ( { accountStatus } ) => {
         setErrors(newErrors);
         if ( Object.keys(newErrors).length > 0){
             return
-        }
+        };
 
 
-        try {
-            const response = await fetch('https://sniffnear-api.onrender.com/api/users/', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ email, password, name }),
-            });
-
-            const json = await response.json();
-
-            if (response.ok) {  
-
-                // login( json.user._id, json.user.name, json.user.email );
-                singup( json.user._id, json.user.name, json.user.email );
-                accountStatus( { created: true } );
-                // navigate('/', { replace: true });
-
-            } else {
-                setErrors({ credentials: `${json.message}*`});
-            }
-
-        } catch (error) {
-            setErrors({ credentials: `Hubo un error en el servidor, por favor intenta más tarde*`});
-        }
-
-
+        createUser({ email, password, name });
     }
 
+
+
+
     return (
+    <>
         <form onSubmit={ onRegisterSubmit }>
             {errors.credentials && <p className='errorInput'>{errors.credentials}</p>}
 
@@ -157,8 +149,12 @@ export const RegisterForm = ( { accountStatus } ) => {
                 <p>¿Ya tenés una cuenta? <Link to="/auth/login">Iniciá sesión</Link></p>
             </div>
 
-
-
         </form>
+
+        {
+            isLoading && <Loader label="Creando cuenta..." />
+        }
+        
+    </>
     )
 }

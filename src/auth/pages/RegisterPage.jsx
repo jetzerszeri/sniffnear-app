@@ -9,11 +9,14 @@ export const RegisterPage = () => {
     created: false,
   });
 
+  const step = account.created ? 2 : 1;
+
   return (
     <AuthLayout title="Registrate">
+      <p className="steps">{ step }/2</p>
         {
           !account.created 
-          ? <RegisterForm accountStatus={ setAccount }/> 
+          ? <RegisterForm accountStatus={ setAccount } /> 
           : <AddProfilePicture />
         }
     </AuthLayout>

@@ -1,16 +1,16 @@
-import { useContext, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import { ImgInput, Loader } from '../../ui';
 import { usePreviewAndUploadImg } from '../../hooks/usePreviewAndUploadImg';
 import { AuthContext } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import { useUpdateDocument } from '../../sniffNear/hooks';
+import { useFetchSniffNearApi } from '../../hooks';
 
 export const AddProfilePicture = () => {
   
   const { user, login } = useContext( AuthContext );
   const [ loaderLabel, setLoaderLabel ] = useState(null);
   const { imageSelected, uploadStatus, setImgFile, resetImg, uploadImg } = usePreviewAndUploadImg();
-  const { isLoading, error, update } = useUpdateDocument();
+  const { data, isLoading, error, update } = useFetchSniffNearApi();
   
   const navigate = useNavigate();
 
@@ -20,25 +20,26 @@ export const AddProfilePicture = () => {
     } else if (isLoading) {
       setLoaderLabel('Guardando cambios...');
     }
-  }, [isLoading, uploadStatus])
-  
+  }, [isLoading, uploadStatus]);
 
-  const loginUser = () =>{
+
+  const loginUser =  useCallback((user) => {
     login( user.id, user.name, user.email );
     navigate('/', { replace: true })
-  }
+  }, [ login, navigate ]);
 
-  const saveProfilePictureAndLoginUser = async () => {
+
+  useEffect(() => {
+      if ( data && data.user ) {
+        loginUser( data.user );
+      }
+  }, [ data, loginUser ]);
+  
+
+  const uploadAndSaveImg = async () => {
     const link = await uploadImg( 'users/avatars/', user.id );
-    const updatedData = await update('users', user.id, { profileImg: link });
-
-    if (updatedData.error) {
-      // hay que manejar el error
-      return;
-    }
-    loginUser( updatedData.user.id, updatedData.user.name, updatedData.user.email );
-    navigate('/', { replace: true });
-  }
+    await update('users', user.id, { profileImg: link });
+  };
 
 
   return (
@@ -49,7 +50,7 @@ export const AddProfilePicture = () => {
 
         {
           imageSelected
-            ? <button className="btn" onClick={ saveProfilePictureAndLoginUser }>Guardar cambios</button>
+            ? <button className="btn" onClick={ uploadAndSaveImg }>Guardar cambios</button>
             : <button className="btn secundary" onClick={ loginUser }>Lo haré después</button>
         }
 

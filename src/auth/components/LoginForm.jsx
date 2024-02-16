@@ -1,7 +1,8 @@
-import { useContext, useState } from "react";
-import { useForm } from "../../hooks"
+import { useContext, useEffect, useState } from "react";
+import { useFetchSniffNearApi, useForm } from "../../hooks"
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
+import { Loader } from "../../ui";
 
 
 export const LoginForm = () => {
@@ -16,17 +17,32 @@ export const LoginForm = () => {
     const [ errors, setErrors ] = useState( {} )
     const [ showPassword, setShowPassword ] = useState( false )
     const { login } = useContext( AuthContext );
+    const { data, isLoading, error, loginUser } = useFetchSniffNearApi();
 
     const togglePassword = () => {
         setShowPassword(!showPassword)
     }
 
+    useEffect(() => {
+        if (error) {
+            setErrors({ credentials: `${error}*`});
+        }
+    }, [ error ]);
+
+    useEffect(() => {
+        if (data && data.user) {
+            const user = data.user;
+            login( user._id, user.name, user.email, user.profileImg);
+            navigate('/', { replace: true })
+        }
+    }, [ data, login, navigate ]);
+    
+    
+
     const onLoginSubmit = async (e) => {
         e.preventDefault();
-        // console.log({ email, password })
 
-        const newErrors = {}
-        
+        const newErrors = {}        
 
         if (email.trim().length === 0){
             newErrors.email = 'El email es obligatorio*';
@@ -39,44 +55,14 @@ export const LoginForm = () => {
         } else if (password.length < 6) {
             newErrors.password= 'La contraseña debe tener al menos 6 caracteres*';
         }
-
         
         setErrors(newErrors);
         if ( Object.keys(newErrors).length > 0){
             return
         }
     
-
-        try {
-            const response = await fetch('https://sniffnear-api.onrender.com/api/users/auth', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ email, password }),
-            });
-
-            const json = await response.json();
-
-            if (response.ok) {  
-
-                login( json.user._id, json.user.name, json.user.email, json.user.profileImg);
-                navigate('/', { replace: true });
-
-            } else {
-                setErrors({ credentials: `${json.message}*`});
-            }
-
-        } catch (error) {
-            setErrors({ credentials: `Hubo un error en el servidor, por favor intenta más tarde*`});
-        }
-
+        loginUser({ email, password });
     }
-
-
-
-
-
 
 
     return (
@@ -120,10 +106,11 @@ export const LoginForm = () => {
                 <button type="submit">Iniciar sesión</button>
                 <p>¿No tenés una cuenta? <Link to="/auth/register">Registrate</Link></p>
             </div>
-
-
         </form>
         
+        {
+            isLoading && <Loader label="Iniciando sesión..." />
+        }
         
         </>
     )

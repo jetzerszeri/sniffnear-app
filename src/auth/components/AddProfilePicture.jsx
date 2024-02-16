@@ -51,7 +51,7 @@ export const AddProfilePicture = () => {
         {
           imageSelected
             ? <button className="btn" onClick={ uploadAndSaveImg }>Guardar cambios</button>
-            : <button className="btn secundary" onClick={ loginUser }>Lo haré después</button>
+            : <button className="btn secundary" onClick={ () => {loginUser( user )} }>Lo haré después</button>
         }
 
         {

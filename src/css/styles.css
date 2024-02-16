@@ -168,20 +168,15 @@ a{
 }
 
 .singUpView h1 + p span{
-    /* color: var(--color-green);
-    font-weight: 600;
-    cursor: pointer; */
     font-size: 0;
     width: 70px;
     display: inline-block;
     height: 20px;
-    /* border: 1px solid var(--color-green); */
     background-image: url(/public/img/logohorizontal1.svg);
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
     margin-left: 5px;
-
 }
 
 .singUpView form, .addNewPetForm{
@@ -222,6 +217,24 @@ textarea{
     cursor: pointer;
 }
 
+.singUpView h2{
+    /* font-size: 1.2em; */
+    font-weight: 400;
+    color: var(--color-neutral-90);
+    margin-bottom: 10px;
+
+}
+
+.singUpView .steps{
+    font-size: 0.9em;
+    color: var(--color-neutral-50);
+    /* text-align: right; */
+}
+
+
+
+
+/* botones */
 .btn, button{
     border: 1.5px solid var(--color-green);
     background-color: var(--color-green);
@@ -623,4 +636,83 @@ main section{
 
 .labelImgInput + p:hover{
     color: var(--color-oragne);
+}
+
+
+
+
+/* estilos del loader */
+.loadingBackground{
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #1d1a208a;
+    z-index: 500;
+}
+
+.loadingContainer{
+    background-color: var(--color-neutral-0);
+    padding: 20px 30px;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+.loadingContainer p {
+    font-size: 1em;
+    font-weight: 400;
+    text-align: center;
+    max-width: 130px;
+    white-space: wrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.bouncer{
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+    width: 100px;
+    height: 100px;
+}
+
+.bouncer div{
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: var(--color-green);
+    animation: bouncer 0.5s cubic-bezier(.19,.57,.3,.98) infinite alternate;
+}
+
+.bouncer div:nth-child(2){
+    animation-delay: 0.1s;
+    opacity: 0.8;
+}
+.bouncer div:nth-child(3){
+    animation-delay: 0.2s;
+    opacity: 0.6;
+}
+.bouncer div:nth-child(4){
+    animation-delay: 0.3s;
+    opacity: 0.4;
+}
+
+
+@keyframes bouncer {
+    from {
+        transform: translateY(-5px);
+    }
+    to {
+        transform: translateY(-70px);
+    }
 }

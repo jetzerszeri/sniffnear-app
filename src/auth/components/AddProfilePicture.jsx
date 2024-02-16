@@ -1,5 +1,5 @@
-import { useContext, useState } from 'react';
-import { ImgInput } from '../../ui';
+import { useContext, useEffect, useState } from 'react';
+import { ImgInput, Loader } from '../../ui';
 import { usePreviewAndUploadImg } from '../../hooks/usePreviewAndUploadImg';
 import { AuthContext } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
@@ -8,10 +8,20 @@ import { useUpdateDocument } from '../../sniffNear/hooks';
 export const AddProfilePicture = () => {
   
   const { user, login } = useContext( AuthContext );
-  const { imageSelected, imgFile, imgLink, uploadStatus, setImgFile, resetImg, uploadImg } = usePreviewAndUploadImg();
-  const { data, isLoading, error, update } = useUpdateDocument();
+  const [ loaderLabel, setLoaderLabel ] = useState(null);
+  const { imageSelected, uploadStatus, setImgFile, resetImg, uploadImg } = usePreviewAndUploadImg();
+  const { isLoading, error, update } = useUpdateDocument();
   
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (uploadStatus) {
+      setLoaderLabel('Subiendo Imagen...');
+    } else if (isLoading) {
+      setLoaderLabel('Guardando cambios...');
+    }
+  }, [isLoading, uploadStatus])
+  
 
   const loginUser = () =>{
     login( user.id, user.name, user.email );
@@ -35,8 +45,6 @@ export const AddProfilePicture = () => {
     <>
         <h2>Agregar foto de perfil</h2>
 
-        { uploadStatus ? <p>Subiendo imagen...</p> : <p>false {imgLink}</p> }
-
         <ImgInput imageSelected={ imageSelected } setImgFile={ setImgFile } resetImg={ resetImg } />
 
         {
@@ -46,11 +54,12 @@ export const AddProfilePicture = () => {
         }
 
         {
-          isLoading && <p>Actualizando data...</p>
+          ( uploadStatus || isLoading )
+            && <Loader label={ loaderLabel } />
         }
 
         {
-          error && <p>error: { error }</p>
+          error && <p>error: { error }</p> // pendiente manejar el error
         }
     </>
   )

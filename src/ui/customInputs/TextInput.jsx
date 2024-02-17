@@ -1,0 +1,56 @@
+import { useEffect } from "react";
+
+
+export const TextInput = ( { name, value, placeholder, onChangeFunction, label, errors, required = false, setErrors, checkErrors } ) => {
+
+    let error = errors[name];
+
+    const onRequired = () => {
+        if (required && value.trim().length === 0){
+            setErrors( (prevErrors) => {
+                return {
+                    ...prevErrors,
+                    [name]: '*Campo obligatorio'
+                }
+            })
+        } 
+    }
+
+    const onInputChange = () => {
+
+        if (error){
+            setErrors(prevErrors => {
+                const updatedErrors = { ...prevErrors };
+                delete updatedErrors[name];
+                return updatedErrors;
+            });
+        }
+        
+    }
+
+    useEffect(() => {
+        if (checkErrors){
+            onRequired();
+        }
+    }, [checkErrors])
+
+    
+
+    return (
+        <div>
+            <label htmlFor={ name }>{ label }</label>
+            <input
+            name={ name }
+            type="text"
+            placeholder={ placeholder }
+            id={ name }
+            value={ value }
+            onChange={ onChangeFunction }
+            onBlur={  onRequired }
+            onKeyDown={ onInputChange }
+            className={ error ? 'error' : '' }
+            />
+            {error && <p className='errorInput'>{ error }</p>}
+        </div>
+    )
+}

@@ -196,6 +196,11 @@ input, select, textarea{
     transition: all 0.2s ease;
 }
 
+
+input.error{
+    border-color: red;
+}
+
 textarea{
     height: auto;
     resize: none;

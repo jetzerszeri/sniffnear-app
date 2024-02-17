@@ -2,13 +2,20 @@ export const fetchSniffNearApi = async ( endpint, method, data, setState ) => {
     setState( { data: null, isLoading: true, error: null } );
     
     try {
-        const response = await fetch(`https://sniffnear-api.onrender.com/api/${endpint}`, {
-            method,
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
-        });
+
+        let response;
+
+        if ( method === 'GET' ) {
+            response = await fetch(`https://sniffnear-api.onrender.com/api/${endpint}`);
+        } else {
+            response = await fetch(`https://sniffnear-api.onrender.com/api/${endpint}`, {
+                method,
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            });
+        }
 
         const json = await response.json();
 

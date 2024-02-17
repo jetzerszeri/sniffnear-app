@@ -1,10 +1,12 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { SideBar } from './SideBar';
 import { SniffNearLogotipo } from '../../ui/customIcons';
 
 
-export const NavBar = () => {
+export const NavBar = ( { sidebar = false, title = null}) => {
+
+    const navigate = useNavigate();
 
     const [displaySidebar, setDisplaySidebar] = useState({
         background: false,
@@ -41,24 +43,36 @@ export const NavBar = () => {
         <>
             <div className="topNavBar">
                 <div>
-                    <i 
-                        className="bi bi-list menubtn"
-                        onClick={ showSidebar }
-                    ></i>
+                    {
+                        sidebar
+                        ? <i className="bi bi-list menubtn" onClick={ showSidebar }></i>
+                        : <i className="bi bi-chevron-left" onClick={ () => navigate(-1) }></i>
+                    }
+
                 </div>
                 <div className="logoTopBar">
-                <Link to='/'>
-                    <SniffNearLogotipo />
-                </Link> 
+
+                    {
+                        title
+                        ? <p className='label'>{ title }</p>
+                        : <Link to='/'>
+                            <SniffNearLogotipo />
+                        </Link> 
+                    }
+
                 </div>
                 <div>
                 
-                {/* <Link to={"/user-profile?id=${userIdTest}"}> */}
+                <Link to={"/account"}>
                 <i className="bi bi-person-fill"></i>
-                {/* </Link> */}
+                </Link>
                 </div>
             </div>
-            <SideBar displaySidebar={displaySidebar} hideSidebar={hideSidebar}/>
+
+            {
+                sidebar && <SideBar displaySidebar={ displaySidebar } hideSidebar={ hideSidebar }/>
+            }
+            
         </>
     )
     

@@ -12,7 +12,7 @@ export const HomePage = () => {
 
   return (
     <>
-      <NavBar />
+      <NavBar sidebar={ true } />
 
       <main>
         {

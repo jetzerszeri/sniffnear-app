@@ -365,8 +365,8 @@ form > div{
 }
 
 /* texto o titulo que se muestra en el top nav bar */
-.topNavBar h1{
-    font-size: 16px;
+.topNavBar p.label{
+    font-size: 1.3em;
     font-weight: 600;
     white-space: nowrap;
     overflow: hidden;

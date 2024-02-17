@@ -22,7 +22,7 @@ export const RegisterForm = ( { accountStatus } ) => {
     useEffect(() => {
         if (data && data.user) {
             const user = data.user;
-            singup( user._id, user.name, user.email );
+            singup( user._id, user.name, user.email, user.profileImg );
             accountStatus( { created: true } );
         }
     }, [ data, singup, accountStatus ]);

@@ -41,9 +41,9 @@ export const AuthProvider = ( { children } ) => {
 
     }
 
-    const singup = ( id, name, email  ) => {
+    const singup = ( id, name, email, profileImg  ) => {
 
-        const user = { id, name, email }
+        const user = { id, name, email, profileImg }
 
         const action = {
             type: types.singup,

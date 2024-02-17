@@ -23,15 +23,15 @@ export const AddProfilePicture = () => {
   }, [isLoading, uploadStatus]);
 
 
-  const loginUser =  useCallback((user) => {
-    login( user.id, user.name, user.email );
+  const loginUser =  useCallback((user, userId) => {
+    login( userId, user.name, user.email, user.profileImg );
     navigate('/', { replace: true })
   }, [ login, navigate ]);
 
 
   useEffect(() => {
       if ( data && data.user ) {
-        loginUser( data.user );
+        loginUser( data.user, data.user._id );
       }
   }, [ data, loginUser ]);
   
@@ -51,7 +51,7 @@ export const AddProfilePicture = () => {
         {
           imageSelected
             ? <button className="btn" onClick={ uploadAndSaveImg }>Guardar cambios</button>
-            : <button className="btn secundary" onClick={ () => {loginUser( user )} }>Lo haré después</button>
+            : <button className="btn secundary" onClick={ () => {loginUser( user, user.id )} }>Lo haré después</button>
         }
 
         {

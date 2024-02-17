@@ -6,15 +6,15 @@ import { AuthContext } from "../../auth/context/AuthContext"
 export const WelcomeCard = ( { location='Ubicación no encontrada', imgUrl } ) => {
 
     const { user } = useContext( AuthContext );
-    const { data, getData  } = useFetchSniffNearApi();
+    // const { data, getData  } = useFetchSniffNearApi();
 
     
-    useEffect(() => {
-        getData(`users/${user.id}`);
-        // console.log(data);
-    }, [ ]);
+    // useEffect(() => {
+    //     getData(`users/${user.id}`);
+    //     // console.log(data);
+    // }, [ user ]);
 
-    const { name, profileImg } = !!data && data.user;
+    const { name, profileImg } = user;
     
     // getData(`users/${user.id}`);
 

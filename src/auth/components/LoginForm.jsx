@@ -3,6 +3,7 @@ import { useFetchSniffNearApi, useForm } from "../../hooks"
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import { Loader } from "../../ui";
+import { EmailInput, PasswordInput } from "../../ui/customInputs";
 
 
 export const LoginForm = () => {
@@ -15,13 +16,9 @@ export const LoginForm = () => {
     })
 
     const [ errors, setErrors ] = useState( {} )
-    const [ showPassword, setShowPassword ] = useState( false )
+    const [ checkErrors, setCheckErrors ] = useState( false )
     const { login } = useContext( AuthContext );
     const { data, isLoading, error, loginUser } = useFetchSniffNearApi();
-
-    const togglePassword = () => {
-        setShowPassword(!showPassword)
-    }
 
     useEffect(() => {
         if (error) {
@@ -41,26 +38,12 @@ export const LoginForm = () => {
 
     const onLoginSubmit = async (e) => {
         e.preventDefault();
+        setCheckErrors( true );
 
-        const newErrors = {}        
-
-        if (email.trim().length === 0){
-            newErrors.email = 'El email es obligatorio*';
-        } else if (!/^\S+@\S+\.\S+$/.test(email)) {
-            newErrors.email = 'El email ingresado es inválido*';
-        }
-
-        if (password.trim().length === 0){
-            newErrors.password= 'La contraseña es obligatoria*';
-        } else if (password.length < 6) {
-            newErrors.password= 'La contraseña debe tener al menos 6 caracteres*';
-        }
-        
-        setErrors(newErrors);
-        if ( Object.keys(newErrors).length > 0){
+        if ( email === '' || Object.keys(errors).length > 0){
             return
         }
-    
+
         loginUser({ email, password });
     }
 
@@ -70,37 +53,23 @@ export const LoginForm = () => {
         <form onSubmit={ onLoginSubmit }>
             {errors.credentials && <p className='errorInput'>{errors.credentials}</p>}
 
-            <div>
-                <label htmlFor="email">Email</label>
-                <input
-                name="email"
-                placeholder="ejemplo@mail.com"
-                id="email"
-                value={email}
-                onChange={onInputChange}
-                />
-                {errors.email && <p className='errorInput'>{errors.email}</p>}
-            </div>
+            <EmailInput
+                value={ email }
+                onChangeFunction={ onInputChange }
+                errors={ errors }
+                setErrors={ setErrors }
+                required={ true }
+                checkErrors={ checkErrors }
+            />
 
-            <div>
-                <label htmlFor="password">Contraseña</label>
-                <div className="pswdInput">
-                    <input
-                    type={showPassword ? 'text' : 'password'}
-                    name="password"
-                    placeholder="Ingresá tu contraseña"
-                    id="password"
-                    value={password}
-                    onChange={onInputChange}
-                    />
-                    <i 
-                        className={`bi ${showPassword ? 'bi-eye-slash' : 'bi-eye'}`} 
-                        onClick={togglePassword}
-                    ></i>
-                </div>
-
-                {errors.password && <p className='errorInput'>{errors.password}</p>}
-            </div>
+            <PasswordInput
+                value={ password }
+                onChangeFunction={ onInputChange }
+                errors={ errors }
+                setErrors={ setErrors }
+                required={ true }
+                checkErrors={ checkErrors }
+            />
 
             <div>
                 <button type="submit">Iniciar sesión</button>

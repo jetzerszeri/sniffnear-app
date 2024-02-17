@@ -3,13 +3,12 @@ import { NavBar } from "../components/NavBar"
 import { WelcomeCard } from "../components/WelcomeCard"
 import { WelcomeCardNoUserLogged } from "../components/WelcomeCardNoUserLogged"
 import { AuthContext } from "../../auth/context"
+// import { Loader } from "../../ui"
 
 
 export const HomePage = () => {
 
   const { user, isLogged } = useContext(AuthContext);
-
-  const imgUrl = user.profileImg ? user.profileImg : '/img/avatarPorDefecto.webp';
 
   return (
     <>
@@ -18,10 +17,12 @@ export const HomePage = () => {
       <main>
         {
           isLogged 
-            ? <WelcomeCard name={user.name} imgUrl={ imgUrl } />
+            ? <WelcomeCard />
             : <WelcomeCardNoUserLogged />
         }
       </main>
+
+      {/* <Loader label="Cargando..." /> */}
     </>
   )
 }

@@ -306,6 +306,10 @@ form > div{
     text-align: left;
 }
 
+form .btn{
+    text-align: center;
+}
+
 .errorInput{
     color: red;
     font-size: 0.9em;

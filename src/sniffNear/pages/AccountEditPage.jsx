@@ -1,21 +1,26 @@
 import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../auth/context';
 import { NavBar } from '../components';
-import { useForm, usePreviewAndUploadImg } from '../../hooks';
-import { EmailInput, TextInput } from '../../ui';
+import { useFetchSniffNearApi, useForm, usePreviewAndUploadImg } from '../../hooks';
+import { EmailInput, Loader, TextInput } from '../../ui';
 import { ImgInput } from '../../ui';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 
 export const AccountEditPage = () => {
 
-  const { user } = useContext( AuthContext );
+  const navigate = useNavigate();
+  const { user, login } = useContext( AuthContext );
   const [ isEdited, setIsEdited ] = useState( false );
   const { name, email, errors, checkErrors, formState, setErrors, setCheckErrors, onInputChange } = useForm({
     name: user.name,
-    email: user.email
+    email: user.email,
+    profileImg: user.profileImg,
   });
-  const { imageSelected, uploadStatus, setImgFile, resetImg, uploadImg, setCurrentImg } = usePreviewAndUploadImg();
+  const { imageSelected, uploadStatus, imgFile, setImgFile, resetImg, uploadImg, setCurrentImg } = usePreviewAndUploadImg();
+  const { data, isLoading, error, update } = useFetchSniffNearApi();
+  const [ loaderLabel, setLoaderLabel ] = useState(null);
+
 
   useEffect(() => { 
     if ( user.name !== name || user.email !== email || user.profileImg !== imageSelected) {
@@ -23,15 +28,67 @@ export const AccountEditPage = () => {
     } else {
       setIsEdited( false );
     }
-  }, [ formState, imageSelected ])
+  }, [ formState, imageSelected ]);
 
   
+  useEffect(() => { if ( user.profileImg ) { setCurrentImg( user.profileImg );}}, []);
+
   useEffect(() => {
-    if ( user.profileImg ) {
-      setCurrentImg( user.profileImg );
-      console.log('user.profileImg', user.profileImg);
+    if ( data && data.user ) {
+      login( data.user._id, data.user.name, data.user.email, data.user.profileImg );
+      navigate(-1);
     }
-  }, [])
+  }, [ data ]);
+
+
+  useEffect(() => {
+    if (uploadStatus) {
+      setLoaderLabel('Subiendo imagen...');
+    } else if (isLoading) {
+      setLoaderLabel('Guardando cambios...');
+    }
+  }, [isLoading, uploadStatus]);
+  
+
+  useEffect(() => {
+    if (error) {
+        setErrors({ credentials: `${error}*`});
+    }
+  }, [ error ]);
+
+
+
+  const onUpdateSubmit = async (e) => {
+    e.preventDefault();
+    setCheckErrors( true );
+
+    if ( email === '' || name === '' || Object.keys(errors).length > 0){
+      setCheckErrors( false );
+      return;
+    }
+
+    const dataToUpdate = {
+      name,
+      email,
+    }
+
+    if (user.profileImg !== imageSelected){
+
+      if( imgFile ) {
+        const link = await uploadImg( 'users/avatars/', user.id );
+        dataToUpdate.profileImg = link;
+      } else {
+        dataToUpdate.deleteImg = true;
+      }
+    }
+
+    await update('users', user.id, dataToUpdate);
+
+    setCheckErrors( false );
+
+  }
+
+
 
 
 
@@ -43,7 +100,8 @@ export const AccountEditPage = () => {
 
       <main>
         <h1>Datos personales</h1>
-        <form>
+
+        <form onSubmit={ onUpdateSubmit }>
           {errors.credentials && <p className='errorInput'>{errors.credentials}</p>}
 
           <ImgInput imageSelected={ imageSelected } setImgFile={ setImgFile } resetImg={ resetImg } />
@@ -73,7 +131,7 @@ export const AccountEditPage = () => {
             {
               isEdited
                 ? <button className="btn" >Guardar cambios</button>
-                : <button className="btn secundary">Cancelar</button>
+                : <button className="btn secundary" onClick={ () => navigate(-1) }>Cancelar</button>
             }
             </div>
 
@@ -81,6 +139,11 @@ export const AccountEditPage = () => {
 
         <Link to="/account/settings/changePassword" className='link'>Cambiar contraseña <i className="bi bi-box-arrow-up-right"></i></Link>
       </main>
+
+      {
+        ( uploadStatus || isLoading )
+          && <Loader label={ loaderLabel } />
+      }
     </>
   )
 }

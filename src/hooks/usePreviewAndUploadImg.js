@@ -32,6 +32,11 @@ export const usePreviewAndUploadImg = () => {
         
         return link;
     }
+
+    const setCurrentImg = (link) => {
+        setImageSelected( link );
+        // setImgLink( link );
+    }
     
 
     return {
@@ -43,5 +48,6 @@ export const usePreviewAndUploadImg = () => {
         setImgFile,
         resetImg,
         uploadImg,
+        setCurrentImg,
     }
 }

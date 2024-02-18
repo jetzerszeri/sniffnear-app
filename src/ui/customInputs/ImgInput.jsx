@@ -1,4 +1,4 @@
-import { UploadImgIcon } from './customIcons';
+import { UploadImgIcon } from '../customIcons';
 
 export const ImgInput = ( {imageSelected, setImgFile,  resetImg}) => {
 
@@ -19,11 +19,13 @@ export const ImgInput = ( {imageSelected, setImgFile,  resetImg}) => {
         <>
             <label htmlFor="imgUrl" className="labelImgInput" style={ imgLabelBackground }>
                 {
-                    (imageSelected == null) 
-                        && <>
+                    (imageSelected) 
+                        ? <p className='editIcon'><i className="bi bi-pencil"></i> <span>Editar</span></p>
+                        :  <>
                             <UploadImgIcon /> 
-                            <p>Cargar foto</p>
+                            <p className='loadLabel'>Cargar foto</p>
                         </>
+                        
                 }
             </label>
 

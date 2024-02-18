@@ -3,6 +3,8 @@ import { AuthHomePage, LoginPage, RegisterPage } from "../auth"
 import { HomePage } from "../sniffNear"
 import { PublicRoutes } from "./PublicRoutes"
 import { AccountPage } from "../sniffNear/pages/AccountPage"
+import { PrivateRoutes } from "./PrivateRoutes"
+import { AccountRoutes } from "../sniffNear/routes"
 
 
 export const AppRouter = () => {
@@ -10,7 +12,12 @@ export const AppRouter = () => {
     <>
         <Routes>
             <Route path="/" element={ <HomePage /> } />
-            <Route path="account" element={ <AccountPage /> } />
+
+            <Route path="account/*" element={ 
+              <PrivateRoutes>
+                  <AccountRoutes /> 
+              </PrivateRoutes>
+            } />
 
             <Route path="auth/*" element={
               <PublicRoutes>
@@ -21,6 +28,8 @@ export const AppRouter = () => {
                   </Routes>
               </PublicRoutes>
             } />
+
+            
 
 
         </Routes>

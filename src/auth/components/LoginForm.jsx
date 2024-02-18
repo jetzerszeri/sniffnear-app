@@ -10,13 +10,10 @@ export const LoginForm = () => {
 
     const navigate = useNavigate();
 
-    const { onInputChange, email, password } = useForm({
+    const { onInputChange, email, password, errors, setErrors, checkErrors, setCheckErrors } = useForm({
         email: '',
         password: ''
     })
-
-    const [ errors, setErrors ] = useState( {} )
-    const [ checkErrors, setCheckErrors ] = useState( false )
     const { login } = useContext( AuthContext );
     const { data, isLoading, error, loginUser } = useFetchSniffNearApi();
 

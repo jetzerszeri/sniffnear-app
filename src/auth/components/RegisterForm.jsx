@@ -9,17 +9,14 @@ import { EmailInput } from "../../ui/customInputs";
 
 export const RegisterForm = ( { accountStatus } ) => {
 
-    const { onInputChange, name, email, password, validatePassword } = useForm({
+    const { onInputChange, name, email, password, validatePassword, errors, setErrors, checkErrors, setCheckErrors } = useForm({
         name: '',
         email: '',
         password: '',
         validatePassword: '',
     })
-
-    const [ errors, setErrors ] = useState( {} );
     const { singup } = useContext( AuthContext );
     const { data, isLoading, error, createUser } = useFetchSniffNearApi();
-    const [ checkErrors, setCheckErrors ] = useState( false );
 
     useEffect(() => {
         if (data && data.user) {

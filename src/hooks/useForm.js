@@ -3,6 +3,8 @@ import { useState } from 'react';
 export const useForm = ( initialForm = {} ) => {
   
     const [ formState, setFormState ] = useState( initialForm );
+    const [ errors, setErrors ] = useState( {} );
+    const [ checkErrors, setCheckErrors ] = useState( false )
 
     const onInputChange = ({ target }) => {
         const { name, value } = target;
@@ -19,7 +21,11 @@ export const useForm = ( initialForm = {} ) => {
     return {
         ...formState,
         formState,
+        errors,
+        checkErrors,
         onInputChange,
         onResetForm,
+        setErrors,
+        setCheckErrors,
     }
 }

@@ -1032,3 +1032,18 @@ h3{
 .petsList li p{
     flex: 1;
 }
+
+
+
+
+/* estilos del marcador de pasos en formularios */
+
+.multiStepsIndicators{
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.multiStepsIndicators svg.active{
+    fill: var(--color-oragne);
+}

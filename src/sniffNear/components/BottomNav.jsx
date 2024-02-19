@@ -44,7 +44,7 @@ export const BottomNav = () => {
                 <div className="plusOptions">
                     <h2>Agregar nueva...</h2>
                     <div>
-                        <Link to="/pets/new">
+                        <Link to="/pets/add">
                             <DogPawPrintIcon />
                             Mascota
                         </Link>

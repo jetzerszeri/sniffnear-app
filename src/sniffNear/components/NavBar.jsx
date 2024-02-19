@@ -54,7 +54,7 @@ export const NavBar = ( { sidebar = false, title = null, rightIcon={display: fal
 
                     {
                         title
-                        ? <p className='label'>{ title }</p>
+                        ? <h1 className='label'>{ title }</h1>
                         : <Link to='/'>
                             <SniffNearLogotipo />
                         </Link> 

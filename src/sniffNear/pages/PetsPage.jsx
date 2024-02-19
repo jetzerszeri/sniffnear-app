@@ -9,7 +9,6 @@ export const PetsPage = () => {
         <NavBar title='Mis mascotas' />
         
         <main>
-            <h1>Lista de mascotas</h1>
 
             <section>
                 <PetsList />

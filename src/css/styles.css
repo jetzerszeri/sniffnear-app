@@ -401,13 +401,14 @@ form .btn{
 }
 
 /* texto o titulo que se muestra en el top nav bar */
-.topNavBar p.label{
+.topNavBar h1.label{
     font-size: 1.3em;
-    font-weight: 600;
+    font-weight: 500;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     padding: 0 10px;
+    color: var(--color-darkblue);
 }
 
 

@@ -84,7 +84,7 @@ export const RegisterForm = ( { accountStatus } ) => {
             />
 
             <div>
-                <button type="submit">Registrarme</button>
+                <button type="submit" className="btn">Registrarme</button>
                 <p>¿Ya tenés una cuenta? <Link to="/auth/login">Iniciá sesión</Link></p>
             </div>
 

@@ -371,13 +371,22 @@ form .btn{
     top: 0;
     z-index: 90;
     background-color: var(--color-neutral-10);
+    gap: 16px;
 }
 
-.logoContainerTopBar{
-    flex: 1;
+.topNavBar > div{
     display: flex;
+    align-items: center;
     justify-content: center;
-    padding-right: 24px;
+    min-width: 40px;
+}
+
+.logoLabelTopBar{
+    flex: 1;
+}
+
+.logoLabelTopBar.noRightIcon{
+    padding-right: 56px !important;
 }
 
 .topNavBar i{

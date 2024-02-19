@@ -9,10 +9,11 @@ import { AuthContext } from "../../auth/context"
 export const HomePage = () => {
 
   const { user, isLogged } = useContext(AuthContext);
+  const rightIcon = {display: true, icon: "bi-person-fill", link: "/account"};
 
   return (
     <>
-      <NavBar sidebar={ true } />
+      <NavBar sidebar={ true } rightIcon={ rightIcon }/>
 
       <main>
         {

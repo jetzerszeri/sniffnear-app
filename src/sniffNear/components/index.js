@@ -4,3 +4,4 @@ export * from './SideBar';
 export * from './WelcomeCardNoUserLogged';
 export * from './PetsList';
 export * from './PetsListItem';
+export * from './BottomNav';

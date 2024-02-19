@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-import { NavBar, PetsList } from '../components'
+import { BottomNav, NavBar, PetsList } from '../components'
 import { Link } from 'react-router-dom'
 import { AuthContext } from '../../auth/context'
 
@@ -32,6 +32,8 @@ export const AccountPage = () => {
             
 
         </main>
+
+        <BottomNav />
     </>
     )
 }

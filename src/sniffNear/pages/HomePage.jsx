@@ -3,6 +3,7 @@ import { NavBar } from "../components/NavBar"
 import { WelcomeCard } from "../components/WelcomeCard"
 import { WelcomeCardNoUserLogged } from "../components/WelcomeCardNoUserLogged"
 import { AuthContext } from "../../auth/context"
+import { BottomNav } from "../components"
 // import { Loader } from "../../ui"
 
 
@@ -22,6 +23,8 @@ export const HomePage = () => {
             : <WelcomeCardNoUserLogged />
         }
       </main>
+
+      <BottomNav />
 
       {/* <Loader label="Cargando..." /> */}
     </>

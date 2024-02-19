@@ -27,6 +27,17 @@ h1,h2,h3,h4,h5,h6{
     --color-neutral-40: #AEAEAE;
     --color-neutral-50: #9A9A9A;
     --color-neutral-90: #1D1A20;
+    --color-green-50: #ecfffd;
+    --color-green-100: #bdffff;
+    --color-green-200: #7bfeff;
+    --color-green-300: #31fbff;
+    --color-green-400: #00fffb;
+    --color-green-500: #00ede1;
+    --color-green-600: #00bfbb;
+    --color-green-700: #009796;
+    --color-green-800: #007677;
+    --color-green-900: #006667;
+    --color-green-950: #003a3d;
 }
 
 body{
@@ -286,8 +297,8 @@ button[disabled] {
 }
 
 .btn.secundary:hover{
-    background-color: var(--color-green-background) !important;
-    /* color: var(--color-neutral-0) !important; */
+    background-color: var(--color-green-700) !important;
+    color: var(--color-neutral-0) !important;
 }
 
 
@@ -527,12 +538,12 @@ h3{
 }
 
 /* secciones del main */
-main section{
+/* main section{
     background-color: var(--color-neutral-0);
     box-shadow: 0px 0px 20px rgba(0,0,0,0.05);
     padding: 16px;
     border-radius: 8px;
-}
+} */
 
 
 .welcomeCard{
@@ -788,4 +799,53 @@ main section{
     font-size: 1em;
     color: var(--color-neutral-90);
     margin-bottom: 20px;
+}
+
+
+
+/* lista de mascotas */
+.petsList{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+}
+
+.petsList li{
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    padding: 16px;
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    background-color: var(--color-neutral-0);
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.petsList li:hover{
+    background-color: var(--color-green-700);
+    color: var(--color-neutral-0);
+}
+.petsList li > div{
+    width: 60px;
+    height: 60px;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: all 0.2s ease;
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+}
+.petsList li img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: all 0.2s ease;
+}
+
+.petsList li:hover img{
+    transform: scale(1.1);
+}
+
+.petsList li p{
+    flex: 1;
 }

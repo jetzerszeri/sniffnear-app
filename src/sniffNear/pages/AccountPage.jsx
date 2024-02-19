@@ -1,5 +1,5 @@
-import React, { useContext } from 'react'
-import { NavBar } from '../components'
+import { useContext } from 'react'
+import { NavBar, PetsList } from '../components'
 import { Link } from 'react-router-dom'
 import { AuthContext } from '../../auth/context'
 
@@ -23,6 +23,13 @@ export const AccountPage = () => {
                     <Link to="/account/edit" className="btn secundary small">Editar perfil</Link>
                 </div>
             </section>
+
+            <section>
+                <PetsList />
+            </section>
+
+
+            
 
         </main>
     </>

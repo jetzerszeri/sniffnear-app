@@ -14,6 +14,13 @@ export const useForm = ( initialForm = {} ) => {
         });
     }
 
+    const setManualValue = (name, value) => {
+        setFormState({
+            ...formState,
+            [ name ]: value
+        });
+    }
+
     const onResetForm = () => {
         setFormState( initialForm );
     }
@@ -27,5 +34,6 @@ export const useForm = ( initialForm = {} ) => {
         onResetForm,
         setErrors,
         setCheckErrors,
+        setManualValue,
     }
 }

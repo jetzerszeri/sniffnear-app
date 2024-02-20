@@ -3,17 +3,18 @@ import { useNavigate } from 'react-router-dom';
 import { NavBar } from '../components';
 import { useMultiSteps } from '../hooks';
 import { MultiStepsIndicator } from '../../ui/MultiStepsIndicator';
-import { DateInput, PetTypeInput, TextInput } from '../../ui/customInputs';
+import { DateInput, PetBreedInput, PetTypeInput, TextInput } from '../../ui/customInputs';
 import { useForm } from '../../hooks/useForm';
 
 export const PetsAddPage = () => {
 
     const { currentStep, totalSteps, maxStepReached, nextStep, prevStep} = useMultiSteps(3);
-    const { type, name, birthdate, breed, errors, checkErrors, setErrors, setCheckErrors, onInputChange, setManualValue } = useForm({
+    const { type, name, birthdate, breedType, breed, errors, checkErrors, setErrors, setCheckErrors, onInputChange, setManualValue } = useForm({
         type: '',
         name: '',
         birthdate: '',
-        breed: ''
+        breed: '',
+        breedType: '',
     });
     const [ prevBtnLabel, setPrevBtnLabel ] = useState( 'Cancelar' );
     
@@ -91,6 +92,16 @@ export const PetsAddPage = () => {
                                 setErrors={ setErrors }
                                 checkErrors={ checkErrors }
                                 max={ true }
+                            />
+
+                            <PetBreedInput
+                                breedTypeValue={ breedType }
+                                breedValue={ breed }
+                                onChangeFunction={ onInputChange }
+                                required={ true }
+                                errors={ errors }
+                                setErrors={ setErrors }
+                                checkErrors={ checkErrors }
                             />
 
 

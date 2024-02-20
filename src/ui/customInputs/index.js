@@ -5,3 +5,4 @@ export * from './ImgInput';
 export * from './PetTypeInput';
 export * from './PetTypeInput';
 export * from './DateInput';
+export * from './PetBreedInput';

@@ -14,7 +14,7 @@ export const DateInput = ( { name, value, label, onChangeFunction, required = fa
 
     const onBlur = () => {
         onRequieredInput( required, name, value, setErrors );
-        onRemoveInputError( error, name, setErrors );
+        onRemoveInputError( error, name, setErrors, value );
     }
 
     const setMaxDate = () => {
@@ -35,6 +35,7 @@ export const DateInput = ( { name, value, label, onChangeFunction, required = fa
             value={ value }
             onChange={ onChangeFunction }
             onBlur={  onBlur }
+            onKeyDown={ onBlur }
             className={ error ? 'error' : '' }
             max={ setMaxDate() }
             />

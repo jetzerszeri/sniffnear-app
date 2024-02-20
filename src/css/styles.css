@@ -215,7 +215,7 @@ input, select, textarea{
 }
 
 
-input.error{
+input.error, select.error, textarea.error{
     border-color: red;
 }
 

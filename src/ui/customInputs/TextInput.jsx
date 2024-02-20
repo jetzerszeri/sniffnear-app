@@ -38,7 +38,10 @@ export const TextInput = ( { name, value, placeholder, onChangeFunction, label, 
 
     return (
         <div className="inputContainer">
-            <label htmlFor={ name }>{ label }</label>
+            {
+                label && <label htmlFor={ name }>{ label }</label>
+            }
+            {/* <label htmlFor={ name }>{ label }</label> */}
             <input
             name={ name }
             type="text"

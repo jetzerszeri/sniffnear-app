@@ -1,8 +1,8 @@
 
 
-export const onRemoveInputError = ( error, name, setErrors ) => {
+export const onRemoveInputError = ( error, name, setErrors, value ) => {
 
-    if (error){
+    if (error && value.trim().length > 0){
         setErrors(prevErrors => {
             const updatedErrors = { ...prevErrors };
             delete updatedErrors[name];

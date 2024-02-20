@@ -1155,7 +1155,7 @@ h3{
     cursor: pointer;
 }
 
-.sexSelector li span{
+.sexSelector li span, .sizeSelector li span{
     font-weight: 300;
     font-size: 0.9em;
     margin-top: 8px;
@@ -1167,7 +1167,41 @@ h3{
     border-radius: 50%;
 }
 
-.sexSelector li.selected span{
+.sexSelector li.selected span, .sizeSelector li.selected span{
     color: var(--color-green);
     font-weight: 500;
+}
+
+.sizeSelector{
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+}
+
+.sizeSelector li{
+    display: flex;
+    gap: 5px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+.sizeSelector li > div{
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+}
+
+.sizeSelector li svg{
+    fill: var(--color-neutral-0);
+    transition: all 0.1s ease;
+}
+
+.sizeSelector li:hover svg, .sizeSelector li.selected svg{
+    transform: scale(1.1);
+}
+.sizeSelector li.selected svg{
+    fill: var(--color-darkblue);
 }

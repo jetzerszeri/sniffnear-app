@@ -37,7 +37,7 @@ export const TextInput = ( { name, value, placeholder, onChangeFunction, label, 
     
 
     return (
-        <div>
+        <div className="inputContainer">
             <label htmlFor={ name }>{ label }</label>
             <input
             name={ name }

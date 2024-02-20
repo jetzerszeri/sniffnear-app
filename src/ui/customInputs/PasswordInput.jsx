@@ -78,7 +78,7 @@ export const PasswordInput = ( { name = "password", value, onChangeFunction, err
 
     return (
     <>
-            <div>
+            <div className="inputContainer">
                 <label htmlFor={ name }>Contraseña</label>
                 <div className="pswdInput">
                     <input
@@ -102,7 +102,7 @@ export const PasswordInput = ( { name = "password", value, onChangeFunction, err
             </div>
 
             { confirm &&
-                <div>
+                <div className="inputContainer">
                     <label htmlFor={ confirmName }>Confirmar contraseña</label>
                     <div className="pswdInput">
                         <input

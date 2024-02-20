@@ -44,7 +44,7 @@ export const EmailInput = ( { name = 'email', value, onChangeFunction, errors, r
     
 
     return (
-        <div>
+        <div className="inputContainer">
             <label htmlFor={ name }>Email</label>
             <input
             name={ name }

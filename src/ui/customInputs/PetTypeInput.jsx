@@ -1,13 +1,14 @@
 import { useState } from 'react';
 import { CatIcon, DogIcon } from '../customIcons';
 
-export const PetTypeInput = ( { changeFunction, typeValue } ) => {
+export const PetTypeInput = ( { changeFunction, typeValue, onClickFunction } ) => {
 
     const [ petType, setPetType ] = useState('')
 
     const onPetTypeClick = (e) => {
         setPetType(e.currentTarget.getAttribute('datavalue'));
         changeFunction('type', e.currentTarget.getAttribute('datavalue'));
+        onClickFunction();
     }
 
     return (

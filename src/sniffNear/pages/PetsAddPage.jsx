@@ -3,18 +3,19 @@ import { useNavigate } from 'react-router-dom';
 import { NavBar } from '../components';
 import { useMultiSteps } from '../hooks';
 import { MultiStepsIndicator } from '../../ui/MultiStepsIndicator';
-import { DateInput, PetBreedInput, PetTypeInput, TextInput } from '../../ui/customInputs';
+import { DateInput, PetBreedInput, PetSexInput, PetTypeInput, TextInput } from '../../ui/customInputs';
 import { useForm } from '../../hooks/useForm';
 
 export const PetsAddPage = () => {
 
     const { currentStep, totalSteps, maxStepReached, nextStep, prevStep} = useMultiSteps(3);
-    const { type, name, birthdate, breedType, breed, errors, checkErrors, setErrors, setCheckErrors, onInputChange, setManualValue } = useForm({
+    const { type, name, birthdate, breedType, breed, sex, errors, checkErrors, setErrors, setCheckErrors, onInputChange, setManualValue } = useForm({
         type: '',
         name: '',
         birthdate: '',
         breed: '',
         breedType: '',
+        sex: '',
     });
     const [ prevBtnLabel, setPrevBtnLabel ] = useState( 'Cancelar' );
     
@@ -92,6 +93,7 @@ export const PetsAddPage = () => {
                                 setErrors={ setErrors }
                                 checkErrors={ checkErrors }
                                 max={ true }
+                                note="Puede ser un aproximado*"
                             />
 
                             <PetBreedInput
@@ -102,6 +104,15 @@ export const PetsAddPage = () => {
                                 errors={ errors }
                                 setErrors={ setErrors }
                                 checkErrors={ checkErrors }
+                            />
+
+                            <PetSexInput
+                                changeFunction={ setManualValue }
+                                sexValue={ sex }
+                                required={ true }
+                                errors={ errors }
+                                checkErrors={ checkErrors }
+                                setErrors={ setErrors }
                             />
 
 

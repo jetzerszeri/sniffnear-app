@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { getCurrentDate, onRemoveInputError, onRequieredInput } from '../../sniffNear/helpers/';
 
-export const DateInput = ( { name, value, label, onChangeFunction, required = false, errors, checkErrors, setErrors, max = false } ) => {
+export const DateInput = ( { name, value, label, onChangeFunction, required = false, errors, checkErrors, setErrors, max = false, note } ) => {
 
     const error = errors[name];
 
@@ -27,7 +27,10 @@ export const DateInput = ( { name, value, label, onChangeFunction, required = fa
 
     return (
         <div className="inputContainer">
-            <label htmlFor={ name }>{ label }</label>
+            <div>
+                <label htmlFor={ name }>{ label }</label>
+                { note && <p>{note}</p>}
+            </div>
             <input
             name={ name }
             type="date"

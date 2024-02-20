@@ -3,13 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import { NavBar } from '../components';
 import { useMultiSteps } from '../hooks';
 import { MultiStepsIndicator } from '../../ui/MultiStepsIndicator';
-import { DateInput, PetBreedInput, PetSexInput, PetSizeInput, PetTypeInput, TextInput } from '../../ui/customInputs';
+import { DateInput, PetBreedInput, PetColorInput, PetSexInput, PetSizeInput, PetTypeInput, TextInput } from '../../ui/customInputs';
 import { useForm } from '../../hooks/useForm';
 
 export const PetsAddPage = () => {
 
     const { currentStep, totalSteps, maxStepReached, nextStep, prevStep} = useMultiSteps(3);
-    const { type, name, birthdate, breedType, breed, sex, size, errors, checkErrors, setErrors, setCheckErrors, onInputChange, setManualValue } = useForm({
+    const { type, name, birthdate, breedType, breed, sex, size, color1, color2, errors, checkErrors, setErrors, setCheckErrors, onInputChange, setManualValue } = useForm({
         type: '',
         name: '',
         birthdate: '',
@@ -17,6 +17,8 @@ export const PetsAddPage = () => {
         breedType: '',
         sex: '',
         size: '',
+        color1: '',
+        color2: '',
     });
     const [ prevBtnLabel, setPrevBtnLabel ] = useState( 'Cancelar' );
     
@@ -123,6 +125,15 @@ export const PetsAddPage = () => {
                                 checkErrors={ checkErrors }
                                 setErrors={ setErrors }
                                 sizeValue={ size }
+                            />
+
+                            <PetColorInput
+                                color1value={ color1 }
+                                changeFunction={ setManualValue }
+                                required={ true }
+                                errors={ errors }
+                                checkErrors={ checkErrors }
+                                setErrors={ setErrors }
                             />
 
 

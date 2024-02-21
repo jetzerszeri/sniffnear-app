@@ -1,15 +1,19 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { NavBar } from '../components';
+import { NavBar, PetFormPart1, PetFormPart2, PetFormPart3 } from '../components';
 import { useMultiSteps } from '../hooks';
 import { MultiStepsIndicator } from '../../ui/MultiStepsIndicator';
 import { DateInput, PetBreedInput, PetColorInput, PetSexInput, PetSizeInput, PetTypeInput, TextInput } from '../../ui/customInputs';
 import { useForm } from '../../hooks/useForm';
+import { useFetchSniffNearApi } from '../../hooks';
+import { AuthContext } from '../../auth/context';
+import { Loader } from '../../ui';
 
 export const PetsAddPage = () => {
 
+    const { user } = useContext( AuthContext );
     const { currentStep, totalSteps, maxStepReached, nextStep, prevStep} = useMultiSteps(3);
-    const { type, name, birthdate, breedType, breed, sex, size, color1, color2, errors, checkErrors, setErrors, setCheckErrors, onInputChange, setManualValue } = useForm({
+    const { type, name, birthdate, breedType, breed, sex, size, color1, color2, errors, checkErrors, formState, setErrors, setCheckErrors, onInputChange, setManualValue } = useForm({
         type: '',
         name: '',
         birthdate: '',
@@ -20,7 +24,10 @@ export const PetsAddPage = () => {
         color1: '',
         color2: '',
     });
+    const { data, isLoading, error, create } = useFetchSniffNearApi();
     const [ prevBtnLabel, setPrevBtnLabel ] = useState( 'Cancelar' );
+    const [ isImg, setIsImg ] = useState( false );
+    const [ uploadImg, setUploadImg ] = useState( false )
     
     const navigate = useNavigate();
 
@@ -29,6 +36,30 @@ export const PetsAddPage = () => {
     }, [ currentStep ]);
 
 
+    useEffect(() => {
+
+        if (formState.img) {
+        console.log('img:', formState.img);
+        console.log('guardando imagen y creando perfil')
+        createPetProfile();
+        }
+    
+    }, [ formState.img ]);
+
+    useEffect(() => {
+        if (data){
+            console.log(data)
+            console.log('se creo el perfil de la mascota, hay que redireccionar usuario');
+        }
+    }, [data])
+
+    useEffect(() => {
+        if (error) {
+            console.log('ocurrió un error:', error);
+        }
+    }, [error])
+    
+    
     
 
 
@@ -38,16 +69,55 @@ export const PetsAddPage = () => {
         if (currentStep === 1) {
             navigate(-1);
         }
+    };
+
+    const createPetProfile = () => {
+
+        const petData = {
+            ...formState,
+            owner: user.id
+        }
+
+        create('pets', petData);
+
     }
 
+
+
+
+
     const onNext = () => {
-        nextStep();
+
+        if (currentStep === 1){
+            nextStep();
+        } else if (currentStep === 2) {
+            setCheckErrors( true );
+
+            if ( name === '' || birthdate === '' || breedType === '' || sex === '' || size === '' || Object.keys(errors).length > 0) {
+                return;
+            } else {
+                nextStep();
+            }
+        } else if (currentStep === 3) {
+            // console.log('hay que subir la imagen')
+            if (isImg) {
+                console.log('hay que subir la imagen');
+                setUploadImg(true);
+            } else {
+                console.log('no hay imagen, solo hay que crear el perfil');
+                createPetProfile();
+            }
+
+        }
+
     }
     
 
     const onSubmit = (e) => {
         e.preventDefault();
     }
+
+
 
     return (
         <>
@@ -59,101 +129,43 @@ export const PetsAddPage = () => {
                 <form className='multiSteps' onSubmit={ onSubmit }>
 
                     {
-                        currentStep === 1 && 
-                        <div className='step'>
-                            <h2>¿Qué tipo de mascota es?</h2>
-                            <PetTypeInput 
-                                changeFunction={ setManualValue }
-                                typeValue={ type }
-                                onClickFunction={ onNext }
+                        currentStep === 1 
+                            && <PetFormPart1
+                                setManualValue={ setManualValue }
+                                type={ type }
+                                onNext={ onNext }
+                                bySteps={ true }
                             />
-                        </div>
                     }
+
                     {
-                        currentStep === 2 && 
-                        <div className='step'>
-                            <h2>Contanos sobre tu mascota</h2>
-
-                            <TextInput
-                                name="name"
-                                value={ name }
-                                placeholder="Ingresa el nombre de tu mascota"
-                                onChangeFunction={ onInputChange }
-                                label="Nombre"
-                                errors={ errors }
-                                setErrors={ setErrors }
-                                required={ true }
-                                checkErrors={ checkErrors }
-                            />
-
-                            <DateInput
-                                name="birthdate"
-                                value={ birthdate }
-                                label="Fecha de nacimiento"
-                                onChangeFunction={ onInputChange }
-                                required={ true }
-                                errors={ errors }
-                                setErrors={ setErrors }
-                                checkErrors={ checkErrors }
-                                max={ true }
-                                note="Puede ser un aproximado*"
-                            />
-
-                            <PetBreedInput
-                                breedTypeValue={ breedType }
-                                breedValue={ breed }
-                                onChangeFunction={ onInputChange }
-                                required={ true }
-                                errors={ errors }
-                                setErrors={ setErrors }
-                                checkErrors={ checkErrors }
-                            />
-
-                            <PetSexInput
-                                changeFunction={ setManualValue }
-                                sexValue={ sex }
-                                required={ true }
-                                errors={ errors }
-                                checkErrors={ checkErrors }
-                                setErrors={ setErrors }
-                            />
-
-                            <PetSizeInput
-                                changeFunction={ setManualValue }
-                                required={ true }
-                                errors={ errors }
-                                checkErrors={ checkErrors }
-                                setErrors={ setErrors }
-                                sizeValue={ size }
-                            />
-
-                            <PetColorInput
-                                color1value={ color1 }
-                                changeFunction={ setManualValue }
-                                required={ true }
-                                errors={ errors }
-                                checkErrors={ checkErrors }
-                                setErrors={ setErrors }
-                            />
-
-
-
-
-
-
-                        </div>
+                        currentStep === 2
+                        && <PetFormPart2
+                            name={ name }
+                            birthdate={ birthdate }
+                            breedType={ breedType }
+                            breed={ breed }
+                            sex={ sex }
+                            size={ size }
+                            color1={ color1 }
+                            errors={ errors }
+                            setErrors={ setErrors }
+                            checkErrors={ checkErrors }
+                            onInputChange={ onInputChange }
+                            setManualValue={ setManualValue }
+                            bySteps={ true }
+                        />
                     }
+
                     {
-                        currentStep === 3 && 
-                        <div className='step'>
-                            <h2>¿De qué raza es?</h2>
-                            <input 
-                                type="text" 
-                                name="breed" 
-                                value={ breed } 
-                                onChange={ onInputChange }
-                            />
-                        </div>
+                        currentStep === 3 
+                        && <PetFormPart3
+                            bySteps={ true }
+                            setIsImg={ setIsImg }
+                            uploadImgIndicator={ uploadImg }
+                            petName={ name }
+                            setImgLink={ setManualValue }
+                        />
                     }
 
 
@@ -173,13 +185,17 @@ export const PetsAddPage = () => {
                                     className='btn'
                                     onClick={ onNext }
                                 >
-                                    Siguiente
+                                    { currentStep === totalSteps ? 'Crear perfil' : 'Siguiente'}
                                 </button>
                         }
                     </div>
 
 
                 </form>
+
+                {
+                    isLoading && <Loader label='Creando perfil' />
+                }
 
 
             </main>

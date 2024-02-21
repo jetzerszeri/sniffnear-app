@@ -5,3 +5,6 @@ export * from './WelcomeCardNoUserLogged';
 export * from './PetsList';
 export * from './PetsListItem';
 export * from './BottomNav';
+export * from './PetFormPart1';
+export * from './PetFormPart2';
+export * from './PetFormPart3';

@@ -17,6 +17,10 @@ export const useFetchSniffNearApi =  ( endpint, method, data ) => {
         await fetchSniffNearApi('users', 'POST', data, setState);
     }
 
+    const create = async ( collection, data ) => {
+        await fetchSniffNearApi(collection, 'POST', data, setState);
+    }
+
     const loginUser = async ( data ) => {
         await fetchSniffNearApi('users/auth', 'POST', data, setState);
     }
@@ -24,6 +28,8 @@ export const useFetchSniffNearApi =  ( endpint, method, data ) => {
     const getData = async (endpint, data = {}) => {
         await fetchSniffNearApi(endpint, 'GET', data, setState);
     }
+
+    
 
 
     return {
@@ -35,6 +41,7 @@ export const useFetchSniffNearApi =  ( endpint, method, data ) => {
         createUser,
         loginUser,
         getData,
+        create,
     }
 
 

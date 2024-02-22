@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { calculateAge } from '../../helpers';
 import { useContext } from 'react';
 import { AuthContext } from '../../auth/context';
+import { Modal } from '../../ui';
 
 export const PetProfile = ( { pet }) => {
 
@@ -41,6 +42,12 @@ export const PetProfile = ( { pet }) => {
                 }
 
             </div>
+
+
+            <Modal heading='¡Atención!' text={`¿Estás seguro de querer eliminar el perfil de ${ name }?`} type='danger'>
+                <button className="btn secundary">Cancelar</button>
+                <button className="btn">Si, Eliminar</button>
+            </Modal>
 
         </div>
     )

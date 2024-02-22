@@ -2,6 +2,14 @@ export const calculateAge = ( isoDate ) => {
     const birthDate = new Date(isoDate);
     const currentDate = new Date();
 
+    const millisecondsInDay = 1000 * 60 * 60 * 24;
+    const differenceInMilliseconds = currentDate - birthDate;
+    const days = Math.floor(differenceInMilliseconds / millisecondsInDay);
+
+    if (days < 30) {
+        return `${days} días`;
+    }
+
     let years = currentDate.getFullYear() - birthDate.getFullYear();
     let months = currentDate.getMonth() - birthDate.getMonth();
 
@@ -15,11 +23,6 @@ export const calculateAge = ( isoDate ) => {
     if (currentDate.getMonth() === birthDate.getMonth() && currentDate.getDate() < birthDate.getDate()) {
         months--;
     }
-
-    // return {
-    //     years: years,
-    //     months: months
-    // };
 
     let texto = `${years} años`;
     switch (years) {

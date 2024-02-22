@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { calculateAge } from '../../helpers';
 
 export const PetProfile = ( { pet }) => {
 
@@ -14,7 +15,7 @@ export const PetProfile = ( { pet }) => {
 
                 <div className={ type }>
                     <p className='h'>{ name }</p>
-                    <p>{ (breed && breedType) && `${breed} - `}{ birthdate } años</p>
+                    <p>{ (breed && breedType) && `${breed} - `}{ `${calculateAge( birthdate ) } de edad` }</p>
                 </div>
 
                 <ul className='petDataList'>

@@ -44,7 +44,7 @@ export const PetProfile = ( { pet }) => {
             </div>
 
 
-            <Modal heading='¡Atención!' text={`¿Estás seguro de querer eliminar el perfil de ${ name }?`} type='danger'>
+            <Modal text={`¿Estás seguro de querer eliminar el perfil de ${ name }?`} type='danger' icon={ true }>
                 <button className="btn secundary">Cancelar</button>
                 <button className="btn">Si, Eliminar</button>
             </Modal>

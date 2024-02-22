@@ -1,9 +1,13 @@
 import { Link } from 'react-router-dom';
 import { calculateAge } from '../../helpers';
+import { useContext } from 'react';
+import { AuthContext } from '../../auth/context';
 
 export const PetProfile = ( { pet }) => {
 
-    const { name, breed, breedType, birthdate, type, size, color1, img, sex, } = pet
+    const { user } = useContext( AuthContext );
+
+    const { name, breed, breedType, birthdate, type, size, color1, img, sex, _id } = pet
 
 
     return (
@@ -16,6 +20,7 @@ export const PetProfile = ( { pet }) => {
                 <div className={ type }>
                     <p className='h'>{ name }</p>
                     <p>{ (breed && breedType) && `${breed} - `}{ `${calculateAge( birthdate ) } de edad` }</p>
+                    {/* Mostrar perfil del usuario en caso que el user actual sea distinto del owner id */}
                 </div>
 
                 <ul className='petDataList'>
@@ -25,10 +30,15 @@ export const PetProfile = ( { pet }) => {
                     <li>Tamaño <span>{ size }</span></li>
                 </ul>
 
-                <div className='actions'>
-                    <button className='btn secundary'>Eliminar</button>
-                    <Link className='btn'>Editar</Link>
-                </div>
+
+
+                {
+                    user.id === pet.owner &&
+                    <div className='actions'>
+                        <button className='btn secundary'>Eliminar</button>
+                        <Link className='btn' to={`/pets/${_id}/edit`}>Editar</Link>
+                    </div>
+                }
 
             </div>
 

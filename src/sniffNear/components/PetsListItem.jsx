@@ -1,14 +1,19 @@
+import { useNavigate } from "react-router-dom";
 
 
 export const PetsListItem = ( { pet }) => {
     const { name, type, _id } = pet;
 
-    // if ( !pet.img ) img = `/img/${type}-icon.svg` ;
+    const navigate = useNavigate();
     let img;
     !pet.img ? img = `/img/${type}-icon.svg` : img = pet.img;
 
+    const onClick = () => {
+        navigate(`/pets/${_id}`);
+    }
+
     return (
-        <li>
+        <li onClick={ onClick }>
             <div>
                 <img src={ img } alt={ type } />
             </div>

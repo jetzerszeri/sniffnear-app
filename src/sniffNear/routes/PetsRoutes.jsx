@@ -1,5 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
-import { PetsAddPage, PetsPage } from '../pages';
+import { PetsAddPage, PetsPage, PetsProfilePage } from '../pages';
 import { PrivateRoutes } from '../../router/PrivateRoutes';
 
 export const PetsRoutes = () => {
@@ -9,6 +9,7 @@ export const PetsRoutes = () => {
             <Route path="/" element={ <PetsPage /> } />
             <Route path="/add" element={ <PetsAddPage /> } />
             <Route path="/*" element={ <PetsPage /> } />
+            <Route path="/:id" element={ <PetsProfilePage /> } />
         </Routes>
     </PrivateRoutes>
   )

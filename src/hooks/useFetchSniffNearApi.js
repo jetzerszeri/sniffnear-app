@@ -29,8 +29,9 @@ export const useFetchSniffNearApi =  ( endpint, method, data ) => {
         await fetchSniffNearApi(endpint, 'GET', data, setState);
     }
 
-    
-
+    const deleteDocument = async ( collection, id, data ) => {
+        await fetchSniffNearApi(`${collection}/${id}`, 'DELETE', data, setState);
+    }
 
     return {
         data: state.data,
@@ -42,6 +43,7 @@ export const useFetchSniffNearApi =  ( endpint, method, data ) => {
         loginUser,
         getData,
         create,
+        deleteDocument,
     }
 
 

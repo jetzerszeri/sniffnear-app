@@ -37,7 +37,7 @@ export const PetsProfilePage = () => {
         <NavBar title={ pet.name } />
 
         {
-            pet && <PetProfile pet={ pet } />
+            pet.name && <PetProfile pet={ pet } />
         }
 
         {

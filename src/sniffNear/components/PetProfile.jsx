@@ -1,20 +1,33 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { calculateAge } from '../../helpers';
 import { useContext, useState } from 'react';
 import { AuthContext } from '../../auth/context';
-import { Modal } from '../../ui';
+import { Loader, Modal } from '../../ui';
+import { useFetchSniffNearApi } from '../../hooks';
 
 export const PetProfile = ( { pet }) => {
 
+    const navigate = useNavigate();
+
     const { user } = useContext( AuthContext );
-    const [ showModal, setShowModal] = useState( false );
+    const { data, isLoading, error, deleteDocument } = useFetchSniffNearApi();
+    const [ showModal, setShowModal ] = useState( false );
     const { name, breed, breedType, birthdate, type, size, color1, img, sex, _id } = pet;
 
     const displayModal = () => {
         setShowModal( !showModal );
     }
 
+    const onDeletePetProfile = () => {
+        if ( user.id === pet.owner ) {
+            setShowModal( false );
+            deleteDocument('pets', _id, { owner: user.id });
+        }
+    }
 
+    const onOkayBtnModal = () => {
+        navigate(-1, { replace: true });
+    }
 
 
     return (
@@ -53,7 +66,23 @@ export const PetProfile = ( { pet }) => {
                 showModal &&
                 <Modal text={`¿Estás seguro de querer eliminar el perfil de ${ name }?`} type='danger' icon={ true }>
                     <button className="btn secundary" onClick={ displayModal }>Cancelar</button>
-                    <button className="btn">Si, Eliminar</button>
+                    <button className="btn" onClick={ onDeletePetProfile }>Si, Eliminar</button>
+                </Modal>
+            }
+
+            {
+                isLoading && <Loader label='Eliminando perfil...'/>
+            }
+
+            {
+                error && <Modal text={ error } type='error' icon={ true } >
+                    <button className="btn secundary" onClick={ onOkayBtnModal }>Ok</button>
+                </Modal>
+            }
+
+            {
+                data && <Modal text={ data.message } type='success' icon={ true } >
+                    <button className="btn" onClick={ onOkayBtnModal }>Cerrar</button>
                 </Modal>
             }
 

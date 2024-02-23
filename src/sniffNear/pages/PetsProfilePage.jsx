@@ -1,21 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { NavBar, PetProfile } from '../components';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useFetchSniffNearApi } from '../../hooks';
 import { Loader } from '../../ui';
 
 export const PetsProfilePage = () => {
 
-    const img = '/img/noImgPlaceholder.svg'
-    
-    // 'https://firebasestorage.googleapis.com/v0/b/sniffnear.appspot.com/o/pets%2Favatars%2Fundefined-NuevaTest1.webp?alt=media&token=95d82fd5-083e-4f7a-96c7-c94d45d97c53'
     const { id } = useParams();
-    // console.log(id);
+    const navigate = useNavigate();
 
-    const { data, isLoading, getData } = useFetchSniffNearApi();
-    const [ pet, setPet ] = useState({})
+    const { data, isLoading, error, getData } = useFetchSniffNearApi();
+    const [ pet, setPet ] = useState({});
 
-    // const rightIcon = {display: true, icon: "bi-person-fill", link: "/account"};
 
 
     useEffect(() => {
@@ -24,10 +20,11 @@ export const PetsProfilePage = () => {
 
     useEffect(() => {
         if ( data ) {
-            console.log(data);
             setPet(data.pet);
+        } else if ( error ) {
+            navigate(-1, { replace: true });
         }
-    }, [ data ])
+    }, [ data, error ])
     
     
 

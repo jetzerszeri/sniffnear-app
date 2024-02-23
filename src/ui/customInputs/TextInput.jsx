@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { onRemoveInputError } from "../../sniffNear/helpers";
 
 
 export const TextInput = ( { name, value, placeholder, onChangeFunction, label, errors, required = false, setErrors, checkErrors } ) => {
@@ -13,7 +14,9 @@ export const TextInput = ( { name, value, placeholder, onChangeFunction, label, 
                     [name]: '*Campo obligatorio'
                 }
             })
-        } 
+        } else {
+            onRemoveInputError( error, name, setErrors, value );
+        }
     }
 
     const onInputChange = () => {

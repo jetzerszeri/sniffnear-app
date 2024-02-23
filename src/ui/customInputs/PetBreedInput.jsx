@@ -5,8 +5,7 @@ import { TextInput } from './TextInput';
 export const PetBreedInput = ( { nameSelect = 'breedType', breedTypeValue, breedName = 'breed', breedValue,  errors, onChangeFunction, required = false, setErrors, checkErrors }) => {
     
     const error = errors[nameSelect];
-
-    const [selectedBreedType, setSelectedBreedType] = useState( false );
+    const [ selectedBreedType, setSelectedBreedType ] = useState( false );
 
     useEffect(() => {
         if (checkErrors){
@@ -20,6 +19,13 @@ export const PetBreedInput = ( { nameSelect = 'breedType', breedTypeValue, breed
         } else {
             setSelectedBreedType(false);
         }
+
+        if (breedTypeValue !== 'raza' && errors[breedName]){
+            onRemoveInputError( errors[breedName], breedName, setErrors, breedTypeValue );
+        } else {
+            onRequieredInput( required, breedName, breedValue, setErrors );
+        }
+
     }, [breedTypeValue]);
 
     const onBlur = () => {
@@ -58,7 +64,7 @@ export const PetBreedInput = ( { nameSelect = 'breedType', breedTypeValue, breed
                 placeholder="Ingresá la raza de tu mascota"
                 onChangeFunction={ onChangeFunction }
                 errors={ errors }
-                required={ selectedBreedType }
+                required={ breedTypeValue === "raza" }
                 setErrors={ setErrors }
                 checkErrors={ checkErrors }
             />

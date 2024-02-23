@@ -17,6 +17,11 @@ export const useMultiSteps = ( totalSteps = 2 ) => {
         }
     };
 
+    const onResetSteps = () => {
+        setCurrentStep(1);
+        setMaxStepReached(1);
+    }
+
     useEffect(() => {
         if (currentStep > maxStepReached) {
             setMaxStepReached(currentStep);
@@ -30,6 +35,7 @@ export const useMultiSteps = ( totalSteps = 2 ) => {
         totalSteps,
         maxStepReached,
         nextStep,
-        prevStep
+        prevStep,
+        onResetSteps,
     }
 }

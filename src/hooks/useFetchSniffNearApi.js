@@ -33,6 +33,14 @@ export const useFetchSniffNearApi =  ( endpint, method, data ) => {
         await fetchSniffNearApi(`${collection}/${id}`, 'DELETE', data, setState);
     }
 
+    const onResetFetchState = () => {
+        setState({
+            data: null,
+            isLoading: false,
+            error: null
+        });
+    }
+
     return {
         data: state.data,
         isLoading: state.isLoading,
@@ -44,6 +52,7 @@ export const useFetchSniffNearApi =  ( endpint, method, data ) => {
         getData,
         create,
         deleteDocument,
+        onResetFetchState,
     }
 
 

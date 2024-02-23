@@ -1,19 +1,18 @@
 import { useContext, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { NavBar, PetFormPart1, PetFormPart2, PetFormPart3 } from '../components';
 import { useMultiSteps } from '../hooks';
 import { MultiStepsIndicator } from '../../ui/MultiStepsIndicator';
-import { DateInput, PetBreedInput, PetColorInput, PetSexInput, PetSizeInput, PetTypeInput, TextInput } from '../../ui/customInputs';
 import { useForm } from '../../hooks/useForm';
 import { useFetchSniffNearApi } from '../../hooks';
 import { AuthContext } from '../../auth/context';
-import { Loader } from '../../ui';
+import { Loader, Modal } from '../../ui';
 
 export const PetsAddPage = () => {
 
     const { user } = useContext( AuthContext );
-    const { currentStep, totalSteps, maxStepReached, nextStep, prevStep} = useMultiSteps(3);
-    const { type, name, birthdate, breedType, breed, sex, size, color1, color2, errors, checkErrors, formState, setErrors, setCheckErrors, onInputChange, setManualValue } = useForm({
+    const { currentStep, totalSteps, maxStepReached, nextStep, prevStep, onResetSteps} = useMultiSteps(3);
+    const { type, name, birthdate, breedType, breed, sex, size, color1, errors, checkErrors, formState, setErrors, setCheckErrors, onInputChange, setManualValue, onResetForm } = useForm({
         type: '',
         name: '',
         birthdate: '',
@@ -24,7 +23,7 @@ export const PetsAddPage = () => {
         color1: '',
         color2: '',
     });
-    const { data, isLoading, error, create } = useFetchSniffNearApi();
+    const { data, isLoading, error, create, onResetFetchState } = useFetchSniffNearApi();
     const [ prevBtnLabel, setPrevBtnLabel ] = useState( 'Cancelar' );
     const [ isImg, setIsImg ] = useState( false );
     const [ uploadImg, setUploadImg ] = useState( false )
@@ -72,50 +71,51 @@ export const PetsAddPage = () => {
     };
 
     const createPetProfile = () => {
-
         const petData = {
             ...formState,
             owner: user.id
         }
-
         create('pets', petData);
-
     }
 
 
-
-
-
     const onNext = () => {
-
+        console.log('currentStep:', currentStep);
         if (currentStep === 1){
             nextStep();
+            return;
         } else if (currentStep === 2) {
-            setCheckErrors( true );
-
             if ( name === '' || birthdate === '' || breedType === '' || sex === '' || size === '' || Object.keys(errors).length > 0) {
+                setCheckErrors( true );
                 return;
             } else {
                 nextStep();
             }
         } else if (currentStep === 3) {
-            // console.log('hay que subir la imagen')
             if (isImg) {
-                console.log('hay que subir la imagen');
                 setUploadImg(true);
             } else {
-                console.log('no hay imagen, solo hay que crear el perfil');
                 createPetProfile();
             }
-
         }
-
     }
     
 
     const onSubmit = (e) => {
         e.preventDefault();
     }
+
+    const onAddOtherPet = () => {
+        onResetForm();
+        onResetSteps();
+        onResetFetchState();
+        setCheckErrors( false );
+    }
+
+    const redirectToPetProfile = () => {
+        navigate(`/pets/${ data.pet._id }`, { replace: true });
+    }
+
 
 
 
@@ -195,6 +195,13 @@ export const PetsAddPage = () => {
 
                 {
                     isLoading && <Loader label='Creando perfil' />
+                }
+
+                {
+                    data && <Modal heading={`Perfil de ${ data.pet.name } creado con éxito`} type='success' icon={ true }>
+                        <button className="btn secundary"  onClick={ onAddOtherPet }>Agregar otro</button>
+                        <button className="btn" onClick={ redirectToPetProfile }>Ver perfil</button>
+                    </Modal>
                 }
 
 

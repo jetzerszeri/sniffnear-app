@@ -25,7 +25,7 @@ export const PetFormPart3 = ( { bySteps = false, setIsImg, uploadImgIndicator, p
     
     const uploadPetImgAndSetLink = async () => {
         console.log('subiendo imagen...');
-        const link = await uploadImg( 'pets/avatars/', `${user._id}-${petName}` );
+        const link = await uploadImg( 'pets/avatars/', `${user.id}-${petName}` );
         setImgLink( 'img', link );
         console.log('se subio la imagen - link:', link);
     }

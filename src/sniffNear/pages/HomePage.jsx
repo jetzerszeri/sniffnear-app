@@ -1,15 +1,14 @@
-import { useContext } from "react"
-import { NavBar } from "../components/NavBar"
-import { WelcomeCard } from "../components/WelcomeCard"
-import { WelcomeCardNoUserLogged } from "../components/WelcomeCardNoUserLogged"
-import { AuthContext } from "../../auth/context"
-import { BottomNav } from "../components"
-// import { Loader } from "../../ui"
+import { useContext } from 'react';
+import { NavBar } from '../components/NavBar';
+import { WelcomeCard } from '../components/WelcomeCard';
+import { WelcomeCardNoUserLogged } from '../components/WelcomeCardNoUserLogged';
+import { AuthContext } from '../../auth/context';
+import { BottomNav } from '../components';
 
 
 export const HomePage = () => {
 
-  const { user, isLogged } = useContext(AuthContext);
+  const { isLogged } = useContext(AuthContext);
   const rightIcon = {display: true, icon: "bi-person-fill", link: "/account"};
 
   return (

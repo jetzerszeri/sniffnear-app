@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { useFetchSniffNearApi, useForm, usePreviewAndUploadImg } from '../../hooks';
 import { NavBar, PetFormPart1, PetFormPart2 } from '../components';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 import { AuthContext } from '../../auth/context';
 import { convertDate } from '../helpers';
 import { ImgInput, Loader, Modal } from '../../ui';
@@ -21,23 +21,23 @@ export const PetsEditPage = () => {
         size: pet?.size,
         color1: pet?.color1,
     }
-    const { type, name, birthdate, breedType, breed, sex, size, color1, errors, checkErrors, formState, setErrors, setCheckErrors, onInputChange, setManualValue, setCurrentValues } = useForm(currentPetInfo);
-    const { data, isLoading, error, getData, update } = useFetchSniffNearApi();
-    const { imageSelected, uploadStatus, imgFile, setImgFile, resetImg, uploadImg, setCurrentImg } = usePreviewAndUploadImg();
+    const { type, name, birthdate, breedType, breed, sex, size, color1, errors, checkErrors, formState, setErrors, setCheckErrors, onInputChange, setManualValue } = useForm(currentPetInfo);
+    const { data, isLoading, error, update } = useFetchSniffNearApi();
+    const { imageSelected, uploadStatus, setImgFile, resetImg, uploadImg, setCurrentImg } = usePreviewAndUploadImg();
 
 
     
     useEffect(() => {
         if ( !pet ){ navigate( `/pets/${id}`, { replace: true });}
-    }, [ ])
+    }, [ pet, id, navigate ])
 
-    useEffect(() => {( pet?.img ) && setCurrentImg( pet?.img )}, []);
+    useEffect(() => {( pet?.img ) && setCurrentImg( pet?.img )}, [ pet?.img, setCurrentImg ]);
 
-    useEffect(() => {
-        if ( data ) {
-            console.log(data);
-        }
-    }, [ data ])
+    // useEffect(() => {
+    //     if ( data ) {
+    //         console.log(data);
+    //     }
+    // }, [ data ])
     
 
     
@@ -63,8 +63,6 @@ export const PetsEditPage = () => {
                 dataToUpdate.img = link;
             }
         } 
-
-        console.log(dataToUpdate);
 
         await update( 'pets', id, dataToUpdate );
         setCheckErrors( false );

@@ -14,7 +14,7 @@ export const PetFormPart3 = ( { bySteps = false, setIsImg, uploadImgIndicator, p
         } else {
             setIsImg(false);
         }
-    }, [ imageSelected ]);
+    }, [ imageSelected, setIsImg ]);
 
     useEffect(() => {
         if (uploadImgIndicator) {
@@ -24,10 +24,10 @@ export const PetFormPart3 = ( { bySteps = false, setIsImg, uploadImgIndicator, p
     }, [ uploadImgIndicator ])
     
     const uploadPetImgAndSetLink = async () => {
-        console.log('subiendo imagen...');
+        // console.log('subiendo imagen...');
         const link = await uploadImg( 'pets/avatars/', `${user.id}-${petName}` );
         setImgLink( 'img', link );
-        console.log('se subio la imagen - link:', link);
+        // console.log('se subio la imagen - link:', link);
     }
     
 

@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { NavBar, PetFormPart1, PetFormPart2, PetFormPart3 } from '../components';
 import { useMultiSteps } from '../hooks';
 import { MultiStepsIndicator } from '../../ui/MultiStepsIndicator';
@@ -36,10 +36,10 @@ export const PetsAddPage = () => {
 
 
     useEffect(() => {
-
+        
         if (formState.img) {
-        console.log('img:', formState.img);
-        console.log('guardando imagen y creando perfil')
+        // console.log('img:', formState.img);
+        // console.log('guardando imagen y creando perfil')
         createPetProfile();
         }
     
@@ -47,8 +47,8 @@ export const PetsAddPage = () => {
 
     useEffect(() => {
         if (data){
-            console.log(data)
-            console.log('se creo el perfil de la mascota, hay que redireccionar usuario');
+            // console.log(data)
+            // console.log('se creo el perfil de la mascota, hay que redireccionar usuario');
         }
     }, [data])
 
@@ -80,7 +80,7 @@ export const PetsAddPage = () => {
 
 
     const onNext = () => {
-        console.log('currentStep:', currentStep);
+        // console.log('currentStep:', currentStep);
         if (currentStep === 1){
             nextStep();
             return;

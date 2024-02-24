@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { onRemoveInputError } from "../../sniffNear/helpers";
 
 
@@ -6,7 +6,7 @@ export const TextInput = ( { name, value, placeholder, onChangeFunction, label, 
 
     let error = errors[name];
 
-    const onRequired = () => {
+    const onRequired = useCallback(() => {
         if (required && value.trim().length === 0){
             setErrors( (prevErrors) => {
                 return {
@@ -17,7 +17,7 @@ export const TextInput = ( { name, value, placeholder, onChangeFunction, label, 
         } else {
             onRemoveInputError( error, name, setErrors, value );
         }
-    }
+    }, [ required, value, name, setErrors, error ]);
 
     const onInputChange = () => {
 
@@ -35,7 +35,7 @@ export const TextInput = ( { name, value, placeholder, onChangeFunction, label, 
         if (checkErrors){
             onRequired();
         }
-    }, [checkErrors])
+    }, [ checkErrors, onRequired ])
 
     
 
@@ -44,7 +44,6 @@ export const TextInput = ( { name, value, placeholder, onChangeFunction, label, 
             {
                 label && <label htmlFor={ name }>{ label }</label>
             }
-            {/* <label htmlFor={ name }>{ label }</label> */}
             <input
             name={ name }
             type="text"

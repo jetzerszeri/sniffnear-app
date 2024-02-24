@@ -26,7 +26,7 @@ export const useMultiSteps = ( totalSteps = 2 ) => {
         if (currentStep > maxStepReached) {
             setMaxStepReached(currentStep);
         }
-    }, [ currentStep ]);
+    }, [ currentStep, maxStepReached ]);
     
 
 

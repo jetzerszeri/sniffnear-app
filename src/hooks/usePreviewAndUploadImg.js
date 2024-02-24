@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { uploadImgToFirestore } from '../helpers';
 
 export const usePreviewAndUploadImg = () => {
@@ -33,10 +33,10 @@ export const usePreviewAndUploadImg = () => {
         return link;
     }
 
-    const setCurrentImg = (link) => {
+    const setCurrentImg = useCallback((link) => {
         setImageSelected( link );
         // setImgLink( link );
-    }
+    }, []);
     
 
     return {

@@ -1,5 +1,5 @@
-import { useContext, useEffect, useState } from "react"
-import { useFetchSniffNearApi, useForm } from "../../hooks"
+import { useContext, useEffect } from "react";
+import { useFetchSniffNearApi, useForm } from "../../hooks";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import { Loader } from "../../ui";
@@ -30,14 +30,14 @@ export const RegisterForm = ( { accountStatus } ) => {
         if (error) {
             setErrors({ credentials: `${error}*`});
         }
-    }, [ error ]); 
+    }, [ error, setErrors ]); 
     
 
     const onRegisterSubmit = async (e) => {
         e.preventDefault();
         setCheckErrors( true );
 
-        if (name === '' || Object.keys(errors).length > 0){
+        if (name === '' || email === '' || password === '' || validatePassword === ''){
             return
         };
 

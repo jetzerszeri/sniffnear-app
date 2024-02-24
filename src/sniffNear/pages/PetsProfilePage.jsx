@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { NavBar, PetProfile } from '../components';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useFetchSniffNearApi } from '../../hooks';
 import { Loader } from '../../ui';
 
@@ -16,7 +16,7 @@ export const PetsProfilePage = () => {
 
     useEffect(() => {
         getData(`pets/${id}`);
-    }, [ ])
+    }, [ getData, id ]);
 
     useEffect(() => {
         if ( data ) {
@@ -24,7 +24,7 @@ export const PetsProfilePage = () => {
         } else if ( error ) {
             navigate(-1, { replace: true });
         }
-    }, [ data, error ])
+    }, [ data, error, navigate ]);
     
     
 
@@ -40,8 +40,6 @@ export const PetsProfilePage = () => {
         {
             isLoading && <Loader />
         }
-        
-        
         </>
     )
 }

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from 'react';
 
 
 export const PasswordInput = ( { name = "password", value, onChangeFunction, errors, required = false, setErrors, confirm = false, confirmValue, confirmName ="validatePassword", checkErrors} ) => {
@@ -12,7 +12,7 @@ export const PasswordInput = ( { name = "password", value, onChangeFunction, err
         setShowPassword(!showPassword)
     }
 
-    const onRequired = () => {
+    const onRequired = useCallback(() => {
         if (required && value.trim().length === 0){
             setErrors( (prevErrors) => {
                 return {
@@ -28,9 +28,9 @@ export const PasswordInput = ( { name = "password", value, onChangeFunction, err
                 }
             })
         }
-    }
+    }, [ required, value, name, setErrors ]);
 
-    const onValidate = () => {
+    const onValidate = useCallback(() => {
         if (confirm && value !== confirmValue){
             setErrors( (prevErrors) => {
                 return {
@@ -46,7 +46,7 @@ export const PasswordInput = ( { name = "password", value, onChangeFunction, err
                 }
             })
         }
-    }
+    }, [ confirm, value, confirmValue, confirmName, setErrors ]);
 
     const onInputChange = () => {
         if ( error ){
@@ -58,7 +58,7 @@ export const PasswordInput = ( { name = "password", value, onChangeFunction, err
         }
     }
 
-    const onValidateChange = () => {
+    const onValidateChange = useCallback(() => {
         if (validateError || value === confirmValue){
             setErrors(prevErrors => {
                 const updatedErrors = { ...prevErrors };
@@ -66,14 +66,14 @@ export const PasswordInput = ( { name = "password", value, onChangeFunction, err
                 return updatedErrors;
             });
         } 
-    }
+    }, [ validateError, value, confirmValue, confirmName, setErrors ]);
 
     useEffect(() => {
         if (checkErrors){
             onRequired();
             if (confirm){ onValidate();}
         }
-    }, [checkErrors])
+    }, [checkErrors, onRequired, confirm, onValidate])
 
 
     return (

@@ -24,6 +24,15 @@ export const authReducer = (state = {}, action ) => {
                 isLogged: false,
                 user: action.payload,
             };
+
+
+
+
+        case types.editPet:
+            return {
+                ...state,
+                pet: action.payload,
+            };
         
         default:
             return state;

@@ -54,6 +54,14 @@ export const AuthProvider = ( { children } ) => {
         authDispatch( action );
     };
 
+    const editPet = ( pet ) => {
+            const action = {
+                type: types.editPet,
+                payload: pet
+            }
+            authDispatch( action );
+    }
+
 
 
     return (
@@ -62,6 +70,7 @@ export const AuthProvider = ( { children } ) => {
             login,
             logout,
             singup,
+            editPet,
         }}>
             { children }
         </AuthContext.Provider>

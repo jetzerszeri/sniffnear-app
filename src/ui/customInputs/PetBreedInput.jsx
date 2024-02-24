@@ -22,9 +22,10 @@ export const PetBreedInput = ( { nameSelect = 'breedType', breedTypeValue, breed
 
         if (breedTypeValue !== 'raza' && errors[breedName]){
             onRemoveInputError( errors[breedName], breedName, setErrors, breedTypeValue );
-        } else {
-            onRequieredInput( required, breedName, breedValue, setErrors );
-        }
+        } 
+        // else {
+        //     onRequieredInput( required, breedName, breedValue, setErrors );
+        // }
 
     }, [breedTypeValue]);
 

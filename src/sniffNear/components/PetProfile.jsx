@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { calculateAge } from '../../helpers';
 import { useContext, useState } from 'react';
 import { AuthContext } from '../../auth/context';
@@ -9,7 +9,7 @@ export const PetProfile = ( { pet }) => {
 
     const navigate = useNavigate();
 
-    const { user } = useContext( AuthContext );
+    const { user, editPet } = useContext( AuthContext );
     const { data, isLoading, error, deleteDocument } = useFetchSniffNearApi();
     const [ showModal, setShowModal ] = useState( false );
     const { name, breed, breedType, birthdate, type, size, color1, img, sex, _id } = pet;
@@ -27,6 +27,11 @@ export const PetProfile = ( { pet }) => {
 
     const onOkayBtnModal = () => {
         navigate(-1, { replace: true });
+    }
+
+    const onEditPetProfile = () => {
+        editPet( pet );
+        navigate(`/pets/${_id}/edit`);
     }
 
 
@@ -56,7 +61,7 @@ export const PetProfile = ( { pet }) => {
                     user.id === pet.owner &&
                     <div className='actions'>
                         <button className='btn secundary' onClick={ displayModal }>Eliminar</button>
-                        <Link className='btn' to={`/pets/${_id}/edit`}>Editar</Link>
+                        <button className='btn' onClick={ onEditPetProfile }>Editar</button>
                     </div>
                 }
 

@@ -8,7 +8,9 @@ export const PetTypeInput = ( { changeFunction, typeValue, onClickFunction } ) =
     const onPetTypeClick = (e) => {
         setPetType(e.currentTarget.getAttribute('datavalue'));
         changeFunction('type', e.currentTarget.getAttribute('datavalue'));
-        onClickFunction();
+        if ( onClickFunction ) {
+            onClickFunction();
+        }
     }
 
     return (

@@ -11,7 +11,7 @@ export const PetSexInput = ( { name = "sex", changeFunction, sexValue, required 
         if (checkErrors){
             onRequieredInput( required, name, sexValue, setErrors );
         }
-    }, [ checkErrors ])
+    }, [ checkErrors, required, name, sexValue, setErrors])
 
     
     const onPetSexClick = (e) => {

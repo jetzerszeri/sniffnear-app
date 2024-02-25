@@ -14,7 +14,7 @@ export const useUserLocation = ( saveCoords = false ) => {
     }, []);
 
     useEffect(() => {
-        if (coords.lat && coords.lang) {
+        if (coords.lat && coords.lng) {
             setError(null);
             // console.log( coords);
 

@@ -5,7 +5,7 @@ export const getUserLocation = ( setCoords, setError) => {
             (position) => {
                 setCoords({
                     lat: position.coords.latitude,
-                    lang: position.coords.longitude
+                    lng: position.coords.longitude
                 });
             },
             (error) => {

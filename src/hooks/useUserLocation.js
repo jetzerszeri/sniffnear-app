@@ -1,10 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { getUserLocation } from '../helpers';
+import { AuthContext } from '../auth/context/AuthContext';
 
-export const useUserLocation = () => {
+export const useUserLocation = ( saveCoords = false ) => {
 
+    const { setUserCoords } = useContext( AuthContext );
     const [ coords , setCoords] = useState( {} );
     const [ error , setError] = useState( null );
+
 
     useEffect(() => {
         getUserLocation(setCoords, setError);
@@ -13,9 +16,17 @@ export const useUserLocation = () => {
     useEffect(() => {
         if (coords.lat && coords.lang) {
             setError(null);
-            console.log('coords', coords);
+            // console.log( coords);
+
+            if (saveCoords) {
+                setUserCoords(coords);
+                console.log('coordenadas guardadas');
+
+            }
         }
-    }, [coords]);
+    }, [ coords, setUserCoords, saveCoords ]);
+
+
 
 
     return { 

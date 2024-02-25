@@ -25,13 +25,22 @@ export const authReducer = (state = {}, action ) => {
                 user: action.payload,
             };
 
-
-
-
         case types.editPet:
             return {
                 ...state,
                 pet: action.payload,
+            };
+
+        case types.setCoords:
+            return {
+                ...state,
+                coords: action.payload,
+            };
+
+        case types.setAddress:
+            return {
+                ...state,
+                address: action.payload,
             };
         
         default:

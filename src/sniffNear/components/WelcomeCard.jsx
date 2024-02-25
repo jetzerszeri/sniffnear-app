@@ -2,26 +2,11 @@ import { useContext } from 'react';
 import { AuthContext } from '../../auth/context/AuthContext';
 
 
-export const WelcomeCard = ( { location='Ubicación no encontrada', imgUrl } ) => {
+export const WelcomeCard = () => {
 
-    const { user } = useContext( AuthContext );
-    // const { data, getData  } = useFetchSniffNearApi();
-
-    
-    // useEffect(() => {
-    //     getData(`users/${user.id}`);
-    //     // console.log(data);
-    // }, [ user ]);
-
+    const { user, address } = useContext( AuthContext );
     const { name, profileImg } = user;
     
-    // getData(`users/${user.id}`);
-
-    // useEffect(() => {
-    //     console.log(data);
-    // }, [ data ])
-    
-
     return (
         <section className="welcomeCard">
             <img src={ 
@@ -31,9 +16,13 @@ export const WelcomeCard = ( { location='Ubicación no encontrada', imgUrl } ) =
         } alt="Avatar del usuario"/>
             <div>
                 <h1>¡Hola, {name}!</h1>
-                <p>
-                    <i className="bi bi-geo-alt"></i> <span>{location}</span>
-                </p>
+                
+                {
+                    address &&
+                    <p>
+                        <i className="bi bi-geo-alt"></i> <span>{`${address.city}, ${address.state}`}</span>
+                    </p>
+                }
             </div>
         </section>
     )

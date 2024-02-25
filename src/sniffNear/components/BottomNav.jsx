@@ -31,7 +31,7 @@ export const BottomNav = () => {
                 <li>
                     <NavLink
                         className={ ({isActive}) => `${isActive ? 'active' : ''}`}
-                        to="/account"
+                        to="/alerts"
                     >
                         <i className="bi bi-search"></i>
                     </NavLink>

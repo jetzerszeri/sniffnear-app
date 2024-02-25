@@ -372,6 +372,7 @@ form .btn{
     z-index: 90;
     background-color: var(--color-neutral-10);
     gap: 16px;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
 }
 
 .topNavBar > div{

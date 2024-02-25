@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { fetchSniffNearApi } from '../helpers';
 
 export const useFetchSniffNearApi =  ( endpint, method, data ) => {
@@ -25,21 +25,25 @@ export const useFetchSniffNearApi =  ( endpint, method, data ) => {
         await fetchSniffNearApi('users/auth', 'POST', data, setState);
     }
 
-    const getData = async (endpint, data = {}) => {
+    const getData = useCallback( async (endpint, data = {}) => {
         await fetchSniffNearApi(endpint, 'GET', data, setState);
-    }
+    }, []);
 
-    const deleteDocument = async ( collection, id, data ) => {
+    const deleteDocument = useCallback(async ( collection, id, data ) => {
         await fetchSniffNearApi(`${collection}/${id}`, 'DELETE', data, setState);
-    }
+    }, []);
 
-    const onResetFetchState = () => {
+    const connectServer = useCallback(async () => {
+        await fetchSniffNearApi('connect', 'GET', {}, setState);
+    }, []);
+
+    const onResetFetchState = useCallback(() => {
         setState({
             data: null,
             isLoading: false,
             error: null
         });
-    }
+    }, []);
 
     return {
         data: state.data,
@@ -53,6 +57,7 @@ export const useFetchSniffNearApi =  ( endpint, method, data ) => {
         create,
         deleteDocument,
         onResetFetchState,
+        connectServer,
     }
 
 

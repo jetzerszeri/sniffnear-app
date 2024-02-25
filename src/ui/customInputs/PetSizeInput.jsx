@@ -12,7 +12,7 @@ export const PetSizeInput = ( { name='size', changeFunction, sizeValue, required
         if (checkErrors){
             onRequieredInput( required, name, sizeValue, setErrors );   
         }
-    }, [ checkErrors ]);
+    }, [ checkErrors, required, name, sizeValue, setErrors ]);
 
     const onPetSizeClick = (e) => {
         setPetSize(e.currentTarget.getAttribute('datavalue'));

@@ -12,7 +12,7 @@ export const AccountEditPage = () => {
   const navigate = useNavigate();
   const { user, login } = useContext( AuthContext );
   const [ isEdited, setIsEdited ] = useState( false );
-  const { name, email, errors, checkErrors, formState, setErrors, setCheckErrors, onInputChange } = useForm({
+  const { name, email, errors, checkErrors, setErrors, setCheckErrors, onInputChange } = useForm({
     name: user.name,
     email: user.email,
     profileImg: user.profileImg,
@@ -28,17 +28,17 @@ export const AccountEditPage = () => {
     } else {
       setIsEdited( false );
     }
-  }, [ formState, imageSelected ]);
+  }, [ user.name, name, user.email, email, user.profileImg, imageSelected ]);
 
   
-  useEffect(() => { if ( user.profileImg ) { setCurrentImg( user.profileImg );}}, []);
+  useEffect(() => { if ( user.profileImg ) { setCurrentImg( user.profileImg );}}, [ setCurrentImg, user.profileImg ]);
 
   useEffect(() => {
     if ( data && data.user ) {
       login( data.user._id, data.user.name, data.user.email, data.user.profileImg );
       navigate(-1);
     }
-  }, [ data ]);
+  }, [ data, login, navigate ]);
 
 
   useEffect(() => {
@@ -54,7 +54,7 @@ export const AccountEditPage = () => {
     if (error) {
         setErrors({ credentials: `${error}*`});
     }
-  }, [ error ]);
+  }, [ error, setErrors ]);
 
 
 

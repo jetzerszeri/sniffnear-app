@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { useFetchSniffNearApi, useForm } from "../../hooks"
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
@@ -21,7 +21,7 @@ export const LoginForm = () => {
         if (error) {
             setErrors({ credentials: `${error}*`});
         }
-    }, [ error ]);
+    }, [ error, setErrors ]);
 
     useEffect(() => {
         if (data && data.user) {
@@ -37,7 +37,7 @@ export const LoginForm = () => {
         e.preventDefault();
         setCheckErrors( true );
 
-        if ( email === '' || Object.keys(errors).length > 0){
+        if ( email === '' || password === ''){
             return
         }
 

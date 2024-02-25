@@ -11,7 +11,7 @@ export const PetBreedInput = ( { nameSelect = 'breedType', breedTypeValue, breed
         if (checkErrors){
         onRequieredInput( required, nameSelect, breedTypeValue, setErrors );
         }
-    }, [ checkErrors ]);
+    }, [ checkErrors, breedTypeValue, required, nameSelect, setErrors ]);
 
     useEffect(() => {
         if (breedTypeValue !== '' && breedTypeValue !== 'desconocido'){
@@ -27,7 +27,7 @@ export const PetBreedInput = ( { nameSelect = 'breedType', breedTypeValue, breed
         //     onRequieredInput( required, breedName, breedValue, setErrors );
         // }
 
-    }, [breedTypeValue]);
+    }, [ breedTypeValue, breedName, errors, required, setErrors ]);
 
     const onBlur = () => {
         onRequieredInput( required, nameSelect, breedTypeValue, setErrors );

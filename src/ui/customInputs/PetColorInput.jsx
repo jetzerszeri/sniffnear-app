@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { onRequieredInput } from '../../sniffNear/helpers';
 
 export const PetColorInput = ( { color1Name = 'color1', color1value, changeFunction, required = false, errors, checkErrors, setErrors }) => {
 
     const error = errors[color1Name];
-    const [ petColor1, setPetColor1 ] = useState('');
 
     const colors = ["blanco", "negro", "gris", "marrón", "naranja", "otro"];
 
@@ -12,10 +11,9 @@ export const PetColorInput = ( { color1Name = 'color1', color1value, changeFunct
         if (checkErrors){
             onRequieredInput( required, color1Name, color1value, setErrors );
         }
-    }, [ checkErrors ]);
+    }, [ checkErrors, required, color1Name, color1value, setErrors ]);
 
     const onPetColorClick = (e) => {
-        setPetColor1(e.currentTarget.getAttribute('datavalue'));
         changeFunction(color1Name, e.currentTarget.getAttribute('datavalue'));
 
         if (error){

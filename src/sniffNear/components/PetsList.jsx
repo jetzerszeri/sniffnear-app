@@ -17,13 +17,13 @@ export const PetsList = () => {
 
     useEffect(() => {
         getData(`users/${user.id}`);
-    }, [  ])
+    }, [ getData, user.id])
     
     useEffect(() => {
 
         if ( data ) {
             setPets(data.pets);
-            console.log(data);
+            // console.log(data);
         }
 
     }, [ data ])

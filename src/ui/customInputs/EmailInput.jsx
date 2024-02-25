@@ -1,11 +1,11 @@
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 
 
 export const EmailInput = ( { name = 'email', value, onChangeFunction, errors, required = false, setErrors, checkErrors } ) => {
 
     let error = errors[name];
 
-    const onRequired = () => {
+    const onRequired = useCallback(() => {
         if (required && value.trim().length === 0){
             setErrors( (prevErrors) => {
                 return {
@@ -21,7 +21,7 @@ export const EmailInput = ( { name = 'email', value, onChangeFunction, errors, r
                 }
             })
         }
-    }
+    }, [ required, value, name, setErrors ]);
 
     const onInputChange = () => {
 
@@ -40,7 +40,7 @@ export const EmailInput = ( { name = 'email', value, onChangeFunction, errors, r
         if (checkErrors){
             onRequired();
         }
-    }, [checkErrors])
+    }, [ checkErrors, onRequired ])
     
 
     return (

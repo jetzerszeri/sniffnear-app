@@ -9,7 +9,7 @@ export const DateInput = ( { name, value, label, onChangeFunction, required = fa
         if (checkErrors){
             onRequieredInput( required, name, value, setErrors );
         }
-    }, [ checkErrors ])
+    }, [ checkErrors, required, name, value, setErrors ])
 
 
     const onBlur = () => {

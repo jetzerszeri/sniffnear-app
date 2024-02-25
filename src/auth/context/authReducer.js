@@ -36,6 +36,12 @@ export const authReducer = (state = {}, action ) => {
                 ...state,
                 coords: action.payload,
             };
+
+        case types.setAddress:
+            return {
+                ...state,
+                address: action.payload,
+            };
         
         default:
             return state;

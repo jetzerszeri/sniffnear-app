@@ -6,16 +6,16 @@ import { AuthContext } from '../auth/context';
 
 export const SplashScreen = ( { toggle } ) => {
   
-  const { coords } = useContext( AuthContext );
+  const { coords, address } = useContext( AuthContext );
   const { connectServer } = useFetchSniffNearApi();
-  useUserLocation( true);
+  useUserLocation( true );
 
   useEffect(() => {
     const connected = connectServer();
-    if(connected && coords){
+    if(connected && coords && address){
       toggle(false);
     }
-  }, [ connectServer, coords, toggle ]);
+  }, [ connectServer, coords, toggle, address ]);
 
 
 

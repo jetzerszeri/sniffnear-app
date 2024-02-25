@@ -71,6 +71,14 @@ export const AuthProvider = ( { children } ) => {
         authDispatch( action );
     }, []);
 
+    const setUserAddress = useCallback(( address ) => {
+        const action = {
+            type: types.setAddress,
+            payload: address
+        }
+        authDispatch( action );
+    }, []);
+
 
 
     return (
@@ -81,6 +89,7 @@ export const AuthProvider = ( { children } ) => {
             singup,
             editPet,
             setUserCoords,
+            setUserAddress,
         }}>
             { children }
         </AuthContext.Provider>

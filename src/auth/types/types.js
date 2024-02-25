@@ -4,4 +4,5 @@ export const types = {
     singup: '[auth] singup',
     editPet: '[auth] editPet',
     setCoords: '[auth] setCoords',
+    setAddress: '[auth] setAddress',
 }

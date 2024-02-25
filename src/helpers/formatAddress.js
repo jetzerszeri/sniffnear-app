@@ -33,8 +33,8 @@ export const formatAddress = ( lat, lng, setter ) => {
         {}
         );
 
-        console.log(city, state, country);
-        console.log(address);
+        // console.log(city, state, country);
+        // console.log(address);
         setter({ city, state, country, full: address });
     })
     .catch( error => {

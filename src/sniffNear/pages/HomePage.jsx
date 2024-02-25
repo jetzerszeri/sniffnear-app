@@ -4,14 +4,12 @@ import { WelcomeCard } from '../components/WelcomeCard';
 import { WelcomeCardNoUserLogged } from '../components/WelcomeCardNoUserLogged';
 import { AuthContext } from '../../auth/context';
 import { BottomNav } from '../components';
-import { useUserLocation } from '../../hooks';
 
 
 export const HomePage = () => {
 
   const { isLogged } = useContext(AuthContext);
   const rightIcon = {display: true, icon: "bi-person-fill", link: "/account"};
-  useUserLocation();
 
   return (
     <>

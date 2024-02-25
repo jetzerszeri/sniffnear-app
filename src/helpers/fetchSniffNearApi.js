@@ -5,7 +5,9 @@ export const fetchSniffNearApi = async ( endpint, method, data, setState ) => {
 
         let response;
 
-        if ( method === 'GET' ) {
+        if ( endpint === 'connect'){
+            response = await fetch(`https://sniffnear-api.onrender.com/`);
+        } else if ( method === 'GET' ) {
             response = await fetch(`https://sniffnear-api.onrender.com/api/${endpint}`);
         } else {
             response = await fetch(`https://sniffnear-api.onrender.com/api/${endpint}`, {

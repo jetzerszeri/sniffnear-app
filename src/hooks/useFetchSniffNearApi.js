@@ -35,6 +35,7 @@ export const useFetchSniffNearApi =  ( endpint, method, data ) => {
 
     const connectServer = useCallback(async () => {
         await fetchSniffNearApi('connect', 'GET', {}, setState);
+        return true;
     }, []);
 
     const onResetFetchState = useCallback(() => {

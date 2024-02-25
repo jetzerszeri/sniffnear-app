@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { AuthProvider } from "./auth/context"
 import { useFetchSniffNearApi } from "./hooks"
 import { AppRouter } from "./router/AppRouter"
@@ -7,19 +7,22 @@ import { SplashScreen } from "./ui";
 
 export const SniffNearApp = () => {
 
-  const { isLoading, connectServer } = useFetchSniffNearApi();
+  const { connectServer } = useFetchSniffNearApi();
+  const [ displaySC, setDisplaySC ] = useState( true );
 
   useEffect(() => {
-    connectServer();
-  }, [ connectServer ])
+    const connected = connectServer();
+    if(connected){ setTimeout(() => {
+        setDisplaySC(false);
+      }, 2000); }
+  }, [ connectServer ]);
+
+  
 
 
   return (
     <AuthProvider>
-        {
-          isLoading &&
-          <SplashScreen />
-        }
+        { displaySC && <SplashScreen /> }
         <AppRouter />
     </AuthProvider>
   )

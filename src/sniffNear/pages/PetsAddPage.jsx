@@ -4,7 +4,7 @@ import { NavBar, PetFormPart1, PetFormPart2, PetFormPart3 } from '../components'
 import { useMultiSteps } from '../hooks';
 import { MultiStepsIndicator } from '../../ui/MultiStepsIndicator';
 import { useForm } from '../../hooks/useForm';
-import { useFetchSniffNearApi } from '../../hooks';
+import { useFetchSniffNearApi, usePreviewAndUploadImg } from '../../hooks';
 import { AuthContext } from '../../auth/context';
 import { Loader, Modal } from '../../ui';
 import { RegisterForm } from '../../auth/components/RegisterForm';
@@ -27,32 +27,66 @@ export const PetsAddPage = () => {
     });
     const { data, isLoading, error, create, onResetFetchState } = useFetchSniffNearApi();
     const [ prevBtnLabel, setPrevBtnLabel ] = useState( 'Cancelar' );
-    const [ isImg, setIsImg ] = useState( false );
-    const [ uploadImg, setUploadImg ] = useState( false )
+    // const [ isImg, setIsImg ] = useState( false );
+    // const [ uploadImg, setUploadImg ] = useState( false );
+    const { imageSelected, uploadStatus, setImgFile, resetImg, uploadImg, imgFile } = usePreviewAndUploadImg();
     
+
+
     const navigate = useNavigate();
 
     useEffect(() => {
         currentStep === 1 ? setPrevBtnLabel('Cancelar') : setPrevBtnLabel('Anterior');
     }, [ currentStep ]);
 
+    useEffect(() => {
+        if (!user?.id) {
+            setAddPetStepTotal(4);
+        }
+    }, [])
+    // if (!user?.id) {
+    //     setAddPetStepTotal(4);
+    // }
+    
+
 
     useEffect(() => {
-        
-        if (formState.img) {
+
+        if (totalSteps === 3 && formState.img) {
         // console.log('img:', formState.img);
-        // console.log('guardando imagen y creando perfil')
-        createPetProfile();
+            console.log('guardando imagen y creando perfil')
+            createPetProfile();
+        } 
+        
+        // if (totalSteps === 4 && user?.id) {
+        //     console.log('guardando imagen - totalSteps === 4 && user?.id');
+
+        //     uploadPetImgAndSetLink();
+        // } 
+        else if ( totalSteps === 4 && user?.id && formState.img) {
+            createPetProfile();
+            console.log('estoy en totalSteps === 4 && user?.id y formState.img, en teoría ya se subió la imagen y se creó el perfil de la mascota');
         }
     
-    }, [ formState.img ]);
+    }, [ formState.img, user ]);
 
-    useEffect(() => {
-        if (data){
-            // console.log(data)
-            // console.log('se creo el perfil de la mascota, hay que redireccionar usuario');
-        }
-    }, [data])
+
+
+
+    // useEffect(() => {
+
+
+    // }, [third]);
+    
+
+
+
+    // useEffect(() => {
+    //     if (data){
+    //         // console.log(data)
+    //         // console.log('se creo el perfil de la mascota, hay que redireccionar usuario');
+    //     }
+    // }, [data])
 
     useEffect(() => {
         if (error) {
@@ -94,12 +128,23 @@ export const PetsAddPage = () => {
                 nextStep();
             }
         } else if (currentStep === 3) {
-            if (isImg) {
-                setUploadImg(true);
-            } else {
-                createPetProfile();
+            if ( totalSteps === 3 ) {
+                if (imageSelected) {
+                    // setUploadImg(true);
+                    uploadPetImgAndSetLink( user.id );
+                } else {
+                    createPetProfile();
+                }
             }
-        }
+
+            if ( totalSteps === 4 ) {
+                if ( imgFile === null ){
+                    console.log('no hay imagen');
+                    return;
+                }
+                nextStep();
+            }
+        } 
     }
     
 
@@ -119,6 +164,14 @@ export const PetsAddPage = () => {
     }
 
 
+    const uploadPetImgAndSetLink = async ( idUsuario ) => {
+        // console.log('subiendo imagen...');
+        const link = await uploadImg( 'pets/avatars/', `${idUsuario}-${name}` );
+        setManualValue( 'img', link );
+        // console.log('se subio la imagen - link:', link);
+    }
+
+
 
 
     return (
@@ -128,7 +181,8 @@ export const PetsAddPage = () => {
 
                 <MultiStepsIndicator total={totalSteps} current={currentStep} />
 
-                <form className='multiSteps' onSubmit={ onSubmit }>
+                
+                <form className={ currentStep < 4 ? 'multiSteps' : ''} onSubmit={ onSubmit }>
 
                     {
                         currentStep === 1 
@@ -163,10 +217,14 @@ export const PetsAddPage = () => {
                         currentStep === 3 
                         && <PetFormPart3
                             bySteps={ true }
-                            setIsImg={ setIsImg }
-                            uploadImgIndicator={ uploadImg }
-                            petName={ name }
-                            setImgLink={ setManualValue }
+                            // setIsImg={ setIsImg }
+                            // uploadImgIndicator={ uploadImg }
+                            // petName={ name }
+                            // setImgLink={ setManualValue }
+                            imageSelected={ imageSelected } 
+                            setImgFile={ setImgFile } 
+                            resetImg={ resetImg }
+                            uploadStatus={ uploadStatus }
                         />
                     }
 
@@ -198,7 +256,12 @@ export const PetsAddPage = () => {
                     currentStep === 4 
                     && <>
                         <h2>Por último, registrate o iniciá sesión para vincular el perfil de tu mascota con tu cuenta.</h2>
-                        <RegisterForm authFlow={false} label={`Registrarme y crear perfil de ${name}`} onPrevFunction={ onPrevius }/>
+                        <RegisterForm 
+                            authFlow={false} 
+                            label={`Registrarme y crear perfil de ${name}`} 
+                            onPrevFunction={ onPrevius }
+                            onNextFunction={ uploadPetImgAndSetLink }
+                        />
                     </>
                 }
 
@@ -219,6 +282,9 @@ export const PetsAddPage = () => {
                 }
 
 
+                <button onClick={() => {console.log(user)}}>
+                    ver user
+                </button>
             </main>
         </>
     )

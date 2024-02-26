@@ -7,7 +7,7 @@ import { PasswordInput, TextInput } from "../../ui/customInputs";
 import { EmailInput } from "../../ui/customInputs";
 
 
-export const RegisterForm = ( { accountStatus, authFlow = true, label = 'Registrarme', onPrevFunction} ) => {
+export const RegisterForm = ( { accountStatus, authFlow = true, label = 'Registrarme', onPrevFunction, onNextFunction} ) => {
 
     const { onInputChange, name, email, password, validatePassword, errors, setErrors, checkErrors, setCheckErrors } = useForm({
         name: '',
@@ -15,19 +15,30 @@ export const RegisterForm = ( { accountStatus, authFlow = true, label = 'Registr
         password: '',
         validatePassword: '',
     })
-    const { singup } = useContext( AuthContext );
+    const { singup, login, isLogged } = useContext( AuthContext );
     const { data, isLoading, error, createUser } = useFetchSniffNearApi();
 
     useEffect(() => {
-        if (data && data.user) {
+        if (data && data.user && !isLogged) {
+            console.log('entré al data')
             const user = data.user;
-            singup( user._id, user.name, user.email, user.profileImg );
+
+            if ( authFlow) {
+                console.log('entré para singup al usuario')
+                singup( user._id, user.name, user.email, user.profileImg );
+            } else {
+                login( user._id, user.name, user.email);
+                console.log('se loggeò al usuario')
+                onNextFunction && onNextFunction(user._id);
+            }
 
             if (accountStatus){
              accountStatus( { created: true } );
             }    
+        } else {
+            console.log('la condicion del use effect no se cumplió')
         }
-    }, [ data, singup, accountStatus ]);
+    }, [ data, singup, accountStatus, authFlow, login, isLogged]);
 
     useEffect(() => {
         if (error) {
@@ -45,6 +56,7 @@ export const RegisterForm = ( { accountStatus, authFlow = true, label = 'Registr
         };
 
         createUser({ email, password, name });
+
     }
 
 

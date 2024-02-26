@@ -7,11 +7,13 @@ import { useForm } from '../../hooks/useForm';
 import { useFetchSniffNearApi } from '../../hooks';
 import { AuthContext } from '../../auth/context';
 import { Loader, Modal } from '../../ui';
+import { RegisterForm } from '../../auth/components/RegisterForm';
 
 export const PetsAddPage = () => {
 
     const { user } = useContext( AuthContext );
-    const { currentStep, totalSteps, maxStepReached, nextStep, prevStep, onResetSteps} = useMultiSteps(3);
+    const [ addPetStepTotal, setAddPetStepTotal ] = useState(3);
+    const { currentStep, totalSteps, maxStepReached, nextStep, prevStep, onResetSteps} = useMultiSteps(addPetStepTotal);
     const { type, name, birthdate, breedType, breed, sex, size, color1, errors, checkErrors, formState, setErrors, setCheckErrors, onInputChange, setManualValue, onResetForm } = useForm({
         type: '',
         name: '',
@@ -169,8 +171,7 @@ export const PetsAddPage = () => {
                     }
 
 
-
-
+                    { currentStep < 4 &&
                     <div className='actions'>
                         <button 
                             className='btn secundary'
@@ -189,9 +190,22 @@ export const PetsAddPage = () => {
                                 </button>
                         }
                     </div>
-
-
+                    }
+                    
                 </form>
+
+                {
+                    currentStep === 4 
+                    && <>
+                        <h2>Por último, registrate o iniciá sesión para vincular el perfil de tu mascota con tu cuenta.</h2>
+                        <RegisterForm authFlow={false} label={`Registrarme y crear perfil de ${name}`} onPrevFunction={ onPrevius }/>
+                    </>
+                }
+
+
+
+
+
 
                 {
                     isLoading && <Loader label='Creando perfil' />

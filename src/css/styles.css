@@ -681,7 +681,7 @@ transform-origin: left;
     justify-content: space-between;
 
 }
-.plusOptions > div a{
+.plusOptions > div a, .plusOption{
     flex: 1;
     text-align: center;
     display: flex;
@@ -695,7 +695,7 @@ transform-origin: left;
     transition: all 0.2s ease;
 }
 
-.plusOptions > div a:hover{
+.plusOptions > div a:hover, .plusOption:hover{
     background-color: var(--color-green-background);
 }
 
@@ -717,6 +717,7 @@ main{
 main.fullHeight{
     min-height: 90vh;
     padding: 20px;
+    gap: 5px;
 }
 
 main h1, main h2, h3{
@@ -1457,3 +1458,18 @@ svg{
     transition: all 0.2s ease;
 }
 
+.alerts .petsList{
+    /* margin-bottom: 20px; */
+}
+
+.alerts .petsList + div{
+    /* font-size: 0.em; */
+    color: var(--color-neutral-50);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.alerts .petsList + div .plusOption svg{
+    height: 40px !important;
+}

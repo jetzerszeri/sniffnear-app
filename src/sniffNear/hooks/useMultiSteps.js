@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 
-export const useMultiSteps = ( totalSteps = 2 ) => {
+export const useMultiSteps = ( total = 2 ) => {
 
-    const [currentStep, setCurrentStep] = useState(1)
-    const [maxStepReached, setMaxStepReached] = useState(1)
+    const [currentStep, setCurrentStep] = useState(1);
+    const [maxStepReached, setMaxStepReached] = useState(1);
+    const [totalSteps, setTotalSteps] = useState( total );
 
     const nextStep = () => {
         if (currentStep < totalSteps){
@@ -27,6 +28,10 @@ export const useMultiSteps = ( totalSteps = 2 ) => {
             setMaxStepReached(currentStep);
         }
     }, [ currentStep, maxStepReached ]);
+
+    useEffect(() => {
+        setTotalSteps( total );
+    }, [ total ]);
     
 
 

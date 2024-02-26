@@ -24,21 +24,17 @@ export const RegisterForm = ( { accountStatus, authFlow = true, label = 'Registr
             const user = data.user;
 
             if ( authFlow) {
-                console.log('entré para singup al usuario')
                 singup( user._id, user.name, user.email, user.profileImg );
             } else {
                 login( user._id, user.name, user.email);
-                console.log('se loggeò al usuario')
                 onNextFunction && onNextFunction(user._id);
             }
 
             if (accountStatus){
              accountStatus( { created: true } );
             }    
-        } else {
-            console.log('la condicion del use effect no se cumplió')
-        }
-    }, [ data, singup, accountStatus, authFlow, login, isLogged]);
+        } 
+    }, [ data, singup, accountStatus, authFlow, login, isLogged, onNextFunction ]);
 
     useEffect(() => {
         if (error) {

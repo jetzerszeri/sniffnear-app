@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { NavBar, PetFormPart1, PetFormPart2, PetFormPart3 } from '../components';
 import { useMultiSteps } from '../hooks';
@@ -27,6 +27,7 @@ export const PetsAddPage = () => {
     });
     const { data, isLoading, error, create, onResetFetchState } = useFetchSniffNearApi();
     const [ prevBtnLabel, setPrevBtnLabel ] = useState( 'Cancelar' );
+    
     // const [ isImg, setIsImg ] = useState( false );
     // const [ uploadImg, setUploadImg ] = useState( false );
     const { imageSelected, uploadStatus, setImgFile, resetImg, uploadImg, imgFile } = usePreviewAndUploadImg();
@@ -40,13 +41,19 @@ export const PetsAddPage = () => {
     }, [ currentStep ]);
 
     useEffect(() => {
-        if (!user?.id) {
+        if (!user?.id && totalSteps === 3) {
             setAddPetStepTotal(4);
         }
-    }, [])
-    // if (!user?.id) {
-    //     setAddPetStepTotal(4);
-    // }
+    }, [user?.id, totalSteps])
+
+    const createPetProfile = useCallback((formState, userId) => {
+        const petData = {
+            ...formState,
+            owner: userId
+        }
+        create('pets', petData);
+    }, [create]);
+
     
 
 
@@ -55,7 +62,7 @@ export const PetsAddPage = () => {
         if (totalSteps === 3 && formState.img) {
         // console.log('img:', formState.img);
             console.log('guardando imagen y creando perfil')
-            createPetProfile();
+            createPetProfile( formState, user.id );
         } 
         
         // if (totalSteps === 4 && user?.id) {
@@ -64,11 +71,11 @@ export const PetsAddPage = () => {
         //     uploadPetImgAndSetLink();
         // } 
         else if ( totalSteps === 4 && user?.id && formState.img) {
-            createPetProfile();
+            createPetProfile( formState, user.id );
             console.log('estoy en totalSteps === 4 && user?.id y formState.img, en teoría ya se subió la imagen y se creó el perfil de la mascota');
         }
     
-    }, [ formState.img, user ]);
+    }, [ formState, user, totalSteps, createPetProfile ]);
 
 
 
@@ -106,13 +113,6 @@ export const PetsAddPage = () => {
         }
     };
 
-    const createPetProfile = () => {
-        const petData = {
-            ...formState,
-            owner: user.id
-        }
-        create('pets', petData);
-    }
 
 
     const onNext = () => {
@@ -133,7 +133,7 @@ export const PetsAddPage = () => {
                     // setUploadImg(true);
                     uploadPetImgAndSetLink( user.id );
                 } else {
-                    createPetProfile();
+                    createPetProfile( formState, user.id );
                 }
             }
 

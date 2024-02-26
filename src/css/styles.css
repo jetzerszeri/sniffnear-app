@@ -1386,3 +1386,11 @@ h3{
     margin: -20px auto;
     scale: 0.3;
 }
+
+
+
+/* estilos del mapa */
+.map{
+    height: 88vh;
+    width: 100%;
+}

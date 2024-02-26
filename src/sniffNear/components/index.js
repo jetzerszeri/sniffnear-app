@@ -9,3 +9,4 @@ export * from './PetFormPart1';
 export * from './PetFormPart2';
 export * from './PetFormPart3';
 export * from './PetProfile';
+export * from './MapSniffNear';

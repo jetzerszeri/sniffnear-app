@@ -21,7 +21,10 @@ export const MapSniffNear = ( { position } ) => {
             >
                 <AdvancedMarker
                     position={ position }
+                    draggable={ true }
                 >
+
+                    <img src='/img/sniffnearmarkergreen.png' alt="marcador" className='marker' />
                     
 
                 </AdvancedMarker>

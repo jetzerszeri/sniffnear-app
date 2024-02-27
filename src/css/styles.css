@@ -1496,3 +1496,7 @@ svg{
 .alerts .petsList + div .plusOption svg{
     height: 40px !important;
 }
+
+.alertFormCard img{
+    height: 100px;
+}

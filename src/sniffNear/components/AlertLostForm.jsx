@@ -9,6 +9,7 @@ import { AlertLostFormPart1 } from './AlertLostFormPart1';
 import { AlertLostFormPart2 } from './AlertLostFormPart2';
 import { useFetchSniffNearApi, useForm, usePreviewAndUploadImg } from '../../hooks';
 import { getCurrentDate } from '../helpers';
+import { AlertFormVerification } from './AlertFormVerification';
 import { AlertLostFormImgStep } from './AlertLostFormImgStep';
 
 export const AlertLostForm = () => {
@@ -40,6 +41,7 @@ export const AlertLostForm = () => {
         state:'',
         city:'',
         country:'',
+        pet: '',
     })
     const { imageSelected, uploadStatus, setImgFile, resetImg, uploadImg, setCurrentImg } = usePreviewAndUploadImg();
 
@@ -80,6 +82,7 @@ export const AlertLostForm = () => {
                 city: address?.city,
                 country: address?.country,
                 creator: user._id,
+                pet: data.pet._id,
             });
         }
     }, [ data, setFormState, user, coords, address ]);
@@ -135,6 +138,15 @@ export const AlertLostForm = () => {
                 />
             }
 
+            {
+                currentStep === 4 &&
+                <AlertFormVerification  
+                    data={formState}
+                    img={imageSelected}
+                    nextStep={nextStep}
+                    prevStep={prevStep}
+                />
+            }
             
 
 

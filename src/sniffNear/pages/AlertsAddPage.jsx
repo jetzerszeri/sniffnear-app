@@ -1,4 +1,3 @@
-import React from 'react';
 import { AlertLostForm, AlertTypeSelector, NavBar } from '../components';
 import queryString from 'query-string';
 import { Link, useLocation } from 'react-router-dom';

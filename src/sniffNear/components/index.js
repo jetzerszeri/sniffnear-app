@@ -11,4 +11,5 @@ export * from './PetFormPart3';
 export * from './PetProfile';
 export * from './MapSniffNear';
 export * from './AlertTypeSelector';
-export * from './AlertLostForm';
+export * from './AlertLostForm';export * from './AlertLostFormPart1';
+export * from './AlertLostFormPart2';

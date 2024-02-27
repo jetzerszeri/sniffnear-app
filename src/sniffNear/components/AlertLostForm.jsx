@@ -86,23 +86,23 @@ export const AlertLostForm = () => {
 
 
             if ( !formState.latitude && !formState.longitude ){
-                setFormState({
-                    ...formState,
+                setFormState((prevState) => ({
+                    ...prevState,
                     ...petData,
                     latitude: coords?.lat,
                     longitude: coords?.lng,
-                });
+                }));
             } else {
-                setFormState({
-                    ...formState,
+                setFormState((prevState) => ({
+                    ...prevState,
                     ...petData
-                });
+                }));
             }
 
         }
 
 
-    }, [ data, setFormState, user, coords, address ]);
+    }, [ data, setFormState, user, coords, address, formState.latitude, formState.longitude]);
 
     // useEffect(() => {
     //     if ( formState.latitude = '' && formState.longitude === '' ) {

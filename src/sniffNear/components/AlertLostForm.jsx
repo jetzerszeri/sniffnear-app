@@ -7,8 +7,9 @@ import queryString from 'query-string';
 import { AuthContext } from '../../auth/context';
 import { AlertLostFormPart1 } from './AlertLostFormPart1';
 import { AlertLostFormPart2 } from './AlertLostFormPart2';
-import { useFetchSniffNearApi, useForm } from '../../hooks';
+import { useFetchSniffNearApi, useForm, usePreviewAndUploadImg } from '../../hooks';
 import { getCurrentDate } from '../helpers';
+import { AlertLostFormImgStep } from './AlertLostFormImgStep';
 
 export const AlertLostForm = () => {
 
@@ -35,11 +36,12 @@ export const AlertLostForm = () => {
         email: '',
         alertType: 'perdido',
         sex: '',
-        creator: user.id,
+        creator: '',
         state:'',
         city:'',
         country:'',
     })
+    const { imageSelected, uploadStatus, setImgFile, resetImg, uploadImg, setCurrentImg } = usePreviewAndUploadImg();
 
 
     useEffect(() => {
@@ -77,9 +79,16 @@ export const AlertLostForm = () => {
                 state: address?.state,
                 city: address?.city,
                 country: address?.country,
+                creator: user._id,
             });
         }
-    }, [ data, setFormState, user, coords, address ])
+    }, [ data, setFormState, user, coords, address ]);
+
+    useEffect(() => {
+        if ( !imageSelected  ) {
+            data?.pet.img && setCurrentImg( data.pet.img );
+        }
+    }, [ data, setCurrentImg, ])
     
     
 
@@ -113,6 +122,19 @@ export const AlertLostForm = () => {
                     prevStep={prevStep}
                 />
             }
+
+            {
+                currentStep === 3 &&
+                <AlertLostFormImgStep  
+                    data={formState}
+                    nextStep={nextStep}
+                    prevStep={prevStep}
+                    imageSelected={ imageSelected } 
+                    setImgFile={ setImgFile } 
+                    resetImg={ resetImg }
+                />
+            }
+
             
 
 

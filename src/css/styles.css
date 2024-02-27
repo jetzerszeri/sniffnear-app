@@ -328,6 +328,10 @@ form .btn{
     text-align: left;
 }
 
+.errorInput.center{
+    text-align: center;
+}
+
 /* mostrar y ocultar contraseña */
 .pswdInput {
     display: flex;

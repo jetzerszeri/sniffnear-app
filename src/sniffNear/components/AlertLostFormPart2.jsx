@@ -1,13 +1,26 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { MapSniffNear } from './MapSniffNear';
 import { DateInput, TextAreaInput, TimeInput } from '../../ui';
 import { AuthContext } from '../../auth/context';
 import { useNavigate } from 'react-router-dom';
 
-export const AlertLostFormPart2 = ( {onInputChange, errors, setErrors, checkErrors, formState, setCheckErrors, nextStep, prevStep} ) => {
+export const AlertLostFormPart2 = ( {onInputChange, errors, setErrors, checkErrors, formState, setCheckErrors, nextStep, prevStep, updateCoords} ) => {
     
-    const  { coords } = useContext( AuthContext );
+    const { coords } = useContext( AuthContext );
+    const [ position, setPosition ] = useState(null)
     const navigate = useNavigate();
+
+    useEffect(() => {
+
+        if ( formState.latitude  && formState.longitude ) {
+            setPosition({
+                lat: formState.latitude, lng: formState.longitude
+            });
+        } else {
+            setPosition(coords);
+        }
+    }, [ formState, setPosition, coords ])
+    
     
     // const [ position, setPosition ] = useState({ coords })
     const onNextStep = ( ) => {
@@ -25,8 +38,8 @@ export const AlertLostFormPart2 = ( {onInputChange, errors, setErrors, checkErro
 
             <div>
                 {
-                    coords &&
-                    <MapSniffNear position={coords} alertForm={true}/>
+                    position &&
+                    <MapSniffNear position={ position } alertForm={true} drag={true} formState={formState} updateCoords={updateCoords}/>
                 }
                 <p>Por favor arrastrá el marcador a la ubicación donde viste a tu mascota por última vez.</p>
             </div>

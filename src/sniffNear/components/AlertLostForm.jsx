@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import { useMultiSteps } from '../hooks';
 import { DogPawPrintIcon, Loader, MultiStepsIndicator } from '../../ui';
 import { PetsList } from './PetsList';
@@ -20,7 +20,7 @@ export const AlertLostForm = () => {
     // const [ userPetsCount, setUserPetsCount ] = useState(0);
     const { data, isLoading, error, getData } = useFetchSniffNearApi();
     const { currentStep, totalSteps, maxStepReached, nextStep, prevStep, onResetSteps} = useMultiSteps(4);
-    const { formState,  errors, checkErrors,  onInputChange, setFormState, setErrors, setCheckErrors} = useForm({
+    const { formState,  errors, checkErrors,  onInputChange, setFormState, setErrors, setCheckErrors, setManualValue} = useForm({
         petName: '',
         type: '',
         size: '',
@@ -28,8 +28,8 @@ export const AlertLostForm = () => {
         breed: '',
         breedType: '',
         description: '',
-        latitude: '',
-        longitude: '',
+        latitude: null,
+        longitude: null,
         date: getCurrentDate(),
         time: '',
         img: '',
@@ -63,17 +63,16 @@ export const AlertLostForm = () => {
 
 
     useEffect(() => {
-        if ( data  ) {
-            setFormState({
-                ...formState,
+        if ( data ){
+            const petData = {
                 petName: data.pet.name,
                 type: data.pet.type,
                 size: data.pet.size,
                 color1: data.pet.color1,
                 breed: data.pet.breed,
                 breedType: data.pet.breedType,
-                latitude: coords?.lat,
-                longitude: coords?.lng,
+                // latitude: coords?.lat,
+                // longitude: coords?.lng,
                 img: data.pet.img,
                 personName: user.name,
                 email: user.email,
@@ -83,9 +82,34 @@ export const AlertLostForm = () => {
                 country: address?.country,
                 creator: user._id,
                 pet: data.pet._id,
-            });
+            }
+
+
+            if ( !formState.latitude && !formState.longitude ){
+                setFormState({
+                    ...formState,
+                    ...petData,
+                    latitude: coords?.lat,
+                    longitude: coords?.lng,
+                });
+            } else {
+                setFormState({
+                    ...formState,
+                    ...petData
+                });
+            }
+
         }
+
+
     }, [ data, setFormState, user, coords, address ]);
+
+    // useEffect(() => {
+    //     if ( formState.latitude = '' && formState.longitude === '' ) {
+    //         updateCoords( coords.lat, coords.lng );
+    //     }
+    // }, [formState, coords, setFormState])
+    
 
     useEffect(() => {
         if ( !imageSelected  ) {
@@ -98,6 +122,14 @@ export const AlertLostForm = () => {
     const onAlertFormSubmit = (e) => {
         e.preventDefault();
     }
+
+    const updateCoords = useCallback(( lat, lng ) => {
+        setFormState({
+            ...formState,
+            latitude: lat,
+            longitude: lng
+        });
+    }, [ formState, setFormState ]);
     
 
     
@@ -123,6 +155,7 @@ export const AlertLostForm = () => {
                     setCheckErrors={setCheckErrors}
                     nextStep={nextStep}
                     prevStep={prevStep}
+                    updateCoords={updateCoords}
                 />
             }
 

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 export const useMultiSteps = ( total = 2 ) => {
 
@@ -6,11 +6,11 @@ export const useMultiSteps = ( total = 2 ) => {
     const [maxStepReached, setMaxStepReached] = useState(1);
     const [totalSteps, setTotalSteps] = useState( total );
 
-    const nextStep = () => {
+    const nextStep = useCallback(() => {
         if (currentStep < totalSteps){
             setCurrentStep( currentStep + 1 );
         }
-    }
+    }, [ currentStep, totalSteps ]);
 
     const prevStep = () => {
         if (currentStep > 1){

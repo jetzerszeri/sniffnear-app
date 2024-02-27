@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     Map,
     AdvancedMarker,
@@ -6,15 +6,21 @@ import {
     InfoWindow,
   } from '@vis.gl/react-google-maps';
 
-export const MapSniffNear = ( { position } ) => {
+export const MapSniffNear = ( { position, alertForm = false } ) => {
 
     const googleMapId = process.env.REACT_APP_GOOGLE_MAP_SIFFNEAR_ID;
+    const [ zoom, setZoom ] = useState(15);
+
+    useEffect(() => {
+        alertForm && setZoom(18)
+    }, [alertForm])
+    
 
 
     return (
-        <div className='map'>
+        <div className={alertForm ? 'map alert' : 'map'}>
             <Map 
-                defaultZoom={15} 
+                defaultZoom={zoom} 
                 defaultCenter={position}
                 mapId={googleMapId}
                 disableDefaultUI={true}

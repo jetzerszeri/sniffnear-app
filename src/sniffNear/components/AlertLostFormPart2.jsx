@@ -1,13 +1,23 @@
-import React, { useState } from 'react';
+import { useContext, useState } from 'react';
 import { MapSniffNear } from './MapSniffNear';
 import { DateInput, TextAreaInput, TimeInput } from '../../ui';
+import { AuthContext } from '../../auth/context';
+import { useNavigate } from 'react-router-dom';
 
-export const AlertLostFormPart2 = ( {onInputChange, errors, setErrors, checkErrors, formState} ) => {
+export const AlertLostFormPart2 = ( {onInputChange, errors, setErrors, checkErrors, formState, setCheckErrors, nextStep, prevStep} ) => {
     
-    const [ position, setPosition ] = useState({
-        "lat": 35.2713052,
-        "lng": -80.9589791
-      })
+    const  { coords } = useContext( AuthContext );
+    const navigate = useNavigate();
+    
+    // const [ position, setPosition ] = useState({ coords })
+    const onNextStep = ( ) => {
+        if ( formState.date === '' || formState.time === '' || formState.description === '' ){
+            setCheckErrors(true);
+            return;
+        } else {
+            nextStep();
+        }
+    }
 
     return (
         <div className="alertLostPart2">
@@ -15,8 +25,8 @@ export const AlertLostFormPart2 = ( {onInputChange, errors, setErrors, checkErro
 
             <div>
                 {
-                    position &&
-                    <MapSniffNear position={position} alertForm={true}/>
+                    coords &&
+                    <MapSniffNear position={coords} alertForm={true}/>
                 }
                 <p>Por favor arrastrá el marcador a la ubicación donde viste a tu mascota por última vez.</p>
             </div>
@@ -56,7 +66,10 @@ export const AlertLostFormPart2 = ( {onInputChange, errors, setErrors, checkErro
                 checkErrors={ checkErrors }
             />
 
-
+            <div className='actions'>
+                <button className='btn secundary' type="buttton" onClick={ () => {navigate(-1) }}>Regresar</button>
+                <button className='btn' type="buttton" onClick={ onNextStep }>Continuar</button>
+            </div>
         </div>
     )
 }

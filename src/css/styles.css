@@ -1319,7 +1319,7 @@ h3{
     background-size: 100px ;
 }
 
-.petProfile .data .actions{
+.petProfile .data .actions, .actions{
     display: flex;
     /* justify-content: center; */
     flex-direction: column;

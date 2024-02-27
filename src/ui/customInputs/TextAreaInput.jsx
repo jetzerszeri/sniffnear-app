@@ -18,7 +18,7 @@ export const TextAreaInput = ( { name, value, placeholder, onChangeFunction, lab
     
 
     return (
-        <div className="inputContainer">
+    <div className="inputContainer">
         {
             label && <label htmlFor={ name }>{ label }</label>
         }

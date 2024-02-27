@@ -29,6 +29,7 @@ export const useForm = ( initialForm = {} ) => {
     const setCurrentValues = (values) => {
         setFormState( values );
     }
+    
 
     return {
         ...formState,
@@ -40,6 +41,7 @@ export const useForm = ( initialForm = {} ) => {
         setErrors,
         setCheckErrors,
         setManualValue,
-        setCurrentValues
+        setCurrentValues,
+        setFormState
     }
 }

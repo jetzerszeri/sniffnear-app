@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 export const AlertLostFormPart1 = ( ) => {
     return (
-        <div className="AlertLostPart1">
+        <div className="alertLostPart1">
             <h2>Seleccioná la mascota</h2>
             
             <PetsList forAlert={ true } />

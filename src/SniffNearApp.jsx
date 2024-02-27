@@ -12,7 +12,7 @@ export const SniffNearApp = () => {
 
   return (
     <AuthProvider>
-      {/* { displaySC && <SplashScreen  toggle={setDisplaySC}/> } */}
+      { displaySC && <SplashScreen  toggle={setDisplaySC}/> }
 
       <APIProvider apiKey={googleMapsApiKey}>
         <AppRouter />

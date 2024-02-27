@@ -112,10 +112,10 @@ export const AlertLostForm = () => {
     
 
     useEffect(() => {
-        if ( !imageSelected  ) {
+        if  ((!imageSelected && currentStep === 2) || (formState.pet !== petId && currentStep === 2)) {
             data?.pet.img && setCurrentImg( data.pet.img );
         }
-    }, [ data, setCurrentImg, ])
+    }, [ data, setCurrentImg, imageSelected, currentStep, formState.pet, petId ])
     
     
 

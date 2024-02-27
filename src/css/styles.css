@@ -1400,10 +1400,29 @@ h3{
     width: 100%;
 }
 
+
+
 .map .marker{
     width: 27px;
     height: 39px;
 }
+
+.map.alert{
+    height: 300px;
+    border-radius: 8px;
+    overflow: hidden;
+    /* box-shadow: 0px 0px 10px rgba(0,0,0,0.1); */
+    border: var(--color-neutral-20) 1px solid;
+}
+
+.map + p{
+    margin-top: 10px;
+    padding-left: 5px;
+    color: var(--color-neutral-50);
+}
+
+
+
 
 
 

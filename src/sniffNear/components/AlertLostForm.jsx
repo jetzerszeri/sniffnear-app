@@ -18,7 +18,7 @@ export const AlertLostForm = () => {
     // const [ userPetsCount, setUserPetsCount ] = useState(0);
     const { data, isLoading, error, getData } = useFetchSniffNearApi();
     const { currentStep, totalSteps, maxStepReached, nextStep, prevStep, onResetSteps} = useMultiSteps(4);
-    const { formState, onInputChange, setFormState } = useForm({
+    const { formState,  errors, checkErrors,  onInputChange, setFormState, setErrors, } = useForm({
         petName: '',
         type: '',
         size: '',
@@ -100,7 +100,7 @@ export const AlertLostForm = () => {
 
             {
                 currentStep === 2 &&
-                <AlertLostFormPart2 />
+                <AlertLostFormPart2 onInputChange={onInputChange} formState={formState} errors={errors} setErrors={setErrors} checkErrors={checkErrors} />
             }
             
 

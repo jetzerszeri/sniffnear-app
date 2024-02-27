@@ -9,3 +9,5 @@ export * from './PetBreedInput';
 export * from './PetSexInput';
 export * from './PetSizeInput';
 export * from './PetColorInput';
+export * from './TimeInput';
+export * from './TextAreaInput';

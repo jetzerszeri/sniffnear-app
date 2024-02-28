@@ -1543,17 +1543,14 @@ svg{
 .alertCard .h svg{
     height: 30px;
     width: 30px;
-    padding: 5px;
-    border-radius: 8px;
-    fill: var(--color-neutral-0);
 }
 
 .alertCard.perdido .h svg.alertIcon{
-    background-color: var(--color-oragne);
+    fill: var(--color-oragne);
 }
 
 .alertCard.encontrado .h svg{
-    background-color: var(--color-green-700);
+    fill: var(--color-green-700);
 }
 
 .alertCard .h h2{
@@ -1561,6 +1558,9 @@ svg{
     font-weight: 500;
     color: var(--color-darkblue);
 }
+.alertCard .h h2::first-letter, .alertCard p::first-letter{
+    text-transform: uppercase;
+  }
 /* 
 .alertCard1 .h + div{
 
@@ -1592,6 +1592,9 @@ svg{
 
 .alertCard .h + div > div{
     flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .alertCard .actions{

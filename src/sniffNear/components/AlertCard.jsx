@@ -12,7 +12,7 @@ export const AlertCard = ( { data } ) => {
                 { alertType === 'perdido' ? <AlertIcon /> : <FoundIcon /> }
                     <div>
                         <h2>{ type } { alertType }</h2>
-                        <p><i className="bi bi-geo-alt"></i>
+                        <p><i className="bi bi-geo-alt"> </i>
                             {
                                 alertType === 'perdido'
                                 ? `Visto por última vez en ${city}`
@@ -29,8 +29,10 @@ export const AlertCard = ( { data } ) => {
 
                 <div>
                     {/* <p>Maltese | Color café, tamaño mediano.</p> */}
-                    <p>{ breed ? `${breedType} ${breed} | color ${color1}, tamaño ${size}` : `color ${color1}, tamaño ${size}` }</p>
-                    <p>{ description }</p>
+                    <div>
+                        <p>{ breed ? `${breedType} ${breed} | Color ${color1}, tamaño ${size}` : `color ${color1}, tamaño ${size}` }</p>
+                        <p>{ description }</p>
+                    </div>
                     <div className='actions'>
                         <Link to={`/alerts/${_id}`} className='btn small secundary'>Ver más</Link>
                     </div>

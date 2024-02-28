@@ -8,7 +8,7 @@ export const AlertsAddPage = () => {
     const location = useLocation();
 
     const { type = '' } = queryString.parse( location.search );
-    console.log(type);
+    // console.log(type);
 
 
     return (

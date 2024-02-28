@@ -1,7 +1,7 @@
 import React from 'react';
 
-export const AlertFormVerification = ( { data, img, nextStep, prevStep }) => {
-    console.log(data);
+export const AlertFormVerification = ( { data, img, prevStep, onCreateAlert }) => {
+    // console.log(data);
     return (
         <div>
             <h2>Verificá que los datos sean correctos</h2>
@@ -23,7 +23,7 @@ export const AlertFormVerification = ( { data, img, nextStep, prevStep }) => {
 
             <div className="actions">
                 <button className='btn secundary' type="buttton" onClick={ prevStep }>Regresar</button>
-                <button className='btn' type="buttton" >Publicar Alerta</button>
+                <button className='btn' type="buttton" onClick={onCreateAlert}>Publicar Alerta</button>
             </div>
         </div>
     )

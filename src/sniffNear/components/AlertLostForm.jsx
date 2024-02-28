@@ -18,7 +18,7 @@ export const AlertLostForm = () => {
     const { user, coords, address } = useContext( AuthContext ); 
     const { type = '', petId } = queryString.parse( location.search );
     // const [ userPetsCount, setUserPetsCount ] = useState(0);
-    const { data, isLoading, error, getData } = useFetchSniffNearApi();
+    const { data, isLoading, error, getData, create } = useFetchSniffNearApi();
     const { currentStep, totalSteps, maxStepReached, nextStep, prevStep, onResetSteps} = useMultiSteps(4);
     const { formState,  errors, checkErrors,  onInputChange, setFormState, setErrors, setCheckErrors, setManualValue} = useForm({
         petName: '',
@@ -44,6 +44,7 @@ export const AlertLostForm = () => {
         pet: '',
     })
     const { imageSelected, uploadStatus, setImgFile, resetImg, uploadImg, setCurrentImg } = usePreviewAndUploadImg();
+    const [ loaderLabel, setLoaderLabel ] = useState('Cargando la info...')
 
 
     useEffect(() => {
@@ -63,7 +64,7 @@ export const AlertLostForm = () => {
 
 
     useEffect(() => {
-        if ( data ){
+        if ( data?.pet ){
             const petData = {
                 petName: data.pet.name,
                 type: data.pet.type,
@@ -80,7 +81,7 @@ export const AlertLostForm = () => {
                 state: address?.state,
                 city: address?.city,
                 country: address?.country,
-                creator: user._id,
+                creator: user.id,
                 pet: data.pet._id,
             }
 
@@ -104,6 +105,16 @@ export const AlertLostForm = () => {
 
     }, [ data, setFormState, user, coords, address, formState.latitude, formState.longitude]);
 
+    useEffect(() => {
+        if ( data?.alert){
+            console.log(data)
+        }
+    }, [ data ]);
+
+
+
+    
+
     // useEffect(() => {
     //     if ( formState.latitude = '' && formState.longitude === '' ) {
     //         updateCoords( coords.lat, coords.lng );
@@ -113,15 +124,16 @@ export const AlertLostForm = () => {
 
     useEffect(() => {
         if  ((!imageSelected && currentStep === 2) || (formState.pet !== petId && currentStep === 2)) {
-            data?.pet.img && setCurrentImg( data.pet.img );
+            data?.pet?.img && setCurrentImg( data.pet.img );
         }
     }, [ data, setCurrentImg, imageSelected, currentStep, formState.pet, petId ])
     
     
 
-    const onAlertFormSubmit = (e) => {
+    const onPreventSubmit = (e) => {
         e.preventDefault();
     }
+
 
     const updateCoords = useCallback(( lat, lng ) => {
         setFormState({
@@ -130,15 +142,32 @@ export const AlertLostForm = () => {
             longitude: lng
         });
     }, [ formState, setFormState ]);
+
+
+
+    const onCreateAlert = async() => {
+
+        if ( imageSelected !== formState.img ) {
+            setLoaderLabel('Subiendo la imagen...');
+            console.log('hay que subir la imagen');
+            
+        } else {
+            setLoaderLabel('Publicando la alerta...');
+            await create('alerts', formState);
+            // console.log('se publicó la alerta');
+            // console.log(data)
+
+        }
+
+    }
     
 
-    
 
     return (
     <>
         <MultiStepsIndicator current={ currentStep } total={ totalSteps } />
 
-        <form className="multiSteps" onSubmit={ onAlertFormSubmit }>
+        <form className="multiSteps" onSubmit={ onPreventSubmit }>
             {
                 currentStep === 1 &&
                 <AlertLostFormPart1  />
@@ -176,7 +205,7 @@ export const AlertLostForm = () => {
                 <AlertFormVerification  
                     data={formState}
                     img={imageSelected}
-                    nextStep={nextStep}
+                    onCreateAlert={onCreateAlert}
                     prevStep={prevStep}
                 />
             }
@@ -217,7 +246,7 @@ export const AlertLostForm = () => {
         </form>
 
         {
-            isLoading && <Loader label='Cargando la info de tu mascota' />
+            isLoading && <Loader label={ loaderLabel } />
         }
     </>
     )

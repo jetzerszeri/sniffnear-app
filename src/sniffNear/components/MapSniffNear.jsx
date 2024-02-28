@@ -39,16 +39,25 @@ export const MapSniffNear = ( { position, alertForm = false, drag = false, updat
                 mapId={googleMapId}
                 disableDefaultUI={true}
             >
-                <AdvancedMarker
-                    position={ position }
-                    draggable={ drag }
-                    onDragEnd={ onMarkerDragEnd }
-                >
-
-                    <img src='/img/sniffnearmarkergreen.png' alt="marcador" className='marker' />
+                {
+                    drag
+                    ? <AdvancedMarker
+                        position={ position }
+                        draggable={ drag }
+                        onDragEnd={ onMarkerDragEnd }
+                    >
+                        <img src='/img/sniffnearmarkergreen.png' alt="marcador" className='marker' />
                     
+                    </AdvancedMarker>
 
-                </AdvancedMarker>
+                    :  <AdvancedMarker
+                        position={ position }
+                    >
+                        <img src='/img/sniffnearmarkergreen.png' alt="marcador" className='marker' />
+                    
+                    </AdvancedMarker>
+                
+                }
 
             </Map>
         </div>

@@ -1508,10 +1508,101 @@ svg{
 .alertsPage{
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     height: 100dvh;
 }
 
 .alertsPage .map{
     flex-grow: 1;
+}
+
+
+
+/* .alertCard1{
+    display: flex;
+    font-size: 0.9em;
+    padding: 20px;
+    gap: 10px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+} */
+
+.alertCard img{
+    width: 110px;
+    height: 110px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.alertCard .h{
+    font-size: 1em;
+    display: flex;
+    gap: 10px;
+    align-items: start;
+}
+
+.alertCard .h svg{
+    height: 30px;
+    width: 30px;
+    padding: 5px;
+    border-radius: 8px;
+    fill: var(--color-neutral-0);
+}
+
+.alertCard.perdido .h svg.alertIcon{
+    background-color: var(--color-oragne);
+}
+
+.alertCard.encontrado .h svg{
+    background-color: var(--color-green-700);
+}
+
+.alertCard .h h2{
+    font-size: 1.2em;
+    font-weight: 500;
+    color: var(--color-darkblue);
+}
+/* 
+.alertCard1 .h + div{
+
+    font-size: 0.9em;
+}
+
+.alertCard1 a{
+    margin-top: 10px;
+    text-align: right;
+    display: block;
+} */
+
+
+.alertCard{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+}
+
+.alertCard .h + div{
+    display: flex;
+    /* flex-wrap: wrap; */
+    gap: 10px;
+    align-items: start;
+    justify-content: space-between;
+}
+
+.alertCard .actions{
+    margin-top: 10px;
+}
+
+.alertCard h2 + p {
+    font-size: 0.8em;
+    color: var(--color-neutral-50);
+}
+
+.alertList{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 10px;
 }

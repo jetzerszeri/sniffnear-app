@@ -1,8 +1,8 @@
 import { useCallback, useContext, useEffect, useState } from 'react';
 import { useMultiSteps } from '../hooks';
-import { DogPawPrintIcon, Loader, MultiStepsIndicator } from '../../ui';
+import { DogPawPrintIcon, Loader, Modal, MultiStepsIndicator } from '../../ui';
 import { PetsList } from './PetsList';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import queryString from 'query-string';
 import { AuthContext } from '../../auth/context';
 import { AlertLostFormPart1 } from './AlertLostFormPart1';
@@ -15,6 +15,7 @@ import { AlertLostFormImgStep } from './AlertLostFormImgStep';
 export const AlertLostForm = () => {
 
     const location = useLocation();
+    const navigate = useNavigate();
     const { user, coords, address } = useContext( AuthContext ); 
     const { type = '', petId } = queryString.parse( location.search );
     // const [ userPetsCount, setUserPetsCount ] = useState(0);
@@ -44,7 +45,8 @@ export const AlertLostForm = () => {
         pet: '',
     })
     const { imageSelected, uploadStatus, setImgFile, resetImg, uploadImg, setCurrentImg } = usePreviewAndUploadImg();
-    const [ loaderLabel, setLoaderLabel ] = useState('Cargando la info...')
+    const [ loaderLabel, setLoaderLabel ] = useState('Cargando la info...');
+    const [ isCreated, setIsCreated ] = useState(false);
 
 
     useEffect(() => {
@@ -108,6 +110,7 @@ export const AlertLostForm = () => {
     useEffect(() => {
         if ( data?.alert){
             console.log(data)
+            setIsCreated(true);
         }
     }, [ data ]);
 
@@ -256,6 +259,16 @@ export const AlertLostForm = () => {
         {
             (isLoading || uploadStatus) && <Loader label={ loaderLabel } />
         }
+
+        {
+            isCreated &&
+            <Modal heading={`Alerta creada con éxito`} type='success' icon={ true }>
+                <button className="btn" onClick={ () => { navigate(`/alerts/${ data.alert._id }`, { replace: true }) } }>Ver alerta</button>
+            </Modal>
+        }
+
+
+
     </>
     )
 }

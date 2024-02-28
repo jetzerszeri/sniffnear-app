@@ -150,6 +150,14 @@ export const AlertLostForm = () => {
         if ( imageSelected !== formState.img ) {
             setLoaderLabel('Subiendo la imagen...');
             console.log('hay que subir la imagen');
+            const link = await uploadImg('alerts/lost/', formState.pet);
+            console.log(link);
+            const alertData = {
+                ...formState,
+                img: link
+            }
+            setLoaderLabel('Publicando la alerta...');
+            await create('alerts', alertData);
             
         } else {
             setLoaderLabel('Publicando la alerta...');
@@ -246,7 +254,7 @@ export const AlertLostForm = () => {
         </form>
 
         {
-            isLoading && <Loader label={ loaderLabel } />
+            (isLoading || uploadStatus) && <Loader label={ loaderLabel } />
         }
     </>
     )

@@ -1586,9 +1586,12 @@ svg{
 .alertCard .h + div{
     display: flex;
     /* flex-wrap: wrap; */
-    gap: 10px;
-    align-items: start;
-    justify-content: space-between;
+    gap: 16px;
+    /* align-items: start; */
+}
+
+.alertCard .h + div > div{
+    flex: 1;
 }
 
 .alertCard .actions{

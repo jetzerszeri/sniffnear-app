@@ -16,3 +16,5 @@ export * from './AlertLostFormPart1';
 export * from './AlertLostFormPart2';
 export * from './AlertFormVerification';
 export * from './AlertLostFormImgStep';
+export * from './AlertCard';
+export * from './AlertCardList';

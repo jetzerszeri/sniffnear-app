@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
-import { BottomNav, MapSniffNear, NavBar } from '../components';
+import { AlertCardList, BottomNav, MapSniffNear, NavBar } from '../components';
 import {
     APIProvider,
     Map,
@@ -124,6 +124,10 @@ export const AlertsPage = () => {
                 </div>
             </li>
             </ul>
+
+            {
+                data && <AlertCardList list={data} />
+            }
 
 
 

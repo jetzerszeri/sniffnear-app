@@ -42,14 +42,14 @@ export const AlertsPage = () => {
 
 
     return (
-        <>
+        <div className='alertsPage'>
             <NavBar title='Alertas' />
 
 
-                {
-                    position &&
-                    <MapSniffNear position={position} />
-                }
+            {
+                position &&
+                <MapSniffNear position={position} />
+            }
 
 
 
@@ -57,6 +57,6 @@ export const AlertsPage = () => {
 
 
             <BottomNav />
-        </>
+        </div>
     )
 }

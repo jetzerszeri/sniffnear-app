@@ -1508,10 +1508,13 @@ svg{
 .alertsPage{
     display: flex;
     flex-direction: column;
-    height: 100dvh;
+    /* height: 100vh; */
+    
+    /* margin-bottom: 60px; */
 }
 
 .alertsPage .map{
+    height: calc(100vh - 120px);
     flex-grow: 1;
 }
 
@@ -1611,6 +1614,7 @@ svg{
     flex-direction: column;
     gap: 20px;
     padding: 10px;
+    margin-bottom: 60px;
 }
 
 .alertInfWindow{
@@ -1655,4 +1659,42 @@ svg{
 
 .alertInfWindow .actions{
     margin-top: 10px;
+}
+
+
+
+
+
+
+/* estilos de tabs */
+.tabs {
+    top: 50px;
+    position: sticky;
+    display: flex;
+    flex-grow: 1;
+    flex-wrap: nowrap;
+    border-bottom: 1px solid #F0F0F0;
+    z-index: 100;
+    background-color: var(--color-neutral-10);
+}
+
+.tabs > a {
+    position: relative;
+    display: flex;
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 400;
+    color: var(--color-neutral-50);
+    text-align: left;
+    justify-content: start;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.tabs > .active {
+    font-weight: 500;
+    outline: none;
+    color: var(--color-darkblue);
+    margin-bottom: -1px;
+    border-bottom: 2px solid var(--color-darkblue);
 }

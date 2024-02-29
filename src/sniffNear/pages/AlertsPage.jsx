@@ -12,6 +12,7 @@ import { AuthContext } from '../../auth/context';
 import { useFetchSniffNearApi } from '../../hooks';
 import { AlertIcon, FoundIcon } from '../../ui';
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
+import { addQuery } from '../helpers';
 
 export const AlertsPage = () => {
 
@@ -40,18 +41,27 @@ export const AlertsPage = () => {
     }, [data]);
 
     const toggleMapIcon = () => {
-        view !== 'map' ? navigate('/alerts?view=map') : navigate('/alerts?view=list');
+        view !== 'map' ? navigate(addQuery('/alerts', { view: 'map' }), { replace: true }) : navigate(addQuery('/alerts', { view: 'list' }), { replace: true });
     }
 
 
     return (
-        <div className='alertsPage'>
-            <NavBar title='Alertas' >
+        <>
+        <NavBar title='Alertas' >
                 <i 
                     className={`bi ${view === 'map' ? 'bi-list-task' : 'bi-map'}`}
                     onClick={ toggleMapIcon }
                 ></i>
-            </NavBar>
+        </NavBar>
+
+        <div class="tabs">
+            <Link to={ addQuery('/alerts', { filter: 'none' }) } className='active' replace={true}>Todos</Link>
+            <Link to={ addQuery('/alerts', { filter: 'missing' }) } replace={true}>Perdidos</Link>
+            <Link to={ addQuery('/alerts', { filter: 'found' }) } replace={true}>Encontrados</Link>
+        </div>
+        {/* <div className='alertsPage'> */}
+        <div className='alertsPage'>
+
 
             {/* <div className='alertInfWindow perdido'>
                 <div>
@@ -90,7 +100,8 @@ export const AlertsPage = () => {
 
 
 
-            <BottomNav />
         </div>
+            <BottomNav />
+        </>
     )
 }

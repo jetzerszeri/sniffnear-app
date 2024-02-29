@@ -5,3 +5,4 @@ export * from './convertDate';
 export * from './addQuery';
 export * from './calculateDistance';
 export * from './convertToRad';
+export * from './filterData';

@@ -13,6 +13,7 @@ import { useFetchSniffNearApi } from '../../hooks';
 import { AlertIcon, FoundIcon, MissigMarker } from '../../ui';
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { addQuery, calculateDistance } from '../helpers';
+import { useFilterAlerts } from '../hooks';
 
 export const AlertsPage = () => {
 
@@ -26,6 +27,7 @@ export const AlertsPage = () => {
     const [ displayMap, setDisplayMap ] = useState( false );
     const [ filteredData, setFilteredData ] = useState([]);
     const [ distance, setDistance ] = useState(5);
+    const { filteredAlerts, setFilters, clearFilters, addFilter, setFilteredAlerts, setInitialData } = useFilterAlerts();
 
 
     useEffect(() => {
@@ -41,9 +43,31 @@ export const AlertsPage = () => {
     useEffect(() => {
         console.log(data);
         if (data){
-            setFilteredData(data.filter( alert => (calculateDistance(position.lat, position.lng, alert.latitude, alert.longitude) <= distance)));
+
+            // setFilteredData(data.filter( alert => (calculateDistance(position.lat, position.lng, alert.latitude, alert.longitude) <= distance)));
+
+            setInitialData(data.filter( alert => (calculateDistance(position.lat, position.lng, alert.latitude, alert.longitude) <= distance)));
+
         }
-    }, [data, distance, position]);
+    }, [data, distance, position, setFilteredAlerts]);
+
+    useEffect(() => {
+        if (alertType !== "all"){
+            if (alertType === "missing"){
+                addFilter('alertType', 'perdido');
+            } else if (alertType === "found"){
+                addFilter('alertType', 'encontrado');
+            }
+        } else {
+            clearFilters();
+        }
+        
+        // alertType !== "all" && addFilter('alertType', alertType);
+    }, [alertType])
+    
+
+
+
 
     const toggleMapIcon = () => {
         view !== 'map' ? navigate(addQuery('/alerts', { view: 'map' }), { replace: true }) : navigate(addQuery('/alerts', { view: 'list' }), { replace: true });
@@ -68,13 +92,13 @@ export const AlertsPage = () => {
 
 
             {
-                ( position && view === "map" && filteredData) &&
-                <MapSniffNear position={position} data={filteredData} />
+                ( position && view === "map" ) &&
+                <MapSniffNear position={position} data={filteredAlerts} />
             }
 
 
             {
-                (data && view === "list") && <AlertCardList list={filteredData} />
+                (data && view === "list") && <AlertCardList list={filteredAlerts} />
             }
 
         </div>

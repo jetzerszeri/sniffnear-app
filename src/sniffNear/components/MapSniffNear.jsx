@@ -5,6 +5,9 @@ import {
     Pin,
     InfoWindow,
   } from '@vis.gl/react-google-maps';
+import { AlertIcon } from '../../ui';
+import { Link } from 'react-router-dom';
+import { AlertInfoWindow } from './AlertInfoWindow';
 
 export const MapSniffNear = ( { position, alertForm = false, drag = false, updateCoords, data = {} }  ) => {
 
@@ -87,10 +90,40 @@ export const MapSniffNear = ( { position, alertForm = false, drag = false, updat
                                 position={ { "lat": alert.latitude, "lng": alert.longitude } }
                                 onCloseClick={ closeInfoWindow }
                             >
-                                <div className='infoWindow'>
+
+                                <AlertInfoWindow data={ alert } />
+
+
+
+
+                                {/* <div className='infoWindow'>
                                     <h3>{ alert.type }</h3>
                                     <p>{ alert.description }</p>
-                                </div>
+                                </div> */}
+            {/* <div className='alertInfWindow perdido'>
+                <div>
+                    <AlertIcon />
+                    <div>
+                        <h2>Perro perdido</h2>
+                        <p><i className="bi bi-geo-alt"> </i>
+                            Visto por última vez en Charlotte
+                        </p>
+                    </div>
+                </div>
+
+                <div>
+                    <img src='https://firebasestorage.googleapis.com/v0/b/sniffnear.appspot.com/o/Willem_20231106_094408.jpeg?alt=media&token=edaa1025-9bc2-492a-8659-098846b3d8ca' alt='' />
+
+                    <p>Maltese, Blanco, Pequeño</p>
+                    <p>Es un perro muy amigable, se llama Willem y tiene un collar azul</p>
+                    <div className="actions">
+                        <Link to={`/alerts/id`} className='btn'>Ver más</Link>
+                    </div>
+                </div>
+
+            </div> */}
+            
+
                             </InfoWindow>
 
                         }

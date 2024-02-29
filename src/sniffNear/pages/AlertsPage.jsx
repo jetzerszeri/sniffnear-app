@@ -53,6 +53,29 @@ export const AlertsPage = () => {
                 ></i>
             </NavBar>
 
+            {/* <div className='alertInfWindow perdido'>
+                <div>
+                    <AlertIcon />
+                    <div>
+                        <h2>Perro perdido</h2>
+                        <p><i className="bi bi-geo-alt"> </i>
+                            Visto por última vez en Charlotte
+                        </p>
+                    </div>
+                </div>
+
+                <div>
+                    <img src='https://firebasestorage.googleapis.com/v0/b/sniffnear.appspot.com/o/Willem_20231106_094408.jpeg?alt=media&token=edaa1025-9bc2-492a-8659-098846b3d8ca' alt='' />
+
+                    <p>Maltese, Blanco, Pequeño</p>
+                    <p>Es un perro muy amigable, se llama Willem y tiene un collar azul</p>
+                    <div className="actions">
+                        <Link to={`/alerts/id`} className='btn small secundary'>Ver más</Link>
+                    </div>
+                </div>
+
+            </div> */}
+
 
             {
                 ( position && view === "map" && data) &&

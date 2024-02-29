@@ -2,7 +2,7 @@ import { AlertIcon, FoundIcon } from '../../ui';
 import { Link } from 'react-router-dom';
 
 export const AlertCard = ( { data } ) => {
-    const { _id, alertType, type, city, description, img, color1, breedType, breed, size } = data;
+    const { _id, alertType, type, city, description, img, color1, breedType, breed, size, sex } = data;
 
 
 
@@ -28,9 +28,8 @@ export const AlertCard = ( { data } ) => {
                 <img src={img}  alt={`${ type } color ${ color1 }`} />
 
                 <div>
-                    {/* <p>Maltese | Color café, tamaño mediano.</p> */}
                     <div>
-                        <p>{ breed ? `${breedType} ${breed} | Color ${color1}, tamaño ${size}` : `color ${color1}, tamaño ${size}` }</p>
+                        <p>{ breed ? `${breedType} ${breed} ${sex} | Color ${color1}, tamaño ${size}` : `${sex}, color ${color1}, tamaño ${size}` }</p>
                         <p>{ description }</p>
                     </div>
                     <div className='actions'>

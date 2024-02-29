@@ -28,7 +28,7 @@ export const useFilterAlerts = ( data = [] ) => {
     };
 
     useEffect(() => {
-        console.log('se aplicaron filtros')
+        // console.log('se aplicaron filtros')
         setFilteredAlerts(filterData(initialData, filters));
     }, [initialData, filters]);
 

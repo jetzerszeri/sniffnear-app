@@ -1347,6 +1347,49 @@ h3{
     align-items: center;
 }
 
+.myModal.custom{
+    padding: 10px;
+    max-width: 90%;
+    text-align: left;
+    margin: 0;
+}
+
+.filterModal{
+    padding: 10px;
+    min-width: 300px;
+    max-width: 400px;
+    position: relative;
+}
+
+.filterModal .closeBtn{
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    cursor: pointer;
+    color: var(--color-neutral-50);
+    transition: all 0.2s ease;
+    padding: 5px;
+}
+
+.filterModal .closeBtn:hover{
+    color: var(--color-darkblue);
+}
+
+.filterModal h2{
+    font-size: 1.1em;
+    font-weight: 500;
+    color: var(--color-green);
+    padding-bottom: 10px;
+    margin-bottom: 0;
+    border-bottom: 1px solid var(--color-neutral-20);
+}
+
+.filterModal h2 i{
+    /* font-size: 1.2em; */
+    margin-right: 10px;
+}
+
+
 .myModal .h{
     font-size: 1.3em;
     font-weight: 500;
@@ -1676,6 +1719,10 @@ svg{
     border-bottom: 1px solid #F0F0F0;
     z-index: 100;
     background-color: var(--color-neutral-10);
+    overflow-x: scroll;
+    overflow-y: hidden;
+    scrollbar-width: none;
+
 }
 
 .tabs > a {
@@ -1701,4 +1748,36 @@ svg{
 
 .tabs > a img {
     height: 1.25rem;
+}
+
+.tabs div{
+    font-size: 1.2em;
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    color: var(--color-neutral-50);
+}
+
+/* icono de filtro */
+.tabs div i{
+    padding: 0.5rem 1rem 0.5rem 0.5em;
+    cursor: pointer;
+}
+
+.tabs div i:hover{
+    color: var(--color-darkblue);
+}
+
+.tabs div i.filtered::after{
+    content: '';
+    display: block;
+    width: 6px;
+    height: 6px;
+    background-color: var(--color-oragne);
+    border-radius: 50%;
+    position: absolute;
+    top: 12px;
+    right: 20px;
+    transform: translate(50%, -50%);
+    border: 1px solid var(--color-neutral-0);
 }

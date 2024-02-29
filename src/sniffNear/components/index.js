@@ -19,3 +19,4 @@ export * from './AlertLostFormImgStep';
 export * from './AlertCard';
 export * from './AlertCardList';
 export * from './AlertInfoWindow';
+export * from './FilterPetsOptions';

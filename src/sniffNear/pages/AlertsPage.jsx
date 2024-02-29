@@ -1,16 +1,9 @@
 import { useContext, useEffect, useState } from 'react';
-import { AlertCardList, BottomNav, MapSniffNear, NavBar } from '../components';
-import {
-    APIProvider,
-    Map,
-    AdvancedMarker,
-    Pin,
-    InfoWindow,
-  } from "@vis.gl/react-google-maps";
+import { AlertCardList, BottomNav, FilterPetsOptions, MapSniffNear, NavBar } from '../components';
 import queryString from 'query-string';
 import { AuthContext } from '../../auth/context';
-import { useFetchSniffNearApi } from '../../hooks';
-import { AlertIcon, FoundIcon, MissigMarker } from '../../ui';
+import { useFetchSniffNearApi, useForm } from '../../hooks';
+import { AlertIcon, FoundIcon, MissigMarker, Modal, SelectOptionInput } from '../../ui';
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { addQuery, calculateDistance } from '../helpers';
 import { useFilterAlerts } from '../hooks';
@@ -27,7 +20,7 @@ export const AlertsPage = () => {
     const [ displayMap, setDisplayMap ] = useState( false );
     const [ filteredData, setFilteredData ] = useState([]);
     const [ distance, setDistance ] = useState(5);
-    const { filteredAlerts, setFilters, clearFilters, addFilter, setFilteredAlerts, setInitialData } = useFilterAlerts();
+    const { filteredAlerts, filters, setFilters, clearFilters, addFilter, setFilteredAlerts, setInitialData } = useFilterAlerts();
 
 
     useEffect(() => {
@@ -59,7 +52,7 @@ export const AlertsPage = () => {
                 addFilter('alertType', 'encontrado');
             }
         } else {
-            clearFilters();
+            addFilter('alertType', '');
         }
         
         // alertType !== "all" && addFilter('alertType', alertType);
@@ -72,6 +65,51 @@ export const AlertsPage = () => {
     const toggleMapIcon = () => {
         view !== 'map' ? navigate(addQuery('/alerts', { view: 'map' }), { replace: true }) : navigate(addQuery('/alerts', { view: 'list' }), { replace: true });
     }
+
+
+    const [ showFilterOptions, setShowFilterOptions] = useState(false);
+    const [ isFiltered, setIsFiltered ] = useState(false);
+
+
+    useEffect(() => {
+        if (filters.sex !== '' || filters.color1 !== '' || filters.size !== ''){
+            setIsFiltered(true);
+            console.log('hay filtros')
+        } else {
+            setIsFiltered(false);
+            console.log('no hay filtros')
+        }
+    }, [filters])
+    
+
+
+
+
+    // const colorOptions = {
+    //     blanco: 'Blanco',
+    //     negro: 'Negro',
+    //     marrón: 'Marrón',
+    //     gris: 'Gris',
+    //     naranja: 'Naranja',
+    //     otro: 'Otro'
+    // }
+
+    // const sexOptions = {
+    //     macho: 'Macho', 
+    //     hembra: 'Hembra'
+    // }
+
+    // const onSetFilters = () => {
+    //     console.log('le di a filtrar en modal')
+    //     setFilters(formState);
+    //     setShowFilterOptions(false);
+    // }
+
+    // const onClearFilters = () => {
+    //     onResetForm();
+    //     clearFilters();
+    //     setShowFilterOptions(false);
+    // }
 
 
     return (
@@ -87,6 +125,9 @@ export const AlertsPage = () => {
             <Link to={ addQuery('/alerts', { alertType: 'all' }) } className={ alertType === "all" ? "active" : "" } replace={true}>Todos</Link>
             <Link to={ addQuery('/alerts', { alertType: 'missing' }) } className={ alertType === "missing" ? "active" : "" } replace={true}> <img src="/img/MissingMarker.png" alt="" /> Perdidos</Link>
             <Link to={ addQuery('/alerts', { alertType: 'found' }) } className={ alertType === "found" ? "active" : "" } replace={true}> <img src="/img/FoundMarker.png" alt="" /> Encontrados</Link>
+            <div>
+                <i className={`bi ${isFiltered ? 'bi-funnel-fill filtered' : 'bi-funnel'}`} onClick={()=> setShowFilterOptions(true)}></i>
+            </div>
         </div>
         <div className='alertsPage'>
 
@@ -103,6 +144,51 @@ export const AlertsPage = () => {
 
         </div>
         <BottomNav />
+
+        {
+            showFilterOptions &&
+                <FilterPetsOptions
+                    setFilters={setFilters}
+                    clearFilters={clearFilters}
+                    displayModal={setShowFilterOptions}
+                    prevFilters={filters}
+                    isFiltered={isFiltered}
+                />
+        }
+
+
+        {/* { showFilterOptions && <Modal custom={true} >
+            <div>
+                <h2>Filtrar por:</h2>
+                
+                <SelectOptionInput
+                    name='sex'
+                    value={formState.sex}
+                    label="Sexo"
+                    onChangeFunction={onInputChange}
+                    options={sexOptions}
+                    
+                />
+
+                <SelectOptionInput
+                    name='color1'
+                    value={formState.color1}
+                    label="Color"
+                    onChangeFunction={onInputChange}
+                    options={colorOptions}
+                />
+
+                <button className='btn secundary' onClick={onClearFilters}>
+                    Limpiar filtros
+                </button>
+                <button className='btn' onClick={onSetFilters}>
+                    Aplicar filtros
+                </button>
+
+            </div>
+
+
+        </Modal>} */}
     </>
     )
 }

@@ -5,7 +5,7 @@ import {
     Pin,
     InfoWindow,
   } from '@vis.gl/react-google-maps';
-import { AlertIcon } from '../../ui';
+import { AlertIcon, MissigMarker } from '../../ui';
 import { Link } from 'react-router-dom';
 import { AlertInfoWindow } from './AlertInfoWindow';
 
@@ -82,7 +82,13 @@ export const MapSniffNear = ( { position, alertForm = false, drag = false, updat
                             position={ { "lat": alert.latitude, "lng": alert.longitude } }
                             onClick={ () => openInfoWindow( alert._id ) }
                         >
-                            <Pin />
+                            {
+                                alert.alertType === 'perdido'
+                                ? <img src='/img/MissingMarker.png' alt="marcador" className='marker' />
+                                : <img src='/img/FoundMarker.png' alt="marcador" className='marker' />
+                            }
+                            {/* <Pin background={ alert.alertType === 'perdido' ? "#FF8367" : "#009796"} borderColor={"#FAFAFA"} glyphColor={"#FAFAFA"}/> */}
+                            
 
                         {
                             activeMarker === alert._id &&

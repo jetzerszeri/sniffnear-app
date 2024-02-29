@@ -1698,3 +1698,7 @@ svg{
     margin-bottom: -1px;
     border-bottom: 2px solid var(--color-darkblue);
 }
+
+.tabs > a img {
+    height: 1.25rem;
+}

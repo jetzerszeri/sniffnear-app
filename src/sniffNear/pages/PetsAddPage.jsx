@@ -276,7 +276,7 @@ export const PetsAddPage = () => {
 
                 {
                     data && <Modal heading={`Perfil de ${ data.pet.name } creado con éxito`} type='success' icon={ true }>
-                        <button className="btn secundary"  onClick={ onAddOtherPet }>Agregar otro</button>
+                        <button className="btn secundary"  onClick={ onAddOtherPet }>Agregar otra mascota</button>
                         <button className="btn" onClick={ redirectToPetProfile }>Ver perfil</button>
                     </Modal>
                 }

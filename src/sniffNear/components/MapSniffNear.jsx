@@ -9,7 +9,7 @@ import { AlertIcon, MissigMarker } from '../../ui';
 import { Link } from 'react-router-dom';
 import { AlertInfoWindow } from './AlertInfoWindow';
 
-export const MapSniffNear = ( { position, alertForm = false, drag = false, updateCoords, data = {} }  ) => {
+export const MapSniffNear = ( { position, alertForm = false, drag = false, updateCoords, data = null }  ) => {
 
     const googleMapId = process.env.REACT_APP_GOOGLE_MAP_SIFFNEAR_ID;
     const [ zoom, setZoom ] = useState(15);
@@ -74,7 +74,7 @@ export const MapSniffNear = ( { position, alertForm = false, drag = false, updat
 
 
                 {
-                     data.map( (alert, index) => (
+                     data && data.map( (alert, index) => (
 
                         ( alert.latitude && alert.longitude ) &&
                         <AdvancedMarker

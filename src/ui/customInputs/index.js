@@ -11,3 +11,4 @@ export * from './PetSizeInput';
 export * from './PetColorInput';
 export * from './TimeInput';
 export * from './TextAreaInput';
+export * from './SelectOptionInput';

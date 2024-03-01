@@ -1291,16 +1291,37 @@ h3{
 }
 
 .petDataList li{
-    flex: 1;
+    flex-grow: 1;
     display: flex;
     gap: 3px;
     flex-direction: column-reverse;
     border: 1px solid var(--color-neutral-20);
     padding: 20px 12px;
     border-radius: 8px;
+    text-transform: capitalize;
 }
 
-.petDataList li span{
+.petDataList.alert{
+    margin: 1em 0;
+}
+
+.alertDetails .desc{
+    width: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--color-neutral-20);
+    padding: 20px;
+    border-radius: 8px;
+    color: var(--color-neutral-50);
+    font-size: 0.8em;
+    gap: 8px;
+}
+
+
+
+
+.petDataList li span, .alertDetails .desc span{
     font-weight: 500;
     color: var(--color-green);
     font-size: 1.2em;
@@ -1463,6 +1484,14 @@ h3{
     border: var(--color-neutral-20) 1px solid;
 }
 
+.map.alertDetail{
+    height: 200px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: var(--color-neutral-20) 1px solid;
+    margin: 20px 0;
+}
+
 .map + p{
     margin-top: 10px;
     padding-left: 5px;
@@ -1525,9 +1554,9 @@ svg{
     transition: all 0.2s ease;
 }
 
-.alerts .petsList{
-    /* margin-bottom: 20px; */
-}
+/* .alerts .petsList{
+    margin-bottom: 20px;
+} */
 
 .alerts .petsList + div{
     /* font-size: 0.em; */
@@ -1766,6 +1795,7 @@ svg{
 .tabs div i{
     padding: 0.5rem 1rem 0.5rem 0.5em;
     cursor: pointer;
+    position: relative;
 }
 
 .tabs div i:hover{

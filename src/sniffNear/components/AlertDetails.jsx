@@ -2,6 +2,7 @@ import { useContext } from 'react';
 import { AuthContext } from '../../auth/context';
 import { getDistance } from '../helpers';
 import { calculateAge, combineDateAndTime } from '../../helpers';
+import { MapSniffNear } from './MapSniffNear';
 
 export const AlertDetails = ( { data } ) => {
 
@@ -24,11 +25,17 @@ export const AlertDetails = ( { data } ) => {
                     </p>
                 </div>
 
+                <ul className='petDataList alert'>
+                    <li>Sexo <span>{sex}</span></li>
+                    <li>Color <span>{color1}</span></li>
+                    { (breed && breedType) && <li>{ breedType } <span>{ breed }</span></li>}
+                    <li>Tamaño <span>{size}</span></li>
+                </ul>
+
+                <p className='desc'>Descripción <span>{description}</span></p>
+
+                <MapSniffNear position={{ lat: latitude, lng: longitude }} displayOnly={true} />
             </div>
-
-
-
-
         </div>
     )
 }

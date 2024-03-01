@@ -8,3 +8,4 @@ export * from './PetsProfilePage';
 export * from './PetsEditPage';
 export * from './AlertsPage';
 export * from './AlertsAddPage';
+export * from './AlertDetailPage';

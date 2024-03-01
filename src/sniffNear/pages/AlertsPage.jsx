@@ -34,7 +34,7 @@ export const AlertsPage = () => {
     }, [ getData ]);
 
     useEffect(() => {
-        console.log(data);
+        // console.log(data);
         if (data){
 
             // setFilteredData(data.filter( alert => (calculateDistance(position.lat, position.lng, alert.latitude, alert.longitude) <= distance)));
@@ -74,10 +74,10 @@ export const AlertsPage = () => {
     useEffect(() => {
         if (filters.sex !== '' || filters.color1 !== '' || filters.size !== ''){
             setIsFiltered(true);
-            console.log('hay filtros')
+            // console.log('hay filtros')
         } else {
             setIsFiltered(false);
-            console.log('no hay filtros')
+            // console.log('no hay filtros')
         }
     }, [filters])
     

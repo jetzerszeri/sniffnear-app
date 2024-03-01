@@ -32,7 +32,7 @@ export const MapSniffNear = ( { position, alertForm = false, drag = false, updat
         }
     // setCurrentLocation( {lat, lng})
     }
-    console.log(data);
+    // console.log(data);
 
     const openInfoWindow = ( id ) => {
         setActiveMarker( id );

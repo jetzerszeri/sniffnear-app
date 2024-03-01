@@ -1248,17 +1248,17 @@ h3{
 
 
 /* estilos del perfil de la mascota */
-.petProfile{
+.petProfile, .alertDetails{
     display: flex;
     flex-direction: column;
 }
-.petProfile img{
+.petProfile img, .alertDetails img{
     width: 100%;
     object-fit: cover;
     height: 300px;
 }
 
-.petProfile .data{
+.petProfile .data, .alertDetails .data{
     /* background-color: var(--color-green);
     color: var(--color-neutral-0); */
     padding: 30px;
@@ -1269,7 +1269,7 @@ h3{
 
 }
 
-.petProfile .data .h{
+.petProfile .data .h, .alertDetails h2{
     font-size: 2em;
     font-weight: 500;
     color: var(--color-green);
@@ -1607,6 +1607,10 @@ svg{
 .alertCard .h h2::first-letter, .alertCard p::first-letter{
     text-transform: uppercase;
   }
+
+.cap::first-letter{
+    text-transform: uppercase;
+}
 /* 
 .alertCard1 .h + div{
 

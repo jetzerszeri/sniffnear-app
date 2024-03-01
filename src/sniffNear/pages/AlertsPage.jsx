@@ -131,7 +131,6 @@ export const AlertsPage = () => {
         </div>
         <div className='alertsPage'>
 
-
             {
                 ( position && view === "map" ) &&
                 <MapSniffNear position={position} data={filteredAlerts} />
@@ -156,39 +155,6 @@ export const AlertsPage = () => {
                 />
         }
 
-
-        {/* { showFilterOptions && <Modal custom={true} >
-            <div>
-                <h2>Filtrar por:</h2>
-                
-                <SelectOptionInput
-                    name='sex'
-                    value={formState.sex}
-                    label="Sexo"
-                    onChangeFunction={onInputChange}
-                    options={sexOptions}
-                    
-                />
-
-                <SelectOptionInput
-                    name='color1'
-                    value={formState.color1}
-                    label="Color"
-                    onChangeFunction={onInputChange}
-                    options={colorOptions}
-                />
-
-                <button className='btn secundary' onClick={onClearFilters}>
-                    Limpiar filtros
-                </button>
-                <button className='btn' onClick={onSetFilters}>
-                    Aplicar filtros
-                </button>
-
-            </div>
-
-
-        </Modal>} */}
     </>
     )
 }

@@ -1815,3 +1815,45 @@ svg{
     transform: translate(50%, -50%);
     border: 1px solid var(--color-neutral-0);
 }
+
+
+
+
+/* estilos de userCard para publicaciones */
+.userCard{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    padding: 10px;
+    background-color: var(--color-neutral-0);
+    border-radius: 8px;
+    margin-top: 10px;
+}
+
+.userCard img{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.userCard .name{
+    font-size: 1.1em;
+    font-weight: 500;
+    color: var(--color-darkblue);
+
+}
+
+.userCard .name + p{
+    font-size: 0.8em;
+    color: var(--color-neutral-50);
+}
+
+.userCard > div:first-of-type{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    justify-content: space-between;
+    flex: 1;
+}

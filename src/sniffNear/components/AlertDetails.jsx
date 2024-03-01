@@ -3,6 +3,7 @@ import { AuthContext } from '../../auth/context';
 import { getDistance } from '../helpers';
 import { calculateAge, combineDateAndTime } from '../../helpers';
 import { MapSniffNear } from './MapSniffNear';
+import { UserCard } from './UserCard';
 
 export const AlertDetails = ( { data } ) => {
 
@@ -16,6 +17,7 @@ export const AlertDetails = ( { data } ) => {
             <div className='data'>
                 <div>
                     <h2 className='cap'>{`${type} ${alertType}`}</h2>
+                    
                     <p>
                         {
                             alertType === 'perdido'
@@ -24,6 +26,10 @@ export const AlertDetails = ( { data } ) => {
                         }
                     </p>
                 </div>
+
+                <UserCard user={ creator } createdAt={ created } >
+                    <button className='btn small'>Contactar</button>
+                </UserCard>
 
                 <ul className='petDataList alert'>
                     <li>Sexo <span>{sex}</span></li>
@@ -35,6 +41,9 @@ export const AlertDetails = ( { data } ) => {
                 <p className='desc'>Descripción <span>{description}</span></p>
 
                 <MapSniffNear position={{ lat: latitude, lng: longitude }} displayOnly={true} />
+
+
+
             </div>
         </div>
     )

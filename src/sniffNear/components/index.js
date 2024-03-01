@@ -21,3 +21,4 @@ export * from './AlertCardList';
 export * from './AlertInfoWindow';
 export * from './FilterPetsOptions';
 export * from './AlertDetails';
+export * from './UserCard';

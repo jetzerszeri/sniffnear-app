@@ -6,3 +6,4 @@ export * from './addQuery';
 export * from './calculateDistance';
 export * from './deg2rad';
 export * from './filterData';
+export * from './getDistance';

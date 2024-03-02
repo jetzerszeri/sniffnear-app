@@ -13,8 +13,8 @@ export const PetsList = ( { forAlert = false } ) => {
 
     
     useEffect(() => {
-        getData(`users/${user.id}`);
-    }, [ getData, user.id])
+        user?.id && getData(`users/${user.id}`);
+    }, [ getData, user?.id])
     
 
     useEffect(() => {

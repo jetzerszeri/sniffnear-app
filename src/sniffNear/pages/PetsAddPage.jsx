@@ -1,5 +1,6 @@
 import { useCallback, useContext, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import queryString from 'query-string';
 import { NavBar, PetFormPart1, PetFormPart2, PetFormPart3 } from '../components';
 import { useMultiSteps } from '../hooks';
 import { MultiStepsIndicator } from '../../ui/MultiStepsIndicator';
@@ -12,6 +13,9 @@ import { RegisterForm } from '../../auth/components/RegisterForm';
 export const PetsAddPage = () => {
 
     const { user } = useContext( AuthContext );
+    const navigate = useNavigate();
+    const location = useLocation();
+    const { forAlert } = queryString.parse( location.search );
     const [ addPetStepTotal, setAddPetStepTotal ] = useState(3);
     const { currentStep, totalSteps, maxStepReached, nextStep, prevStep, onResetSteps} = useMultiSteps(addPetStepTotal);
     const { type, name, birthdate, breedType, breed, sex, size, color1, errors, checkErrors, formState, setErrors, setCheckErrors, onInputChange, setManualValue, onResetForm } = useForm({
@@ -27,14 +31,12 @@ export const PetsAddPage = () => {
     });
     const { data, isLoading, error, create, onResetFetchState } = useFetchSniffNearApi();
     const [ prevBtnLabel, setPrevBtnLabel ] = useState( 'Cancelar' );
+    const [ displayModal, setDisplayModal ] = useState( false );
     
     // const [ isImg, setIsImg ] = useState( false );
     // const [ uploadImg, setUploadImg ] = useState( false );
     const { imageSelected, uploadStatus, setImgFile, resetImg, uploadImg, imgFile } = usePreviewAndUploadImg();
-    
 
-
-    const navigate = useNavigate();
 
     useEffect(() => {
         currentStep === 1 ? setPrevBtnLabel('Cancelar') : setPrevBtnLabel('Anterior');
@@ -88,12 +90,15 @@ export const PetsAddPage = () => {
 
 
 
-    // useEffect(() => {
-    //     if (data){
-    //         // console.log(data)
-    //         // console.log('se creo el perfil de la mascota, hay que redireccionar usuario');
-    //     }
-    // }, [data])
+    useEffect(() => {
+        if (data){
+            if ( forAlert === "lost"){
+                navigate(`/alerts/new?type=lost&petId=${data.pet._id}`, { replace: true });
+            } else{
+                setDisplayModal(true);
+            }
+        }
+    }, [data])
 
     useEffect(() => {
         if (error) {
@@ -275,16 +280,16 @@ export const PetsAddPage = () => {
                 }
 
                 {
-                    data && <Modal heading={`Perfil de ${ data.pet.name } creado con éxito`} type='success' icon={ true }>
+                    displayModal && <Modal heading={`Perfil de ${ data.pet.name } creado con éxito`} type='success' icon={ true }>
                         <button className="btn secundary"  onClick={ onAddOtherPet }>Agregar otra mascota</button>
                         <button className="btn" onClick={ redirectToPetProfile }>Ver perfil</button>
                     </Modal>
                 }
 
 
-                <button onClick={() => {console.log(user)}}>
+                {/* <button onClick={() => {console.log(user)}}>
                     ver user
-                </button>
+                </button> */}
             </main>
         </>
     )

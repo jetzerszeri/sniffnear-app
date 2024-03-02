@@ -12,7 +12,7 @@ export const AlertLostFormPart1 = ( ) => {
             <div>
                 <p>Si la mascota que se te perdió todavía no tiene perfil, por favor creale uno para continuar con la alerta.</p>
 
-                <Link to="/pets/add?for=alert" className='plusOption'>
+                <Link to="/pets/add?forAlert=lost" className='plusOption'>
                         <DogPawPrintIcon />
                         Agregar mascota
                 </Link>

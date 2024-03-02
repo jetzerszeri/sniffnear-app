@@ -47,7 +47,7 @@ export const RegisterForm = ( { accountStatus, authFlow = true, label = 'Registr
         e.preventDefault();
         setCheckErrors( true );
 
-        if (name === '' || email === '' || password === '' || validatePassword === ''){
+        if (name === '' || email === '' || password === '' || password !== validatePassword ){
             return
         };
 

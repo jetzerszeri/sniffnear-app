@@ -1366,6 +1366,7 @@ h3{
     gap: 16px;
     margin: 10px;
     align-items: center;
+    position: relative;
 }
 
 .myModal.custom{
@@ -1382,7 +1383,7 @@ h3{
     position: relative;
 }
 
-.filterModal .closeBtn{
+.myModal .closeBtn{
     position: absolute;
     top: 0px;
     right: 0px;
@@ -1392,7 +1393,7 @@ h3{
     padding: 5px;
 }
 
-.filterModal .closeBtn:hover{
+.myModal .closeBtn:hover{
     color: var(--color-darkblue);
 }
 
@@ -1424,6 +1425,7 @@ h3{
     gap: 10px;
     flex-wrap: wrap;
 }
+ 
 
 .myModal.danger .h{
     color: red;
@@ -1864,9 +1866,9 @@ svg{
     flex-wrap: wrap;
 }
 
-.alertDetails .actions button{
-    /* min-width: 50%; */
-    flex-grow: 1;
+.actions button{
+    flex-basis: calc(50% - 10px);
+    flex: 1;
 }
 
 .alertDetails .status{

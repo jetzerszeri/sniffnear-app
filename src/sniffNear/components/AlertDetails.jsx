@@ -1,14 +1,16 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { AuthContext } from '../../auth/context';
 import { getDistance } from '../helpers';
 import { calculateAge, combineDateAndTime } from '../../helpers';
 import { MapSniffNear } from './MapSniffNear';
 import { UserCard } from './UserCard';
+import { Modal } from '../../ui';
 
 export const AlertDetails = ( { data } ) => {
 
     const { coords, user } = useContext( AuthContext );
     const { alertType, breed, breedType, city, color1, country, created, creator, date,description, img, pet, latitude, longitude, sex, size, state, status, time, type, _id} = data;
+    const [ displayHelpOptions, setDisplayHelpOptions ] = useState(false);
 
     return (
         <div className='alertDetails'>
@@ -56,14 +58,23 @@ export const AlertDetails = ( { data } ) => {
                             <button className='btn'>Finalizar alerta <i className="bi bi-check2-square"></i></button>
                         </>
                         : <>
-                            <button className='btn'>Tengo info que puede ayudar</button>
+                            <button className='btn' onClick={()=> setDisplayHelpOptions(true)}>Tengo info que puede ayudar</button>
                         </>
                     }
                 </div>
-
-
-
             </div>
+
+            {
+                displayHelpOptions &&
+                <Modal heading='¿Viste o sabés donde está esta mascota?' >
+
+                    <button className='btn secundary'>La vi</button>
+                    <button className='btn secundary'>Sé donde está</button>
+                    <button className='btn'>Yo la tengo</button>
+
+                    <i className="bi bi-x-lg closeBtn" onClick={() => setDisplayHelpOptions(false)}></i>
+                </Modal>
+            }
         </div>
     )
 }

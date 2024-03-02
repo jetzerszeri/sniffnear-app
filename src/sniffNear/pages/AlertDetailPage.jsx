@@ -21,7 +21,7 @@ export const AlertDetailPage = () => {
     useEffect(() => {
         if ( data ) {
             setAlert(data);
-            console.log(data);
+            // console.log(data);
         } else if ( error ) {
             // navigate(-1, { replace: true });
             console.log(error);

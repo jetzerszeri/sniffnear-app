@@ -31,12 +31,16 @@ export const AlertDetails = ( { data } ) => {
                     </p>
                 </div>
 
-                <UserCard user={ creator } createdAt={ created } >
-                    {
-                        (creator._id !== user.id) &&
-                        <button className='btn small'>Contactar</button>
-                    }
-                </UserCard>
+                {
+                    creator &&
+                    <UserCard user={ creator } createdAt={ created } >
+                        {
+                            (creator._id !== user?.id) &&
+                            <button className='btn small'>Contactar</button>
+                        }
+                    </UserCard>
+
+                }
 
                 <ul className='petDataList alert'>
                     <li>Sexo <span>{sex}</span></li>
@@ -50,9 +54,10 @@ export const AlertDetails = ( { data } ) => {
                 <MapSniffNear position={{ lat: latitude, lng: longitude }} displayOnly={true} />
 
 
+
                 <div className="actions">
                     {
-                        (creator._id === user.id)
+                        (creator && creator._id === user?.id)
                         ? <>
                             <button className='btn secundary'>Editar <i className="bi bi-pencil"></i></button>
                             <button className='btn'>Finalizar alerta <i className="bi bi-check2-square"></i></button>

@@ -9,6 +9,7 @@ import { useFetchSniffNearApi, usePreviewAndUploadImg } from '../../hooks';
 import { AuthContext } from '../../auth/context';
 import { Loader, Modal } from '../../ui';
 import { RegisterForm } from '../../auth/components/RegisterForm';
+import { LoginForm } from '../../auth/components/LoginForm';
 
 export const PetsAddPage = () => {
 
@@ -32,10 +33,9 @@ export const PetsAddPage = () => {
     const { data, isLoading, error, create, onResetFetchState } = useFetchSniffNearApi();
     const [ prevBtnLabel, setPrevBtnLabel ] = useState( 'Cancelar' );
     const [ displayModal, setDisplayModal ] = useState( false );
-    
-    // const [ isImg, setIsImg ] = useState( false );
-    // const [ uploadImg, setUploadImg ] = useState( false );
     const { imageSelected, uploadStatus, setImgFile, resetImg, uploadImg, imgFile } = usePreviewAndUploadImg();
+    const [ authForm, setAuthForm ] = useState('singup');
+    const [ imgError, setImgError ] = useState(false);
 
 
     useEffect(() => {
@@ -106,6 +106,13 @@ export const PetsAddPage = () => {
         }
     }, [error])
     
+
+    useEffect(() => {
+        if (imageSelected) {
+            setImgError(false);
+        }
+    }, [imageSelected])
+    
     
     
 
@@ -145,6 +152,7 @@ export const PetsAddPage = () => {
             if ( totalSteps === 4 ) {
                 if ( imgFile === null ){
                     console.log('no hay imagen');
+                    setImgError(true);
                     return;
                 }
                 nextStep();
@@ -175,6 +183,7 @@ export const PetsAddPage = () => {
         setManualValue( 'img', link );
         // console.log('se subio la imagen - link:', link);
     }
+
 
 
 
@@ -222,14 +231,11 @@ export const PetsAddPage = () => {
                         currentStep === 3 
                         && <PetFormPart3
                             bySteps={ true }
-                            // setIsImg={ setIsImg }
-                            // uploadImgIndicator={ uploadImg }
-                            // petName={ name }
-                            // setImgLink={ setManualValue }
                             imageSelected={ imageSelected } 
                             setImgFile={ setImgFile } 
                             resetImg={ resetImg }
                             uploadStatus={ uploadStatus }
+                            imgError={ imgError }
                         />
                     }
 
@@ -259,15 +265,36 @@ export const PetsAddPage = () => {
 
                 {
                     currentStep === 4 
-                    && <>
+                    && <div className='multiSteps'>
                         <h2>Por último, registrate o iniciá sesión para vincular el perfil de tu mascota con tu cuenta.</h2>
-                        <RegisterForm 
-                            authFlow={false} 
-                            label={`Registrarme y crear perfil de ${name}`} 
-                            onPrevFunction={ onPrevius }
-                            onNextFunction={ uploadPetImgAndSetLink }
-                        />
-                    </>
+
+                        {
+                            authForm === 'singup' 
+                                ?<RegisterForm 
+                                    authFlow={false} 
+                                    label={`Registrarme y crear perfil de ${name}`} 
+                                    onPrevFunction={ onPrevius }
+                                    onNextFunction={ uploadPetImgAndSetLink }
+
+                                >
+                                    <div className='loginSignupSwitch'>
+                                        <p>¿Ya tenés una cuenta? <span className='link' onClick={() => setAuthForm('login')}>Inicá sesión</span></p>
+                                    </div>
+                                </RegisterForm>
+                                : <LoginForm 
+                                    authFlow={false} 
+                                    label={`Iniciar sesión y crear perfil de ${name}`} 
+                                    onPrevFunction={ onPrevius }
+                                    onNextFunction={ uploadPetImgAndSetLink }
+                                >
+                                                                        <div className='loginSignupSwitch'>
+                                    <p>¿No tenés una cuenta? <span className='link' onClick={() => setAuthForm('singup')}>Registrate</span></p>
+                                    </div>
+
+                                </LoginForm>
+                        }
+
+                    </div>
                 }
 
 

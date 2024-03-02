@@ -7,7 +7,7 @@ import { PasswordInput, TextInput } from "../../ui/customInputs";
 import { EmailInput } from "../../ui/customInputs";
 
 
-export const RegisterForm = ( { accountStatus, authFlow = true, label = 'Registrarme', onPrevFunction, onNextFunction} ) => {
+export const RegisterForm = ( { accountStatus, authFlow = true, label = 'Registrarme', onPrevFunction, onNextFunction, children } ) => {
 
     const { onInputChange, name, email, password, validatePassword, errors, setErrors, checkErrors, setCheckErrors } = useForm({
         name: '',
@@ -94,7 +94,11 @@ export const RegisterForm = ( { accountStatus, authFlow = true, label = 'Registr
                 checkErrors={ checkErrors }
             />
 
-            <div>
+            {
+                !authFlow && children && children
+            }
+
+            <div className={!authFlow ? "actions" : ''}>
                 { !authFlow && <button type="button" className="btn secundary" onClick={onPrevFunction}>Regresar</button> }
                 <button type="submit" className="btn">{ label }</button>
                 { authFlow && <p>¿Ya tenés una cuenta? <Link to="/auth/login">Iniciá sesión</Link></p> }

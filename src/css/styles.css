@@ -337,8 +337,8 @@ form .btn{
     display: flex;
     align-items: center;
     position: relative;
-    margin-top: -10px;
-  }
+    /* margin-top: -10px; */
+}
   
 .pswdInput input {
     flex: 1;
@@ -1121,6 +1121,8 @@ h3{
 
 .multiSteps .actions{
     flex-direction: row;
+    flex-wrap: wrap;
+
 }
 
 .multiSteps .actions button{
@@ -1128,9 +1130,10 @@ h3{
     /* margin: 0 10px; */
 }
 
-.multiSteps h2{
+.multiSteps h2 {
     text-align: center;
     margin-bottom: 20px;
+    color: var(--color-green);
 }
 
 .multiSteps .step{
@@ -1141,7 +1144,7 @@ h3{
     display: flex;
     flex-direction: column;
     gap: 10px;
-    /* padding: 6px 0; */
+    padding: 0;
 }
 
 .inputContainer label{
@@ -1888,4 +1891,12 @@ svg{
     border-radius: 50%;
     margin-right: 5px;
     background-color: red;
+}
+
+
+.loginSignupSwitch{
+    margin-top: 10px;
+    font-size: 0.9em;
+    color: var(--color-darkblue);
+    text-align: right;
 }

@@ -65,7 +65,6 @@ export const PetBreedInput = ( { nameSelect = 'breedType', breedTypeValue, breed
                 placeholder={breedTypeValue === "raza" ? "Ingresá la raza de tu mascota" : "Ingresá una breve descripción de tu mascota"}
                 onChangeFunction={ onChangeFunction }
                 errors={ errors }
-                required={ breedTypeValue === "raza" }
                 setErrors={ setErrors }
                 checkErrors={ checkErrors }
             />

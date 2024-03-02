@@ -1,34 +1,6 @@
-import { useContext, useEffect } from 'react';
-import { usePreviewAndUploadImg } from '../../hooks';
 import { ImgInput, Loader } from '../../ui';
-import { AuthContext } from '../../auth/context';
 
-export const PetFormPart3 = ( { bySteps = false, imageSelected, setImgFile, resetImg, uploadStatus } ) => {
-
-    // const { user } = useContext( AuthContext );
-    // const { imageSelected, uploadStatus, setImgFile, resetImg, uploadImg } = usePreviewAndUploadImg();
-
-    // useEffect(() => {
-    //     if (imageSelected) {
-    //         setIsImg(true);
-    //     } else {
-    //         setIsImg(false);
-    //     }
-    // }, [ imageSelected, setIsImg ]);
-
-    // useEffect(() => {
-    //     if (uploadImgIndicator) {
-    //         // uploadImg( 'pets/avatars/' );
-    //         uploadPetImgAndSetLink();
-    //     }
-    // }, [ uploadImgIndicator ])
-    
-    // const uploadPetImgAndSetLink = async () => {
-    //     // console.log('subiendo imagen...');
-    //     const link = await uploadImg( 'pets/avatars/', `${user.id}-${petName}` );
-    //     setImgLink( 'img', link );
-    //     // console.log('se subio la imagen - link:', link);
-    // }
+export const PetFormPart3 = ( { bySteps = false, imageSelected, setImgFile, resetImg, uploadStatus, imgError } ) => {
     
 
     return (
@@ -36,12 +8,13 @@ export const PetFormPart3 = ( { bySteps = false, imageSelected, setImgFile, rese
             { bySteps && <h2>Foto de perfil de tu mascota</h2> }
 
             <ImgInput imageSelected={ imageSelected } setImgFile={ setImgFile } resetImg={ resetImg } />
+            {imgError && <p className='errorInput center'>*La imagen es obligatoria</p>}
+
 
             {
                 uploadStatus 
                     && Loader({ label: '1/2: Subiendo imagen...' })
             }
-
 
         </div>
     )

@@ -7,7 +7,7 @@ import { UserCard } from './UserCard';
 
 export const AlertDetails = ( { data } ) => {
 
-    const { coords } = useContext( AuthContext );
+    const { coords, user } = useContext( AuthContext );
     const { alertType, breed, breedType, city, color1, country, created, creator, date,description, img, pet, latitude, longitude, sex, size, state, status, time, type, _id} = data;
 
     return (
@@ -16,6 +16,8 @@ export const AlertDetails = ( { data } ) => {
 
             <div className='data'>
                 <div>
+                    <p className={`status ${status}`}>Alerta {status === "active" ? "activa" : "finalizada"}</p>
+
                     <h2 className='cap'>{`${type} ${alertType}`}</h2>
                     
                     <p>
@@ -28,7 +30,10 @@ export const AlertDetails = ( { data } ) => {
                 </div>
 
                 <UserCard user={ creator } createdAt={ created } >
-                    <button className='btn small'>Contactar</button>
+                    {
+                        (creator._id !== user.id) &&
+                        <button className='btn small'>Contactar</button>
+                    }
                 </UserCard>
 
                 <ul className='petDataList alert'>
@@ -41,6 +46,20 @@ export const AlertDetails = ( { data } ) => {
                 <p className='desc'>Descripción <span>{description}</span></p>
 
                 <MapSniffNear position={{ lat: latitude, lng: longitude }} displayOnly={true} />
+
+
+                <div className="actions">
+                    {
+                        (creator._id === user.id)
+                        ? <>
+                            <button className='btn secundary'>Editar <i className="bi bi-pencil"></i></button>
+                            <button className='btn'>Finalizar alerta <i className="bi bi-check2-square"></i></button>
+                        </>
+                        : <>
+                            <button className='btn'>Tengo info que puede ayudar</button>
+                        </>
+                    }
+                </div>
 
 
 

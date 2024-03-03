@@ -5,12 +5,20 @@ import { calculateAge, combineDateAndTime } from '../../helpers';
 import { MapSniffNear } from './MapSniffNear';
 import { UserCard } from './UserCard';
 import { Modal } from '../../ui';
+import { useNavigate } from 'react-router-dom';
 
 export const AlertDetails = ( { data, preview = false, imgSelected } ) => {
 
-    const { coords, user } = useContext( AuthContext );
+    const { coords, user, editAlert } = useContext( AuthContext );
     const { alertType, breed, breedType, city, color1, country, created, creator, date,description, img, pet, latitude, longitude, sex, size, state, status, time, type, _id} = data;
     const [ displayHelpOptions, setDisplayHelpOptions ] = useState(false);
+    const navigate = useNavigate();
+
+    const onEditAlert = () => {
+        if (user.id !== creator._id) return;
+        editAlert( data );
+        navigate(`/alerts/${_id}/edit`);
+    }
 
     return (
         <div className='alertDetails'>
@@ -69,7 +77,7 @@ export const AlertDetails = ( { data, preview = false, imgSelected } ) => {
                         {
                             (creator && creator._id === user?.id)
                             ? <>
-                                <button className='btn secundary'>Editar <i className="bi bi-pencil"></i></button>
+                                <button className='btn secundary' onClick={onEditAlert}>Editar <i className="bi bi-pencil"></i></button>
                                 <button className='btn'>Finalizar alerta <i className="bi bi-check2-square"></i></button>
                             </>
                             : <>

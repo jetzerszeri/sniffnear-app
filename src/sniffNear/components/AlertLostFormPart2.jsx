@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 export const AlertLostFormPart2 = ( {onInputChange, errors, setErrors, checkErrors, formState, setCheckErrors, nextStep, prevStep, updateCoords} ) => {
     
     const { coords } = useContext( AuthContext );
-    const [ position, setPosition ] = useState(null)
+    const [ position, setPosition ] = useState(null);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -71,7 +71,7 @@ export const AlertLostFormPart2 = ( {onInputChange, errors, setErrors, checkErro
                 name="description"
                 value={ formState.description }
                 label="Describe a tu mascota"
-                placeholder={`Puedes compartir todos los datos que consideres necesarios para localizar rápidamente a ${formState.petName}`}
+                placeholder={`Puedés compartir todos los datos que consideres necesarios para localizar rápidamente a ${formState.petName}`}
                 onChangeFunction={ onInputChange }
                 required={ true }
                 errors={ errors }

@@ -62,6 +62,14 @@ export const AuthProvider = ( { children } ) => {
         authDispatch( action );
     }
 
+    const editAlert = ( alert ) => {
+        const action = {
+            type: types.editAlert,
+            payload: alert
+        }
+        authDispatch( action );
+    }
+
 
     const setUserCoords = useCallback(( coords ) => {
         const action = {
@@ -88,6 +96,7 @@ export const AuthProvider = ( { children } ) => {
             logout,
             singup,
             editPet,
+            editAlert,
             setUserCoords,
             setUserAddress,
         }}>

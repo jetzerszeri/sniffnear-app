@@ -5,4 +5,5 @@ export const types = {
     editPet: '[auth] editPet',
     setCoords: '[auth] setCoords',
     setAddress: '[auth] setAddress',
+    editAlert: '[auth] editAlert',
 }

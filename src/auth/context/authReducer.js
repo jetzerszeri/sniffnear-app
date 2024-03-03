@@ -31,6 +31,12 @@ export const authReducer = (state = {}, action ) => {
                 pet: action.payload,
             };
 
+        case types.editAlert:
+            return {
+                ...state,
+                alert: action.payload,
+            };
+
         case types.setCoords:
             return {
                 ...state,

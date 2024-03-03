@@ -1,8 +1,8 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { useMultiSteps } from '../hooks/useMultiSteps';
-import { MultiStepsIndicator, PetTypeInput } from '../../ui';
-import { useForm, usePreviewAndUploadImg } from '../../hooks';
-import { getCurrentDate, getCurrentTime } from '../helpers';
+import { Loader, Modal, MultiStepsIndicator, PetTypeInput } from '../../ui';
+import { useFetchSniffNearApi, useForm, usePreviewAndUploadImg } from '../../hooks';
+import { convertDate, getCurrentDate, getCurrentTime } from '../helpers';
 import { AlertFoundFormPart1 } from './AlertFoundFormPart1';
 import { AlertFoundFormPart2 } from './AlertFoundFormPart2';
 import { AlertFoundFormPart3 } from './AlertFoundFormPart3';
@@ -10,14 +10,17 @@ import { AlertFormVerification } from './AlertFormVerification';
 import { AlertLostFormImgStep } from './AlertLostFormImgStep';
 import { AuthContext } from '../../auth/context';
 import { AuthStepOnForms } from './AuthStepOnForms';
+import { useNavigate } from 'react-router-dom';
 
 export const AlertFoundForm = () => {
 
+    const navigate = useNavigate();
     const { user, coords } = useContext(AuthContext);
     const [ addAlertTotalSteps, setAddAlertTotalSteps] = useState(5)
     const { currentStep, totalSteps, maxStepReached, nextStep, prevStep, onResetSteps} = useMultiSteps(addAlertTotalSteps);
     const { imageSelected, uploadStatus, setImgFile, resetImg, uploadImg, setCurrentImg } = usePreviewAndUploadImg();
     const [ authForm, setAuthForm ] = useState('singup');
+    const { data, isLoading, error, create, onResetFetchState } = useFetchSniffNearApi();
     const { formState,  errors, checkErrors,  onInputChange, setFormState, setErrors, setCheckErrors, setManualValue} = useForm({
         petName: '',
         type: '',
@@ -36,11 +39,9 @@ export const AlertFoundForm = () => {
         alertType: 'encontrado',
         sex: '',
         creator: '',
-        state:'',
-        city:'',
-        country:'',
-        pet: '',
-    })
+    });
+    const [ loaderLabel, setLoaderLabel ] = useState('Cargando...');
+    const [ isCreated, setIsCreated ] = useState(false);
 
     const updateCoords = useCallback(( lat, lng ) => {
         setFormState({
@@ -59,33 +60,91 @@ export const AlertFoundForm = () => {
         if (!user?.id && totalSteps === 5) {
             setAddAlertTotalSteps(6);
         }
-    }, [user?.id, totalSteps])
+
+        if (user){
+            setFormState({
+                ...formState,
+                personName: user.name,
+                email: user.email,
+                creator: user.id
+            })
+        }
+    }, [user, totalSteps])
+
+
+
+    useEffect(() => {
+        if ( data?.alert){
+            console.log(data)
+            setIsCreated(true);
+        }
+    }, [ data ]);
+
+    useEffect(() => {
+        if ( user?.id){
+            setFormState({
+                ...formState,
+                personName: user.name,
+                email: user.email,
+                creator: user.id
+            })
+        }
+    }, [user])
+
+    useEffect(() => {
+
+        if ( totalSteps === 6 && currentStep === 6 && (formState.creator !== '')) {
+            console.log('estoy en el effect y tengo que subir la imagen y publucar la alerta')
+            uploadImgandCreateAlert( formState );
+        }
+
+
+    }, [ user, totalSteps, formState, currentStep])
+    
+    
+
+    // const createAlert = useCallback( async (formState, userId) => {
+    //     const petData = {
+    //         ...formState,
+    //         owner: userId
+    //     }
+    //     create('pets', petData);
+    // }, []);
 
 
     const onCreateAlert = async() => {
-        console.log('onCreateAlert');
+        // console.log('onCreateAlert');
 
-        // if ( imageSelected !== formState.img ) {
-        //     setLoaderLabel('Subiendo la imagen...');
-        //     console.log('hay que subir la imagen');
-        //     const link = await uploadImg('alerts/lost/', formState.pet);
-        //     console.log(link);
-        //     const alertData = {
-        //         ...formState,
-        //         img: link
-        //     }
-        //     setLoaderLabel('Publicando la alerta...');
-        //     await create('alerts', alertData);
-            
-        // } else {
-        //     setLoaderLabel('Publicando la alerta...');
-        //     await create('alerts', formState);
-        //     // console.log('se publicó la alerta');
-        //     // console.log(data)
-
-        // }
-
+        if (totalSteps === 5 && currentStep === 5) {
+            setLoaderLabel('Subiendo imagen...');
+            const link = await uploadImg( 'alerts/found/', `${formState.type}found${formState.date}at${formState.time}` );
+            const alertData = {
+                ...formState,
+                img: link
+            }
+            setLoaderLabel('Publicando alerta...');
+            await create('alerts', alertData);
+            console.log('alerta creada');
+        } else {
+            nextStep();
+        } 
     }
+
+    const uploadImgandCreateAlert = useCallback(async ( formState ) => {
+        setLoaderLabel('Subiendo imagen...');
+        const link = await uploadImg( 'alerts/found/', `${formState.type}found${formState.date}at${formState.time}` );
+        const alertData = {
+            ...formState,
+            img: link
+        }
+        setLoaderLabel('Publicando alerta...');
+        await create('alerts', alertData);
+        console.log('alerta creada');
+
+        // setManualValue( 'img', link );
+    }, [ uploadImg ]);
+
+    
 
     return (
     <>
@@ -152,7 +211,7 @@ export const AlertFoundForm = () => {
                 <AlertFormVerification  
                     data={formState}
                     img={imageSelected}
-                    onCreateAlert={nextStep}
+                    onCreateAlert={onCreateAlert}
                     prevStep={prevStep}
                     alertType='found'
                     user={user}
@@ -173,6 +232,16 @@ export const AlertFoundForm = () => {
             />
         }
 
+        {
+            (isLoading || uploadStatus) && <Loader label={ loaderLabel } />
+        }
+
+        {
+            isCreated &&
+            <Modal heading={`Alerta creada con éxito`} type='success' icon={ true }>
+                <button className="btn" onClick={ () => { navigate(`/alerts/${ data.alert._id }`, { replace: true }) } }>Ver alerta</button>
+            </Modal>
+        }
 
     
     </>

@@ -34,8 +34,8 @@ export const AlertFormVerification = ( { data, img, prevStep, onCreateAlert, ale
                 <button className='btn secundary' type="buttton" onClick={ prevStep }>Regresar</button>
                 {
                     user?.id
-                    ? <button className='btn' type="buttton" onClick={onCreateAlert}>Publicar Alerta</button>
-                    : <button className='btn' type="buttton" onClick={onCreateAlert}>Continuar</button>
+                    ? <button className='btn' type="buttton" onClick={()=> {onCreateAlert()}}>Publicar Alerta</button>
+                    : <button className='btn' type="buttton" onClick={()=> {onCreateAlert()}}>Continuar</button>
                 }
             </div>
         </div>

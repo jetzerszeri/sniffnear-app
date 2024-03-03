@@ -2,7 +2,7 @@ import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { useMultiSteps } from '../hooks/useMultiSteps';
 import { MultiStepsIndicator, PetTypeInput } from '../../ui';
 import { useForm, usePreviewAndUploadImg } from '../../hooks';
-import { getCurrentDate } from '../helpers';
+import { getCurrentDate, getCurrentTime } from '../helpers';
 import { AlertFoundFormPart1 } from './AlertFoundFormPart1';
 import { AlertFoundFormPart2 } from './AlertFoundFormPart2';
 import { AlertFoundFormPart3 } from './AlertFoundFormPart3';
@@ -29,7 +29,7 @@ export const AlertFoundForm = () => {
         latitude: null,
         longitude: null,
         date: getCurrentDate(),
-        time: '',
+        time: getCurrentTime(),
         img: '',
         personName: '',
         email: '',

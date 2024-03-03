@@ -8,7 +8,7 @@ import { AuthContext } from '../../auth/context';
 import { AlertLostFormPart1 } from './AlertLostFormPart1';
 import { AlertLostFormPart2 } from './AlertLostFormPart2';
 import { useFetchSniffNearApi, useForm, usePreviewAndUploadImg } from '../../hooks';
-import { getCurrentDate } from '../helpers';
+import { getCurrentDate, getCurrentTime } from '../helpers';
 import { AlertFormVerification } from './AlertFormVerification';
 import { AlertLostFormImgStep } from './AlertLostFormImgStep';
 
@@ -32,7 +32,7 @@ export const AlertLostForm = () => {
         latitude: null,
         longitude: null,
         date: getCurrentDate(),
-        time: '',
+        time: getCurrentTime(),
         img: '',
         personName: '',
         email: '',

@@ -270,7 +270,7 @@ export const PetsAddPage = () => {
                         setAuthForm={ setAuthForm }
                         formState={ formState }
                         onPrevius={ onPrevius }
-                        uploadPetImgAndSetLink={ uploadPetImgAndSetLink }
+                        onNextFunction={ uploadPetImgAndSetLink }
                     />
                 }
 

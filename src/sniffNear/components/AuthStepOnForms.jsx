@@ -1,18 +1,26 @@
 import { LoginForm } from '../../auth/components/LoginForm';
 import { RegisterForm } from '../../auth/components/RegisterForm';
 
-export const AuthStepOnForms = ( { formState, onPrevius, uploadPetImgAndSetLink, authForm,  setAuthForm} ) => {
+export const AuthStepOnForms = ( { formState, onPrevius, onNextFunction, authForm,  setAuthForm, alertType = "missing"} ) => {
     return (
         <div className='multiSteps'>
-            <h2>Por último, registrate o iniciá sesión para vincular el perfil de tu mascota con tu cuenta.</h2>
+            {
+                alertType === 'missing' 
+                ? <h2>Por último, registrate o iniciá sesión para vincular el perfil de tu mascota con tu cuenta.</h2>
+                : <div>
+                    <h2>Datos de contacto</h2>
+                    <p>Gracias por ayudar a una mascota perdida. Por favor registrate o iniciá sesión para poder contactarte.</p>
+                </div> 
+            }
+            
 
             {
                 authForm === 'singup' 
                     ?<RegisterForm 
                         authFlow={false} 
-                        label={`Registrarme y crear perfil de ${formState.name}`} 
+                        label={ alertType === 'missing' ? `Registrarme y crear perfil de ${formState.name}` : 'Registrarme y publicar alerta'} 
                         onPrevFunction={ onPrevius }
-                        onNextFunction={ uploadPetImgAndSetLink }
+                        onNextFunction={ onNextFunction }
 
                     >
                         <div className='loginSignupSwitch'>
@@ -21,9 +29,9 @@ export const AuthStepOnForms = ( { formState, onPrevius, uploadPetImgAndSetLink,
                     </RegisterForm>
                     : <LoginForm 
                         authFlow={false} 
-                        label={`Iniciar sesión y crear perfil de ${formState.name}`} 
+                        label={ alertType === 'missing' ?`Iniciar sesión y crear perfil de ${formState.name}` : 'Iniciar sesión y publicar alerta'} 
                         onPrevFunction={ onPrevius }
-                        onNextFunction={ uploadPetImgAndSetLink }
+                        onNextFunction={ onNextFunction }
                     >
                         <div className='loginSignupSwitch'>
                             <p>¿No tenés una cuenta? <span className='link' onClick={() => setAuthForm('singup')}>Registrate</span></p>

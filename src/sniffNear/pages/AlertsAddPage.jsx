@@ -1,4 +1,4 @@
-import { AlertLostForm, AlertTypeSelector, NavBar } from '../components';
+import { AlertFoundForm, AlertLostForm, AlertTypeSelector, NavBar } from '../components';
 import queryString from 'query-string';
 import { Link, useLocation } from 'react-router-dom';
 import { AlertIcon, FoundIcon } from '../../ui';
@@ -24,6 +24,10 @@ export const AlertsAddPage = () => {
                 {
                     type === 'missing' 
                     && <AlertLostForm />
+                }
+                {
+                    type === 'found' 
+                    && <AlertFoundForm />
                 }
                 
 

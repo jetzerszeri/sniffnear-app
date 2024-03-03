@@ -1900,3 +1900,8 @@ svg{
     color: var(--color-darkblue);
     text-align: right;
 }
+
+
+.alertFoundForm .sizeSelector{
+    margin-top: 50px;
+}

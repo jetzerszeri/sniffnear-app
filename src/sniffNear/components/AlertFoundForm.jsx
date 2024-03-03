@@ -116,15 +116,7 @@ export const AlertFoundForm = () => {
         // console.log('onCreateAlert');
 
         if (totalSteps === 5 && currentStep === 5) {
-            setLoaderLabel('Subiendo imagen...');
-            const link = await uploadImg( 'alerts/found/', `${formState.type}found${formState.date}at${formState.time}` );
-            const alertData = {
-                ...formState,
-                img: link
-            }
-            setLoaderLabel('Publicando alerta...');
-            await create('alerts', alertData);
-            console.log('alerta creada');
+            uploadImgandCreateAlert( formState );
         } else {
             nextStep();
         } 

@@ -13,7 +13,7 @@ import { AuthStepOnForms } from './AuthStepOnForms';
 
 export const AlertFoundForm = () => {
 
-    const { user } = useContext(AuthContext);
+    const { user, coords } = useContext(AuthContext);
     const [ addAlertTotalSteps, setAddAlertTotalSteps] = useState(5)
     const { currentStep, totalSteps, maxStepReached, nextStep, prevStep, onResetSteps} = useMultiSteps(addAlertTotalSteps);
     const { imageSelected, uploadStatus, setImgFile, resetImg, uploadImg, setCurrentImg } = usePreviewAndUploadImg();
@@ -26,8 +26,8 @@ export const AlertFoundForm = () => {
         breed: '',
         breedType: '',
         description: '',
-        latitude: null,
-        longitude: null,
+        latitude: coords?.lat,
+        longitude: coords?.lng,
         date: getCurrentDate(),
         time: getCurrentTime(),
         img: '',
@@ -154,22 +154,24 @@ export const AlertFoundForm = () => {
                     img={imageSelected}
                     onCreateAlert={nextStep}
                     prevStep={prevStep}
+                    alertType='found'
+                    user={user}
                 />
             }
 
         </form>
         {
-                currentStep === 6 &&
-                <AuthStepOnForms
-                    authForm={ authForm }
-                    setAuthForm={ setAuthForm }
-                    formState={ formState }
-                    onPrevius={ prevStep }
-                    onNextFunction={ onCreateAlert }
-                    setCurrentImg={ setCurrentImg }
-                    alertType='found'
-                />
-            }
+            currentStep === 6 &&
+            <AuthStepOnForms
+                authForm={ authForm }
+                setAuthForm={ setAuthForm }
+                formState={ formState }
+                onPrevius={ prevStep }
+                onNextFunction={ onCreateAlert }
+                setCurrentImg={ setCurrentImg }
+                alertType='found'
+            />
+        }
 
 
     

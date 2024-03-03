@@ -6,7 +6,7 @@ import { MapSniffNear } from './MapSniffNear';
 import { UserCard } from './UserCard';
 import { Modal } from '../../ui';
 
-export const AlertDetails = ( { data } ) => {
+export const AlertDetails = ( { data, preview = false, imgSelected } ) => {
 
     const { coords, user } = useContext( AuthContext );
     const { alertType, breed, breedType, city, color1, country, created, creator, date,description, img, pet, latitude, longitude, sex, size, state, status, time, type, _id} = data;
@@ -14,12 +14,20 @@ export const AlertDetails = ( { data } ) => {
 
     return (
         <div className='alertDetails'>
-            <img src={img ? img : '/img/noImgPlaceholder.svg'} alt={ `${type} color ${color1} ${ size }`} />
 
+            {
+                preview 
+                ? <img src={imgSelected} alt={ `${type} color ${color1} ${ size }`} />
+                : <img src={img ? img : '/img/noImgPlaceholder.svg'} alt={ `${type} color ${color1} ${ size }`} />
+                
+            }
             <div className='data'>
                 <div>
-                    <p className={`status ${status}`}>Alerta {status === "active" ? "activa" : "finalizada"}</p>
-
+                    {
+                        preview ? 
+                        <p className='status'>Vista previa de la alerta</p>
+                        : <p className={`status ${status}`}>Alerta {status === "active" ? "activa" : "finalizada"}</p>
+                    }
                     <h2 className='cap'>{`${type} ${alertType}`}</h2>
                     
                     <p>
@@ -32,7 +40,7 @@ export const AlertDetails = ( { data } ) => {
                 </div>
 
                 {
-                    creator &&
+                    !preview && creator &&
                     <UserCard user={ creator } createdAt={ created } >
                         {
                             (creator._id !== user?.id) &&
@@ -43,7 +51,7 @@ export const AlertDetails = ( { data } ) => {
                 }
 
                 <ul className='petDataList alert'>
-                    <li>Sexo <span>{sex}</span></li>
+                    { sex && <li>Sexo <span>{sex}</span></li>}
                     <li>Color <span>{color1}</span></li>
                     { (breed && breedType) && <li>{ breedType } <span>{ breed }</span></li>}
                     <li>Tamaño <span>{size}</span></li>
@@ -55,18 +63,21 @@ export const AlertDetails = ( { data } ) => {
 
 
 
-                <div className="actions">
-                    {
-                        (creator && creator._id === user?.id)
-                        ? <>
-                            <button className='btn secundary'>Editar <i className="bi bi-pencil"></i></button>
-                            <button className='btn'>Finalizar alerta <i className="bi bi-check2-square"></i></button>
-                        </>
-                        : <>
-                            <button className='btn' onClick={()=> setDisplayHelpOptions(true)}>Tengo info que puede ayudar</button>
-                        </>
-                    }
-                </div>
+                {
+                    !preview &&
+                    <div className="actions">
+                        {
+                            (creator && creator._id === user?.id)
+                            ? <>
+                                <button className='btn secundary'>Editar <i className="bi bi-pencil"></i></button>
+                                <button className='btn'>Finalizar alerta <i className="bi bi-check2-square"></i></button>
+                            </>
+                            : <>
+                                <button className='btn' onClick={()=> setDisplayHelpOptions(true)}>Tengo info que puede ayudar</button>
+                            </>
+                        }
+                    </div>
+                }
             </div>
 
             {

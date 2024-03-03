@@ -9,7 +9,7 @@ export const AlertTypeSelector = () => {
         <div className='alertSelector'>
             <h2>¿Qué tipo de alerta querés crear?</h2>
             <div>
-                <div onClick={ () => navigate('?type=lost')}>
+                <div onClick={ () => navigate('?type=missing')}>
                     <AlertIcon />
                     <p>Se perdió mi mascota</p>
                 </div>

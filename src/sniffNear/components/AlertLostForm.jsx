@@ -54,7 +54,7 @@ export const AlertLostForm = () => {
             nextStep();
         }
 
-        if ( type === 'lost' && !petId  && currentStep === 2) {
+        if ( type === 'missing' && !petId  && currentStep === 2) {
             prevStep();
         }
     }, [ petId, currentStep, type, prevStep, nextStep ]);
@@ -220,39 +220,7 @@ export const AlertLostForm = () => {
                     prevStep={prevStep}
                 />
             }
-            
 
-
-
-
-
-
-            {/* <div className="AlertLostPart1">
-                <h2>Seleccioná la mascota</h2>
-                
-                <PetsList forAlert={ true } />
-
-                <div>
-                    <p>Si la mascota que se te perdió todavía no tiene perfil, por favor creale uno para continuar con la alerta.</p>
-
-                    <Link to="/pets/add?for=alert" className='plusOption'>
-                            <DogPawPrintIcon />
-                            Agregar mascota
-                    </Link>
-
-                </div>
-
-
-                
-
-                
-            </div> */}
-
-
-                {/* <div>
-                    <input type="date" />
-                    <input type="time" />
-                </div> */}
 
         </form>
 

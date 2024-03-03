@@ -3,7 +3,7 @@ import { PetSizeLgIcon, PetSizeMdIcon, PetSizeSmIcon } from "../customIcons";
 import { onRequieredInput } from "../../sniffNear/helpers";
 
 
-export const PetSizeInput = ( { name='size', changeFunction, sizeValue, required = false, errors, checkErrors, setErrors }) => {
+export const PetSizeInput = ( { name='size', changeFunction, sizeValue, required = false, errors, checkErrors, setErrors, label = 'Tamaño' }) => {
 
     const [petSize, setPetSize] = useState('');
     const error = errors[name];
@@ -29,7 +29,7 @@ export const PetSizeInput = ( { name='size', changeFunction, sizeValue, required
 
     return (
         <div className="inputContainer">
-            <label htmlFor="size">Tamaño</label>
+            { label && <label htmlFor="size">{label}</label> }
             <input
                 type="hidden"
                 name={name}

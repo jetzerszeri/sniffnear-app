@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { onRemoveInputError, onRequieredInput } from '../../sniffNear/helpers';
 import { TextInput } from './TextInput';
 
-export const PetBreedInput = ( { nameSelect = 'breedType', breedTypeValue, breedName = 'breed', breedValue,  errors, onChangeFunction, required = false, setErrors, checkErrors }) => {
+export const PetBreedInput = ( { nameSelect = 'breedType', breedTypeValue, breedName = 'breed', breedValue,  errors, onChangeFunction, required = false, setErrors, checkErrors, forAlert = false, label = 'Raza' }) => {
     
     const error = errors[nameSelect];
     const [ selectedBreedType, setSelectedBreedType ] = useState( false );
@@ -41,7 +41,7 @@ export const PetBreedInput = ( { nameSelect = 'breedType', breedTypeValue, breed
     <>
         
         <div className="inputContainer">
-            <label htmlFor={ nameSelect }>Raza</label>
+            <label htmlFor={ nameSelect }>{label}</label>
             <select 
                 name={ nameSelect }
                 value={ breedTypeValue }
@@ -50,9 +50,9 @@ export const PetBreedInput = ( { nameSelect = 'breedType', breedTypeValue, breed
                 className={ error ? 'error' : '' }
             >
                 <option value="" disabled defaultValue>Seleccioná una opción</option>
-                <option value="raza">Mi mascota es de raza</option>
-                <option value="callejero">Mi mascota es callejera</option>
-                <option value="desconocido">No sé la raza de mi mascota</option>
+                <option value="raza">{ forAlert ? 'La' : 'Mi'} mascota es de raza</option>
+                <option value="callejero">{ forAlert ? 'La' : 'Mi'} mascota es callejera</option>
+                <option value="desconocido">No sé la raza de { forAlert ? 'la' : 'Mi'} mascota</option>
             </select>
             {error && <p className='errorInput'>{ error }</p>}
         </div>
@@ -62,7 +62,7 @@ export const PetBreedInput = ( { nameSelect = 'breedType', breedTypeValue, breed
             <TextInput
                 name={ breedName }
                 value={ breedValue }
-                placeholder={breedTypeValue === "raza" ? "Ingresá la raza de tu mascota" : "Ingresá una breve descripción de tu mascota"}
+                placeholder={breedTypeValue === "raza" ? "Ingresá la raza de la mascota" : "Ingresá una breve descripción de la mascota"}
                 onChangeFunction={ onChangeFunction }
                 errors={ errors }
                 setErrors={ setErrors }

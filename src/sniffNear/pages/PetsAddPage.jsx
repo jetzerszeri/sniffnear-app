@@ -1,7 +1,7 @@
 import { useCallback, useContext, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import queryString from 'query-string';
-import { NavBar, PetFormPart1, PetFormPart2, PetFormPart3 } from '../components';
+import { AuthStepOnForms, NavBar, PetFormPart1, PetFormPart2, PetFormPart3 } from '../components';
 import { useMultiSteps } from '../hooks';
 import { MultiStepsIndicator } from '../../ui/MultiStepsIndicator';
 import { useForm } from '../../hooks/useForm';
@@ -92,8 +92,8 @@ export const PetsAddPage = () => {
 
     useEffect(() => {
         if (data){
-            if ( forAlert === "lost"){
-                navigate(`/alerts/new?type=lost&petId=${data.pet._id}`, { replace: true });
+            if ( forAlert === "missing"){
+                navigate(`/alerts/new?type=missing&petId=${data.pet._id}`, { replace: true });
             } else{
                 setDisplayModal(true);
             }
@@ -265,36 +265,13 @@ export const PetsAddPage = () => {
 
                 {
                     currentStep === 4 
-                    && <div className='multiSteps'>
-                        <h2>Por último, registrate o iniciá sesión para vincular el perfil de tu mascota con tu cuenta.</h2>
-
-                        {
-                            authForm === 'singup' 
-                                ?<RegisterForm 
-                                    authFlow={false} 
-                                    label={`Registrarme y crear perfil de ${name}`} 
-                                    onPrevFunction={ onPrevius }
-                                    onNextFunction={ uploadPetImgAndSetLink }
-
-                                >
-                                    <div className='loginSignupSwitch'>
-                                        <p>¿Ya tenés una cuenta? <span className='link' onClick={() => setAuthForm('login')}>Inicá sesión</span></p>
-                                    </div>
-                                </RegisterForm>
-                                : <LoginForm 
-                                    authFlow={false} 
-                                    label={`Iniciar sesión y crear perfil de ${name}`} 
-                                    onPrevFunction={ onPrevius }
-                                    onNextFunction={ uploadPetImgAndSetLink }
-                                >
-                                                                        <div className='loginSignupSwitch'>
-                                    <p>¿No tenés una cuenta? <span className='link' onClick={() => setAuthForm('singup')}>Registrate</span></p>
-                                    </div>
-
-                                </LoginForm>
-                        }
-
-                    </div>
+                    && <AuthStepOnForms
+                        authForm={ authForm }
+                        setAuthForm={ setAuthForm }
+                        formState={ formState }
+                        onPrevius={ onPrevius }
+                        uploadPetImgAndSetLink={ uploadPetImgAndSetLink }
+                    />
                 }
 
 
@@ -313,10 +290,6 @@ export const PetsAddPage = () => {
                     </Modal>
                 }
 
-
-                {/* <button onClick={() => {console.log(user)}}>
-                    ver user
-                </button> */}
             </main>
         </>
     )

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { SexFemaleIcon, SexMaleIcon } from '../customIcons';
 import { onRequieredInput } from '../../sniffNear/helpers';
 
-export const PetSexInput = ( { name = "sex", changeFunction, sexValue, required = false, errors, checkErrors, setErrors } ) => {
+export const PetSexInput = ( { name = "sex", changeFunction, sexValue, required = false, errors, checkErrors, setErrors, label = "Sexo" } ) => {
     
     const [ petSex, setPetSex ] = useState('');
     const error = errors[name];
@@ -29,7 +29,10 @@ export const PetSexInput = ( { name = "sex", changeFunction, sexValue, required 
     
     return (
     <div className='inputContainer'>
-        <label htmlFor={name}>Sexo</label>
+        <div>
+            <label htmlFor={name}>{label}</label>
+            { !required && <p>Sino lo sabes no te preocupés, pero ayudaría a identificarla más rápido.</p>}
+        </div>
 
         <input 
             type="hidden" 

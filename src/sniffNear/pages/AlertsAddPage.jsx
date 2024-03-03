@@ -18,11 +18,11 @@ export const AlertsAddPage = () => {
             <main className='fullHeight alerts'>
                 
                 { 
-                    type !== 'lost' && type !== 'found' &&
+                    type !== 'missing' && type !== 'found' &&
                     <AlertTypeSelector />
                 }
                 {
-                    type === 'lost' 
+                    type === 'missing' 
                     && <AlertLostForm />
                 }
                 

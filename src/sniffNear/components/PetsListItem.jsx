@@ -10,7 +10,7 @@ export const PetsListItem = ( { pet, forAlert }) => {
 
     const onClick = () => {
         if ( forAlert ) {
-            navigate(`?type=lost&petId=${_id}`);
+            navigate(`?type=missing&petId=${_id}`);
         } else {
             navigate(`/pets/${_id}`);
         }

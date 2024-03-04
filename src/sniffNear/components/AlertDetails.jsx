@@ -13,6 +13,8 @@ export const AlertDetails = ( { data, preview = false, imgSelected } ) => {
     const { alertType, breed, breedType, city, color1, country, created, creator, date,description, img, pet, latitude, longitude, sex, size, state, status, time, type, _id} = data;
     const [ displayHelpOptions, setDisplayHelpOptions ] = useState(false);
     const navigate = useNavigate();
+    const [chatExist,setChatExist]=useState(false)
+    
 
     const onEditAlert = () => {
         if (user.id !== creator._id) return;
@@ -20,11 +22,48 @@ export const AlertDetails = ( { data, preview = false, imgSelected } ) => {
         navigate(`/alerts/${_id}/edit`);
     }
 
+    const handleContactClick = async () => {
+        try {
+        const sender = user.id;
+        const receptor = creator._id;
+    
+        const existingChatRoomResponse = await fetch('https://sniffnear-api.onrender.com/api/chats/find', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ sender, receptor })
+        });
+    
+        if (existingChatRoomResponse.ok) {
+            
+            const existingData = await existingChatRoomResponse.json();
+            const existingRoomId = existingData._id;
+            setChatExist(true)
+            navigate(`/inbox/chat/${existingRoomId}`);
 
-
-
-
-
+        } else {
+                
+            const createChatRoomResponse = await fetch('https://sniffnear-api.onrender.com/api/chats/create', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ participants: [sender, receptor] })
+            });
+    
+            if (createChatRoomResponse.ok) {
+                const data = await createChatRoomResponse.json();
+                const newRoomId = data._id;
+                setChatExist(false)
+                navigate(`/inbox/chat/${newRoomId}`);
+            } 
+        }
+        } catch (error) {
+            console.error('Error al contactar al usuario:', error);
+        }
+    };
+    
     return (
         <div className='alertDetails'>
 
@@ -57,7 +96,7 @@ export const AlertDetails = ( { data, preview = false, imgSelected } ) => {
                     <UserCard user={ creator } createdAt={ created } >
                         {
                             (creator._id !== user?.id) &&
-                            <button className='btn small' >Contactar BOTOOOON</button>
+                            <button className='btn small' onClick={handleContactClick}>Contactar BOTOOOON</button>
                         }
                     </UserCard>
 

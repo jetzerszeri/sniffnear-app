@@ -8,7 +8,7 @@ export const InboxRoutes = () => {
     <PrivateRoutes>
         <Routes>
             <Route path="/" element={ <InboxPage /> } />
-            <Route path="/chat" element={ <ChatPage /> } />
+            <Route path="/chat/:roomId" element={ <ChatPage /> } />
 
 
 

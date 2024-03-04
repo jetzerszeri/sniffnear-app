@@ -22,7 +22,6 @@ export const AlertFoundForm = () => {
     const [ authForm, setAuthForm ] = useState('singup');
     const { data, isLoading, error, create, onResetFetchState } = useFetchSniffNearApi();
     const { formState,  errors, checkErrors,  onInputChange, setFormState, setErrors, setCheckErrors, setManualValue} = useForm({
-        petName: '',
         type: '',
         size: '',
         color1: '',

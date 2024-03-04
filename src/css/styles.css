@@ -1119,10 +1119,9 @@ h3{
 }
 
 
-.multiSteps .actions{
+.actions{
     flex-direction: row;
     flex-wrap: wrap;
-
 }
 
 .multiSteps .actions button{
@@ -1342,7 +1341,6 @@ h3{
     font-weight: 500;
     color: var(--color-green);
     font-size: 1.2em;
-    text-transform: capitalize;
 }
 
 .petProfile .data > div:first-of-type{
@@ -1363,8 +1361,6 @@ h3{
 
 .petProfile .data .actions, .actions{
     display: flex;
-    /* justify-content: center; */
-    flex-direction: column;
     gap: 10px;
     margin-top: 30px;
     text-align: center;
@@ -1917,4 +1913,10 @@ svg{
 
 .alertFoundForm .sizeSelector{
     margin-top: 50px;
+}
+
+.editAlertForm{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }

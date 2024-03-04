@@ -1,4 +1,4 @@
-import { useCallback, useContext, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { AuthContext } from '../../auth/context';
 import { useFetchSniffNearApi, useForm, usePreviewAndUploadImg } from '../../hooks';
@@ -27,9 +27,8 @@ export const AlertsEditPage = () => {
     creator: alert?.creator,
   }
   const { errors, checkErrors, formState, setErrors, setCheckErrors, onInputChange, setManualValue, setFormState } = useForm(initialAlertInfo);
-  const { data, isLoading, error, update, deleteDocument } = useFetchSniffNearApi();
+  const { data, isLoading, update } = useFetchSniffNearApi();
   const { imageSelected, uploadStatus, setImgFile, resetImg, uploadImg, setCurrentImg } = usePreviewAndUploadImg();
-  const [ showModal, setShowModal ] = useState( false );
 
   useEffect(() => {
     if ( !alert ){ navigate( `/alerts/${id}`, { replace: true });}
@@ -58,17 +57,6 @@ export const AlertsEditPage = () => {
     naranja: 'Naranja',
     otro: 'Otro'
   }
-
-  const displayModal = () => {
-    setShowModal( !showModal );
-  }
-
-  const onDeleteAlert = () => {
-    if ( user.id === alert.creator._id ) {
-      deleteDocument('alerts', id, { owner: user.id });
-      setShowModal( false );
-    }
-}
 
 
   const onUpdateSubmit = async (e) => {
@@ -102,9 +90,7 @@ export const AlertsEditPage = () => {
 
   return (
     <>
-      <NavBar title='Editar alerta' >
-        <i className="bi bi-trash3" onClick={displayModal}></i>
-      </NavBar>
+      <NavBar title='Editar alerta' />
 
       <main>
         <form className='editAlertForm' onSubmit={onUpdateSubmit}>
@@ -224,14 +210,6 @@ export const AlertsEditPage = () => {
         {
           data && <Modal text={`Alerta actualizado correctamente`} type='success' icon={ true } >
               <button className="btn" onClick={ () => navigate(-1, { replace: true }) }>Aceptar</button>
-          </Modal>
-        }
-
-        {
-          showModal &&
-          <Modal text={`¿Estás seguro de dar de baja la alerta?`} type='danger' icon={ true }>
-              <button className="btn secundary" onClick={ displayModal }>Cancelar</button>
-              <button className="btn" onClick={ onDeleteAlert }>Si, Eliminar</button>
           </Modal>
         }
 

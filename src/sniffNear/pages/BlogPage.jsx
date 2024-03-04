@@ -22,7 +22,7 @@ export const BlogPage = () => {
     <>
         <NavBar title='Artículos' />
 
-        <PostCardsList data={ filteredData } />
+        { filteredData && <PostCardsList data={ filteredData } /> }
     
     </>
     )

@@ -7,7 +7,7 @@ import { useFetchSniffNearApi } from '../../hooks';
 
 export const PostDetails = ( {post}) => {
     const { title, content, creator, category, created, img, _id } = post;
-    const { user } = useContext( AuthContext );
+    const { user, editPost } = useContext( AuthContext );
     const [ showModal, setShowModal ] = useState( false );
     const navigate = useNavigate();
     const { data, isLoading, error, deleteDocument } = useFetchSniffNearApi();
@@ -28,7 +28,7 @@ export const PostDetails = ( {post}) => {
     }
 
     const onEditPost = () => {
-        // editPost( data );
+        editPost( post );
         navigate(`/blog/${_id}/edit`);
     }
 

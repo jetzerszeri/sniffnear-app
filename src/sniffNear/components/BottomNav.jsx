@@ -23,6 +23,14 @@ export const BottomNav = () => {
                         <i className="bi bi-house-door"></i>
                     </NavLink>
                 </li>
+                <li>
+                    <NavLink
+                        className={ ({isActive}) => `${isActive ? 'active' : ''}`}
+                        to="/pets"
+                    >
+                        <i className="bi bi-list-task"></i>
+                    </NavLink>
+                </li>
                 <li className="plusBtn">
                     <button onClick={ toggleOptions }>
                         <i className="bi bi-plus"></i>
@@ -34,6 +42,14 @@ export const BottomNav = () => {
                         to="/alerts"
                     >
                         <i className="bi bi-search"></i>
+                    </NavLink>
+                </li>
+                <li>
+                    <NavLink
+                        className={ ({isActive}) => `${isActive ? 'active' : ''}`}
+                        to="/account"
+                    >
+                        <i className="bi bi-person-circle"></i>
                     </NavLink>
                 </li>
             </ul>

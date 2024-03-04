@@ -1,8 +1,26 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { onRemoveInputError, onRequieredInput } from '../../sniffNear/helpers';
 
 export const SelectOptionInput = ( { name, value, onChangeFunction, label, errors, required = false, setErrors, checkErrors, options = {} } ) => {
 
     let error = errors ? errors[name] : null;
+
+    useEffect(() => {
+        if (checkErrors){
+            onRequieredInput( required, name, value, setErrors );
+        }
+    }, [ checkErrors, value, required, name, setErrors ]);
+
+
+    const onBlur = () => {
+        if (required){
+            onRequieredInput( required, name, value, setErrors );
+            onRemoveInputError( error, name, setErrors, value );
+        }
+    }
+    
+
+
 
 
 
@@ -14,6 +32,7 @@ export const SelectOptionInput = ( { name, value, onChangeFunction, label, error
                 value={ value }
                 onChange={ onChangeFunction }
                 className={ error ? 'error' : '' }
+                onBlur={  onBlur }
             >
                 <option value="" disabled defaultValue>Seleccioná una opción</option>
 
@@ -22,11 +41,6 @@ export const SelectOptionInput = ( { name, value, onChangeFunction, label, error
                         return <option key={ key } value={ key }>{ options[key] }</option>
                     })
                 }
-
-
-                {/* <option value="raza">Mi mascota es de raza</option>
-                <option value="callejero">Mi mascota es callejera</option>
-                <option value="desconocido">No sé la raza de mi mascota</option> */}
             </select>
             {error && <p className='errorInput'>{ error }</p>}
     </div>

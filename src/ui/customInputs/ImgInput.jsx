@@ -1,6 +1,6 @@
 import { UploadImgIcon } from '../customIcons';
 
-export const ImgInput = ( {imageSelected, setImgFile,  resetImg}) => {
+export const ImgInput = ( {imageSelected, setImgFile,  resetImg, fullWidth = false}) => {
 
 
     const imgLabelBackground = {
@@ -17,7 +17,7 @@ export const ImgInput = ( {imageSelected, setImgFile,  resetImg}) => {
 
     return (
         <>
-            <label htmlFor="imgUrl" className="labelImgInput" style={ imgLabelBackground }>
+            <label htmlFor="imgUrl" className={`labelImgInput ${fullWidth ? 'fullWidth' : ""}`} style={ imgLabelBackground }>
                 {
                     (imageSelected) 
                         ? <p className='editIcon'><i className="bi bi-pencil"></i> <span>Editar</span></p>

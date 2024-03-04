@@ -834,6 +834,11 @@ h3{
     position: relative;
 }
 
+.labelImgInput.fullWidth{
+    width: 100%;
+    margin: 0;
+}
+
 .labelImgInput .loadLabel{
     color: var(--color-neutral-50);
 }
@@ -861,6 +866,10 @@ h3{
     cursor: pointer;
     transition: all 0.2s ease;
     text-align: center;
+}
+
+.labelImgInput.fullWidth + p{
+    margin: 0;
 }
 
 .labelImgInput + p:hover{
@@ -1994,3 +2003,12 @@ svg{
     white-space: nowrap; /* No permitir saltos de línea */
     text-overflow: ellipsis; /* Mostrar puntos suspensivos si el texto no cabe */
 }
+
+
+
+
+/* estilos de crear new post */
+.newPost label{
+    color: var(--color-neutral-90);
+}
+

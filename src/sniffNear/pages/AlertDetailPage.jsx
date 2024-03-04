@@ -22,8 +22,9 @@ export const AlertDetailPage = () => {
         if ( data ) {
             setAlert(data);
             // console.log(data);
-        } else if ( error ) {
-            // navigate(-1, { replace: true });
+        }
+        if ( error ) {
+            navigate('/alerts', { replace: true });
             console.log(error);
         }
     }, [ data, error, navigate ]);

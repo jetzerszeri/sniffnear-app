@@ -9,7 +9,7 @@ import { BottomNav } from '../components';
 export const HomePage = () => {
 
   const { isLogged } = useContext(AuthContext);
-  const rightIcon = {display: true, icon: "bi-chat-right-dots", link: "/chat"};
+  const rightIcon = {display: true, icon: "bi-chat-right-dots", link: "/inbox"};
 
   return (
     <>

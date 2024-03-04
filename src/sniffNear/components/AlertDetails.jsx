@@ -20,6 +20,11 @@ export const AlertDetails = ( { data, preview = false, imgSelected } ) => {
         navigate(`/alerts/${_id}/edit`);
     }
 
+
+
+
+
+
     return (
         <div className='alertDetails'>
 
@@ -52,7 +57,7 @@ export const AlertDetails = ( { data, preview = false, imgSelected } ) => {
                     <UserCard user={ creator } createdAt={ created } >
                         {
                             (creator._id !== user?.id) &&
-                            <button className='btn small'>Contactar</button>
+                            <button className='btn small' >Contactar BOTOOOON</button>
                         }
                     </UserCard>
 

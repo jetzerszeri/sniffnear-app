@@ -1920,3 +1920,19 @@ svg{
     flex-direction: column;
     gap: 10px;
 }
+
+
+
+
+
+
+
+
+
+/* estilos para el chat */
+.chatContainer{
+    min-height: 100vh;
+    padding: 20px;
+    background-image: url(/public/img/pattern2.svg);
+    background-color: var(--color-neutral-0);
+}

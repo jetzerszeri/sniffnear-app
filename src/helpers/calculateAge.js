@@ -2,29 +2,47 @@ export const calculateAge = ( isoDate ) => {
     const birthDate = new Date(isoDate);
     const currentDate = new Date();
 
-    const millisecondsInDay = 1000 * 60 * 60 * 24;
+    const millisecondsInMinute = 1000 * 60;
+    const millisecondsInHour = millisecondsInMinute * 60;
+    const millisecondsInDay = millisecondsInHour * 24;
+
     const differenceInMilliseconds = currentDate - birthDate;
     const days = Math.floor(differenceInMilliseconds / millisecondsInDay);
+    const hours = Math.floor((differenceInMilliseconds % millisecondsInDay) / millisecondsInHour);
+    const minutes = Math.floor((differenceInMilliseconds % millisecondsInHour) / millisecondsInMinute);
 
     if (days < 30) {
-        return `${days} días`;
+        if (days === 0 && hours === 0 && minutes <= 1) {
+            return '1 minuto';
+        } else if (days === 0 && hours === 0) {
+            return `${minutes} minutos`;
+        } else if (days === 0 && hours === 1) {
+            return '1 hora';
+        } else if (days === 0) {
+            return `${hours} horas`;
+        } else {
+            return (
+                days === 1
+                ? '1 día'
+                : `${days} días`
+            );
+        }
     }
 
     let years = currentDate.getFullYear() - birthDate.getFullYear();
     let months = currentDate.getMonth() - birthDate.getMonth();
 
-    // Si el mes actual es menor que el mes de nacimiento, disminuye un año y suma 12 a los meses
     if (months < 0) {
         years--;
         months += 12;
     }
 
-    // Si estamos en el mismo mes pero el día actual es menor que el día de nacimiento, disminuye un mes
     if (currentDate.getMonth() === birthDate.getMonth() && currentDate.getDate() < birthDate.getDate()) {
         months--;
     }
 
     let texto = `${years} años`;
+
     switch (years) {
         case 0:
             if (months === 1) {

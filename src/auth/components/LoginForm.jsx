@@ -6,7 +6,7 @@ import { Loader } from "../../ui";
 import { EmailInput, PasswordInput } from "../../ui/customInputs";
 
 
-export const LoginForm = () => {
+export const LoginForm = ( { authFlow = true, label, onPrevFunction, onNextFunction, children } ) => {
 
     const navigate = useNavigate();
 
@@ -26,8 +26,15 @@ export const LoginForm = () => {
     useEffect(() => {
         if (data && data.user) {
             const user = data.user;
-            login( user._id, user.name, user.email, user.profileImg);
-            navigate('/', { replace: true })
+
+            if ( authFlow) {
+                login( user._id, user.name, user.email, user.profileImg);
+                navigate('/', { replace: true })
+            } else {
+                login( user._id, user.name, user.email, user.profileImg);
+                onNextFunction && onNextFunction(user._id);
+            }
+
         }
     }, [ data, login, navigate ]);
     
@@ -68,10 +75,23 @@ export const LoginForm = () => {
                 checkErrors={ checkErrors }
             />
 
-            <div>
-                <button type="submit" className="btn">Iniciar sesión</button>
-                <p>¿No tenés una cuenta? <Link to="/auth/register">Registrate</Link></p>
-            </div>
+            {
+                !authFlow && children && children
+            }
+
+            {
+                authFlow 
+                ?<div>
+                    <button type="submit" className="btn">Iniciar sesión</button>
+                    <p>¿No tenés una cuenta? <Link to="/auth/register">Registrate</Link></p>
+                </div>
+                : <div className="actions">
+                    <button type="button" className="btn secundary" onClick={onPrevFunction}>Regresar</button>
+                    <button type="submit" className="btn">{ label }</button>
+                </div>
+            }
+
+
         </form>
         
         {

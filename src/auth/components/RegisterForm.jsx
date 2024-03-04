@@ -7,7 +7,7 @@ import { PasswordInput, TextInput } from "../../ui/customInputs";
 import { EmailInput } from "../../ui/customInputs";
 
 
-export const RegisterForm = ( { accountStatus } ) => {
+export const RegisterForm = ( { accountStatus, authFlow = true, label = 'Registrarme', onPrevFunction, onNextFunction, children } ) => {
 
     const { onInputChange, name, email, password, validatePassword, errors, setErrors, checkErrors, setCheckErrors } = useForm({
         name: '',
@@ -15,16 +15,26 @@ export const RegisterForm = ( { accountStatus } ) => {
         password: '',
         validatePassword: '',
     })
-    const { singup } = useContext( AuthContext );
+    const { singup, login, isLogged } = useContext( AuthContext );
     const { data, isLoading, error, createUser } = useFetchSniffNearApi();
 
     useEffect(() => {
-        if (data && data.user) {
+        if (data && data.user && !isLogged) {
+            console.log('entré al data')
             const user = data.user;
-            singup( user._id, user.name, user.email, user.profileImg );
-            accountStatus( { created: true } );
-        }
-    }, [ data, singup, accountStatus ]);
+
+            if ( authFlow) {
+                singup( user._id, user.name, user.email, user.profileImg );
+            } else {
+                login( user._id, user.name, user.email);
+                onNextFunction && onNextFunction(user._id);
+            }
+
+            if (accountStatus){
+             accountStatus( { created: true } );
+            }    
+        } 
+    }, [ data, singup, accountStatus, authFlow, login, isLogged, onNextFunction ]);
 
     useEffect(() => {
         if (error) {
@@ -37,11 +47,12 @@ export const RegisterForm = ( { accountStatus } ) => {
         e.preventDefault();
         setCheckErrors( true );
 
-        if (name === '' || email === '' || password === '' || validatePassword === ''){
+        if (name === '' || email === '' || password === '' || password !== validatePassword ){
             return
         };
 
         createUser({ email, password, name });
+
     }
 
 
@@ -83,9 +94,14 @@ export const RegisterForm = ( { accountStatus } ) => {
                 checkErrors={ checkErrors }
             />
 
-            <div>
-                <button type="submit" className="btn">Registrarme</button>
-                <p>¿Ya tenés una cuenta? <Link to="/auth/login">Iniciá sesión</Link></p>
+            {
+                !authFlow && children && children
+            }
+
+            <div className={!authFlow ? "actions" : ''}>
+                { !authFlow && <button type="button" className="btn secundary" onClick={onPrevFunction}>Regresar</button> }
+                <button type="submit" className="btn">{ label }</button>
+                { authFlow && <p>¿Ya tenés una cuenta? <Link to="/auth/login">Iniciá sesión</Link></p> }
             </div>
 
         </form>

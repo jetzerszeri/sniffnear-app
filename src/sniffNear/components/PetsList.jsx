@@ -4,7 +4,7 @@ import { useFetchSniffNearApi } from "../../hooks";
 import { PetsListItem } from "./PetsListItem";
 
 
-export const PetsList = () => {
+export const PetsList = ( { forAlert = false } ) => {
 
     const { user } = useContext( AuthContext );
     const { data, getData  } = useFetchSniffNearApi();
@@ -12,13 +12,11 @@ export const PetsList = () => {
     const [ pets, setPets ] = useState([])
 
     
-
-    
-
     useEffect(() => {
-        getData(`users/${user.id}`);
-    }, [ getData, user.id])
+        user?.id && getData(`users/${user.id}`);
+    }, [ getData, user?.id])
     
+
     useEffect(() => {
 
         if ( data ) {
@@ -40,6 +38,7 @@ export const PetsList = () => {
                     <PetsListItem 
                         key={ pet._id } 
                         pet={ pet }
+                        forAlert={ forAlert }
                     />
                 ))
             }

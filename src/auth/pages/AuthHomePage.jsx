@@ -16,7 +16,7 @@ export const AuthHomePage = () => {
                 <Link to="./login" className="btn secundary">Ingresar</Link>
 
                 <p>¿Extraviaste a tu mascota o encontraste una?</p>
-                <Link to="/alert" className="btn">Crear alerta rápida</Link>
+                <Link to="/alerts/new" className="btn">Crear alerta rápida</Link>
 
                 <Link to="/">Continuar como invitado</Link>
             </div>

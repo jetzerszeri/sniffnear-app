@@ -1,17 +1,24 @@
-import { useContext, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { NavBar, PetFormPart1, PetFormPart2, PetFormPart3 } from '../components';
+import { useCallback, useContext, useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import queryString from 'query-string';
+import { AuthStepOnForms, NavBar, PetFormPart1, PetFormPart2, PetFormPart3 } from '../components';
 import { useMultiSteps } from '../hooks';
 import { MultiStepsIndicator } from '../../ui/MultiStepsIndicator';
 import { useForm } from '../../hooks/useForm';
-import { useFetchSniffNearApi } from '../../hooks';
+import { useFetchSniffNearApi, usePreviewAndUploadImg } from '../../hooks';
 import { AuthContext } from '../../auth/context';
 import { Loader, Modal } from '../../ui';
+import { RegisterForm } from '../../auth/components/RegisterForm';
+import { LoginForm } from '../../auth/components/LoginForm';
 
 export const PetsAddPage = () => {
 
     const { user } = useContext( AuthContext );
-    const { currentStep, totalSteps, maxStepReached, nextStep, prevStep, onResetSteps} = useMultiSteps(3);
+    const navigate = useNavigate();
+    const location = useLocation();
+    const { forAlert } = queryString.parse( location.search );
+    const [ addPetStepTotal, setAddPetStepTotal ] = useState(3);
+    const { currentStep, totalSteps, maxStepReached, nextStep, prevStep, onResetSteps} = useMultiSteps(addPetStepTotal);
     const { type, name, birthdate, breedType, breed, sex, size, color1, errors, checkErrors, formState, setErrors, setCheckErrors, onInputChange, setManualValue, onResetForm } = useForm({
         type: '',
         name: '',
@@ -25,30 +32,71 @@ export const PetsAddPage = () => {
     });
     const { data, isLoading, error, create, onResetFetchState } = useFetchSniffNearApi();
     const [ prevBtnLabel, setPrevBtnLabel ] = useState( 'Cancelar' );
-    const [ isImg, setIsImg ] = useState( false );
-    const [ uploadImg, setUploadImg ] = useState( false )
-    
-    const navigate = useNavigate();
+    const [ displayModal, setDisplayModal ] = useState( false );
+    const { imageSelected, uploadStatus, setImgFile, resetImg, uploadImg, imgFile } = usePreviewAndUploadImg();
+    const [ authForm, setAuthForm ] = useState('singup');
+    const [ imgError, setImgError ] = useState(false);
+
 
     useEffect(() => {
         currentStep === 1 ? setPrevBtnLabel('Cancelar') : setPrevBtnLabel('Anterior');
     }, [ currentStep ]);
 
+    useEffect(() => {
+        if (!user?.id && totalSteps === 3) {
+            setAddPetStepTotal(4);
+        }
+    }, [user?.id, totalSteps])
+
+    const createPetProfile = useCallback((formState, userId) => {
+        const petData = {
+            ...formState,
+            owner: userId
+        }
+        create('pets', petData);
+    }, [create]);
+
+    
+
 
     useEffect(() => {
-        
-        if (formState.img) {
+
+        if (totalSteps === 3 && formState.img) {
         // console.log('img:', formState.img);
-        // console.log('guardando imagen y creando perfil')
-        createPetProfile();
+            console.log('guardando imagen y creando perfil')
+            createPetProfile( formState, user.id );
+        } 
+        
+        // if (totalSteps === 4 && user?.id) {
+        //     console.log('guardando imagen - totalSteps === 4 && user?.id');
+
+        //     uploadPetImgAndSetLink();
+        // } 
+        else if ( totalSteps === 4 && user?.id && formState.img) {
+            createPetProfile( formState, user.id );
+            console.log('estoy en totalSteps === 4 && user?.id y formState.img, en teoría ya se subió la imagen y se creó el perfil de la mascota');
         }
     
-    }, [ formState.img ]);
+    }, [ formState, user, totalSteps, createPetProfile ]);
+
+
+
+
+    // useEffect(() => {
+
+
+    // }, [third]);
+    
+
+
 
     useEffect(() => {
         if (data){
-            // console.log(data)
-            // console.log('se creo el perfil de la mascota, hay que redireccionar usuario');
+            if ( forAlert === "missing"){
+                navigate(`/alerts/new?type=missing&petId=${data.pet._id}`, { replace: true });
+            } else{
+                setDisplayModal(true);
+            }
         }
     }, [data])
 
@@ -57,6 +105,13 @@ export const PetsAddPage = () => {
             console.log('ocurrió un error:', error);
         }
     }, [error])
+    
+
+    useEffect(() => {
+        if (imageSelected) {
+            setImgError(false);
+        }
+    }, [imageSelected])
     
     
     
@@ -70,13 +125,6 @@ export const PetsAddPage = () => {
         }
     };
 
-    const createPetProfile = () => {
-        const petData = {
-            ...formState,
-            owner: user.id
-        }
-        create('pets', petData);
-    }
 
 
     const onNext = () => {
@@ -92,12 +140,24 @@ export const PetsAddPage = () => {
                 nextStep();
             }
         } else if (currentStep === 3) {
-            if (isImg) {
-                setUploadImg(true);
-            } else {
-                createPetProfile();
+            if ( totalSteps === 3 ) {
+                if (imageSelected) {
+                    // setUploadImg(true);
+                    uploadPetImgAndSetLink( user.id );
+                } else {
+                    createPetProfile( formState, user.id );
+                }
             }
-        }
+
+            if ( totalSteps === 4 ) {
+                if ( imgFile === null ){
+                    console.log('no hay imagen');
+                    setImgError(true);
+                    return;
+                }
+                nextStep();
+            }
+        } 
     }
     
 
@@ -117,6 +177,15 @@ export const PetsAddPage = () => {
     }
 
 
+    const uploadPetImgAndSetLink = async ( idUsuario ) => {
+        // console.log('subiendo imagen...');
+        const link = await uploadImg( 'pets/avatars/', `${idUsuario}-${name}` );
+        setManualValue( 'img', link );
+        // console.log('se subio la imagen - link:', link);
+    }
+
+
+
 
 
     return (
@@ -126,7 +195,8 @@ export const PetsAddPage = () => {
 
                 <MultiStepsIndicator total={totalSteps} current={currentStep} />
 
-                <form className='multiSteps' onSubmit={ onSubmit }>
+                
+                <form className={ currentStep < 4 ? 'multiSteps' : ''} onSubmit={ onSubmit }>
 
                     {
                         currentStep === 1 
@@ -161,16 +231,16 @@ export const PetsAddPage = () => {
                         currentStep === 3 
                         && <PetFormPart3
                             bySteps={ true }
-                            setIsImg={ setIsImg }
-                            uploadImgIndicator={ uploadImg }
-                            petName={ name }
-                            setImgLink={ setManualValue }
+                            imageSelected={ imageSelected } 
+                            setImgFile={ setImgFile } 
+                            resetImg={ resetImg }
+                            uploadStatus={ uploadStatus }
+                            imgError={ imgError }
                         />
                     }
 
 
-
-
+                    { currentStep < 4 &&
                     <div className='actions'>
                         <button 
                             className='btn secundary'
@@ -189,21 +259,36 @@ export const PetsAddPage = () => {
                                 </button>
                         }
                     </div>
-
-
+                    }
+                    
                 </form>
+
+                {
+                    currentStep === 4 
+                    && <AuthStepOnForms
+                        authForm={ authForm }
+                        setAuthForm={ setAuthForm }
+                        formState={ formState }
+                        onPrevius={ onPrevius }
+                        onNextFunction={ uploadPetImgAndSetLink }
+                    />
+                }
+
+
+
+
+
 
                 {
                     isLoading && <Loader label='Creando perfil' />
                 }
 
                 {
-                    data && <Modal heading={`Perfil de ${ data.pet.name } creado con éxito`} type='success' icon={ true }>
-                        <button className="btn secundary"  onClick={ onAddOtherPet }>Agregar otro</button>
+                    displayModal && <Modal heading={`Perfil de ${ data.pet.name } creado con éxito`} type='success' icon={ true }>
+                        <button className="btn secundary"  onClick={ onAddOtherPet }>Agregar otra mascota</button>
                         <button className="btn" onClick={ redirectToPetProfile }>Ver perfil</button>
                     </Modal>
                 }
-
 
             </main>
         </>

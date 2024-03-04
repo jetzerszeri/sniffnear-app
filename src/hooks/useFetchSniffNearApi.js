@@ -9,21 +9,21 @@ export const useFetchSniffNearApi =  ( endpint, method, data ) => {
         error: null
     });
 
-    const update = async ( collection, id, data ) => {
+    const update = useCallback(async ( collection, id, data ) => {
         await fetchSniffNearApi(`${collection}/${id}`, 'PUT', data, setState);
-    };
+    }, []);
 
-    const createUser = async ( data ) => {
+    const createUser = useCallback(async ( data ) => {
         await fetchSniffNearApi('users', 'POST', data, setState);
-    }
+    }, []);
 
-    const create = async ( collection, data ) => {
+    const create = useCallback(async ( collection, data ) => {
         await fetchSniffNearApi(collection, 'POST', data, setState);
-    }
+    }, []);
 
-    const loginUser = async ( data ) => {
+    const loginUser = useCallback( async ( data ) => {
         await fetchSniffNearApi('users/auth', 'POST', data, setState);
-    }
+    }, []);
 
     const getData = useCallback( async (endpint, data = {}) => {
         await fetchSniffNearApi(endpint, 'GET', data, setState);

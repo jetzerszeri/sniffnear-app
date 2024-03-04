@@ -302,7 +302,7 @@ button[disabled] {
 }
 
 
-form label + p {
+form label + p, .muted {
     font-size: 0.9em;
     margin: 0;
     color: var(--color-neutral-50);
@@ -328,13 +328,17 @@ form .btn{
     text-align: left;
 }
 
+.errorInput.center{
+    text-align: center;
+}
+
 /* mostrar y ocultar contraseña */
 .pswdInput {
     display: flex;
     align-items: center;
     position: relative;
-    margin-top: -10px;
-  }
+    /* margin-top: -10px; */
+}
   
 .pswdInput input {
     flex: 1;
@@ -372,6 +376,7 @@ form .btn{
     z-index: 90;
     background-color: var(--color-neutral-10);
     gap: 16px;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
 }
 
 .topNavBar > div{
@@ -647,6 +652,10 @@ transform-origin: left;
     transform: scaleX(1) translateX(-50%); 
 }
 
+.alertIcon{
+    fill: var(--color-darkblue);
+}
+
 /* estilos de las opciones del boton "más" del bottom nav bar */
 .plusOptionsContainer{
     align-items: flex-end !important;
@@ -676,7 +685,7 @@ transform-origin: left;
     justify-content: space-between;
 
 }
-.plusOptions > div a{
+.plusOptions > div a, .plusOption{
     flex: 1;
     text-align: center;
     display: flex;
@@ -690,7 +699,7 @@ transform-origin: left;
     transition: all 0.2s ease;
 }
 
-.plusOptions > div a:hover{
+.plusOptions > div a:hover, .plusOption:hover{
     background-color: var(--color-green-background);
 }
 
@@ -710,8 +719,10 @@ main{
 }
 
 main.fullHeight{
-    min-height: 90vh;
+    /* min-height: 80vh; */
+    height: calc(100vh - 60px);
     padding: 20px;
+    gap: 5px;
 }
 
 main h1, main h2, h3{
@@ -1108,8 +1119,9 @@ h3{
 }
 
 
-.multiSteps .actions{
+.actions{
     flex-direction: row;
+    flex-wrap: wrap;
 }
 
 .multiSteps .actions button{
@@ -1117,9 +1129,10 @@ h3{
     /* margin: 0 10px; */
 }
 
-.multiSteps h2{
+.multiSteps h2 {
     text-align: center;
     margin-bottom: 20px;
+    color: var(--color-green);
 }
 
 .multiSteps .step{
@@ -1130,7 +1143,7 @@ h3{
     display: flex;
     flex-direction: column;
     gap: 10px;
-    /* padding: 6px 0; */
+    padding: 0;
 }
 
 .inputContainer label{
@@ -1238,17 +1251,17 @@ h3{
 
 
 /* estilos del perfil de la mascota */
-.petProfile{
+.petProfile, .alertDetails{
     display: flex;
     flex-direction: column;
 }
-.petProfile img{
+.petProfile img, .alertDetails img{
     width: 100%;
     object-fit: cover;
     height: 300px;
 }
 
-.petProfile .data{
+.petProfile .data, .alertDetails .data{
     /* background-color: var(--color-green);
     color: var(--color-neutral-0); */
     padding: 30px;
@@ -1259,10 +1272,23 @@ h3{
 
 }
 
-.petProfile .data .h{
+.multiSteps .alertDetails{
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+    border-radius: 15px;
+    overflow: hidden;
+    margin: 10px;
+}
+
+.multiSteps .alertDetails .data{
+    border-radius: 10px;
+}
+
+.petProfile .data .h, .alertDetails h2{
     font-size: 2em;
     font-weight: 500;
     color: var(--color-green);
+    text-align: left;
+    margin-bottom: 0;
 }
 
 .petProfile .data .h + p{
@@ -1281,20 +1307,40 @@ h3{
 }
 
 .petDataList li{
-    flex: 1;
+    flex-grow: 1;
     display: flex;
     gap: 3px;
     flex-direction: column-reverse;
     border: 1px solid var(--color-neutral-20);
     padding: 20px 12px;
     border-radius: 8px;
+    text-transform: capitalize;
 }
 
-.petDataList li span{
+.petDataList.alert{
+    margin: 1em 0;
+}
+
+.alertDetails .desc{
+    width: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--color-neutral-20);
+    padding: 20px;
+    border-radius: 8px;
+    color: var(--color-neutral-50);
+    font-size: 0.8em;
+    gap: 8px;
+}
+
+
+
+
+.petDataList li span, .alertDetails .desc span{
     font-weight: 500;
     color: var(--color-green);
     font-size: 1.2em;
-    text-transform: capitalize;
 }
 
 .petProfile .data > div:first-of-type{
@@ -1313,10 +1359,8 @@ h3{
     background-size: 100px ;
 }
 
-.petProfile .data .actions{
+.petProfile .data .actions, .actions{
     display: flex;
-    /* justify-content: center; */
-    flex-direction: column;
     gap: 10px;
     margin-top: 30px;
     text-align: center;
@@ -1335,7 +1379,51 @@ h3{
     gap: 16px;
     margin: 10px;
     align-items: center;
+    position: relative;
 }
+
+.myModal.custom{
+    padding: 10px;
+    max-width: 90%;
+    text-align: left;
+    margin: 0;
+}
+
+.filterModal{
+    padding: 10px;
+    min-width: 300px;
+    max-width: 400px;
+    position: relative;
+}
+
+.myModal .closeBtn{
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    cursor: pointer;
+    color: var(--color-neutral-50);
+    transition: all 0.2s ease;
+    padding: 5px;
+}
+
+.myModal .closeBtn:hover{
+    color: var(--color-darkblue);
+}
+
+.filterModal h2{
+    font-size: 1.1em;
+    font-weight: 500;
+    color: var(--color-green);
+    padding-bottom: 10px;
+    margin-bottom: 0;
+    border-bottom: 1px solid var(--color-neutral-20);
+}
+
+.filterModal h2 i{
+    /* font-size: 1.2em; */
+    margin-right: 10px;
+}
+
 
 .myModal .h{
     font-size: 1.3em;
@@ -1350,6 +1438,7 @@ h3{
     gap: 10px;
     flex-wrap: wrap;
 }
+ 
 
 .myModal.danger .h{
     color: red;
@@ -1384,4 +1473,450 @@ h3{
 .splashScreen .bouncer{
     margin: -20px auto;
     scale: 0.3;
+}
+
+
+
+/* estilos del mapa */
+.map{
+    /* flex: 1; */
+    height: 100%;
+    width: 100%;
+}
+
+
+
+.map .marker{
+    width: 27px;
+    height: 39px;
+}
+
+.map.alert{
+    height: 300px;
+    border-radius: 8px;
+    overflow: hidden;
+    /* box-shadow: 0px 0px 10px rgba(0,0,0,0.1); */
+    border: var(--color-neutral-20) 1px solid;
+}
+
+.map.alertDetail{
+    height: 200px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: var(--color-neutral-20) 1px solid;
+    margin: 20px 0;
+}
+
+.map + p{
+    margin-top: 10px;
+    padding-left: 5px;
+    color: var(--color-neutral-50);
+}
+
+
+
+
+
+
+/* estilos de las alertas */
+
+main.alerts h2{
+    color: var(--color-green);
+}
+
+.alertSelector{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+    text-align: center;
+}
+
+.alertSelector > div{
+    flex: 1;
+    margin-bottom: 80px;
+    display: flex;
+    gap: 30px;
+    flex-direction: column;
+    justify-content: center;
+    padding: 10PX;
+}
+
+.alertSelector > div div{
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.07);
+    padding: 20px;
+    border-radius: 8px;
+    background-color: var(--color-neutral-0);
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.alertSelector > div div:hover{
+    background-color: var(--color-green-800);
+    color: var(--color-neutral-0);
+}
+
+.alertSelector > div div svg{
+    fill: var(--color-darkblue);
+    margin-bottom: 10px;
+}
+.alertSelector > div div:hover svg{
+    fill: var(--color-neutral-0) ;
+}
+
+svg{
+    transition: all 0.2s ease;
+}
+
+/* .alerts .petsList{
+    margin-bottom: 20px;
+} */
+
+.alerts .petsList + div{
+    /* font-size: 0.em; */
+    color: var(--color-neutral-50);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.alerts .petsList + div .plusOption svg{
+    height: 40px !important;
+}
+
+.alertFormCard img{
+    height: 100px;
+}
+
+
+
+
+.alertsPage{
+    display: flex;
+    flex-direction: column;
+    /* height: 100vh; */
+    
+    /* margin-bottom: 60px; */
+}
+
+.alertsPage .map{
+    height: calc(100vh - 120px);
+    flex-grow: 1;
+}
+
+
+
+/* .alertCard1{
+    display: flex;
+    font-size: 0.9em;
+    padding: 20px;
+    gap: 10px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+} */
+
+.alertCard img{
+    width: 110px;
+    height: 110px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.alertCard .h{
+    font-size: 1em;
+    display: flex;
+    gap: 10px;
+    align-items: start;
+}
+
+.alertCard .h svg{
+    height: 30px;
+    width: 30px;
+}
+
+.alertCard.perdido .h svg.alertIcon{
+    fill: var(--color-oragne);
+}
+
+.alertCard.encontrado .h svg{
+    fill: var(--color-green-700);
+}
+
+.alertCard .h h2{
+    font-size: 1.2em;
+    font-weight: 500;
+    color: var(--color-darkblue);
+}
+.alertCard .h h2::first-letter, .alertCard p::first-letter{
+    text-transform: uppercase;
+  }
+
+.cap::first-letter{
+    text-transform: uppercase;
+}
+/* 
+.alertCard1 .h + div{
+
+    font-size: 0.9em;
+}
+
+.alertCard1 a{
+    margin-top: 10px;
+    text-align: right;
+    display: block;
+} */
+
+
+.alertCard{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+}
+
+.alertCard .h + div{
+    display: flex;
+    /* flex-wrap: wrap; */
+    gap: 16px;
+    /* align-items: start; */
+}
+
+.alertCard .h + div > div{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.alertCard .actions{
+    margin-top: 10px;
+}
+
+.alertCard h2 + p {
+    font-size: 0.8em;
+    color: var(--color-neutral-50);
+}
+
+.alertList{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 10px;
+    margin-bottom: 60px;
+}
+
+.alertInfWindow{
+    width: 100%;
+    max-width: 360px;
+    font-size: 0.9em;
+    padding: 10px;
+    margin: auto;
+}
+
+.alertInfWindow h2{
+    font-size: 1.2em;
+    font-weight: 500;
+}
+
+.alertInfWindow svg{
+    width: 30px;
+    height: 30px;
+}
+
+.alertInfWindow.perdido svg.alertIcon{
+    fill: var(--color-oragne);
+}
+
+.alertInfWindow.encontrado svg{
+    fill: var(--color-green-800);
+}
+
+.alertInfWindow > div:first-of-type{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.alertInfWindow img{
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.alertInfWindow .actions{
+    margin-top: 10px;
+}
+
+
+
+
+
+
+/* estilos de tabs */
+.tabs {
+    top: 50px;
+    position: sticky;
+    display: flex;
+    flex-grow: 1;
+    flex-wrap: nowrap;
+    border-bottom: 1px solid #F0F0F0;
+    z-index: 100;
+    background-color: var(--color-neutral-10);
+    overflow-x: scroll;
+    overflow-y: hidden;
+    scrollbar-width: none;
+
+}
+
+.tabs > a {
+    position: relative;
+    display: flex;
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 400;
+    color: var(--color-neutral-50);
+    text-align: left;
+    justify-content: start;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.tabs > .active {
+    font-weight: 500;
+    outline: none;
+    color: var(--color-darkblue);
+    margin-bottom: -1px;
+    border-bottom: 2px solid var(--color-darkblue);
+}
+
+.tabs > a img {
+    height: 1.25rem;
+}
+
+.tabs div{
+    font-size: 1.2em;
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    color: var(--color-neutral-50);
+}
+
+/* icono de filtro */
+.tabs div i{
+    padding: 0.5rem 1rem 0.5rem 0.5em;
+    cursor: pointer;
+    position: relative;
+}
+
+.tabs div i:hover{
+    color: var(--color-darkblue);
+}
+
+.tabs div i.filtered::after{
+    content: '';
+    display: block;
+    width: 6px;
+    height: 6px;
+    background-color: var(--color-oragne);
+    border-radius: 50%;
+    position: absolute;
+    top: 12px;
+    right: 20px;
+    transform: translate(50%, -50%);
+    border: 1px solid var(--color-neutral-0);
+}
+
+
+
+
+/* estilos de userCard para publicaciones */
+.userCard{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    padding: 10px;
+    background-color: var(--color-neutral-0);
+    border-radius: 8px;
+    margin-top: 10px;
+}
+
+.userCard img{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.userCard .name{
+    font-size: 1.1em;
+    font-weight: 500;
+    color: var(--color-darkblue);
+
+}
+
+.userCard .name + p{
+    font-size: 0.8em;
+    color: var(--color-neutral-50);
+}
+
+.userCard > div:first-of-type{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    justify-content: space-between;
+    flex: 1;
+}
+
+
+.alertDetails .actions{
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.actions button{
+    flex-basis: calc(50% - 10px);
+    flex: 1;
+}
+
+.alertDetails .status{
+    margin-top: -10px;
+    font-size: 0.7em;
+    color: var(--color-neutral-50);
+    display: flex;
+    align-items: center;
+}
+
+.alertDetails .status.active::before{
+    content: '';
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    margin-right: 5px;
+    background-color: red;
+}
+
+
+.loginSignupSwitch{
+    margin-top: 10px;
+    font-size: 0.9em;
+    color: var(--color-darkblue);
+    text-align: right;
+}
+
+
+.alertFoundForm .sizeSelector{
+    margin-top: 50px;
+}
+
+.editAlertForm{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }

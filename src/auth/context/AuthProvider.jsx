@@ -18,7 +18,7 @@ export const AuthProvider = ( { children } ) => {
 
     const [ authState, authDispatch ] = useReducer(authReducer, {}, init);
 
-    const login = ( id, name, email, profileImg ) => {
+    const login = useCallback(( id, name, email, profileImg ) => {
 
         const user = { id, name, email, profileImg }
 
@@ -30,7 +30,7 @@ export const AuthProvider = ( { children } ) => {
         localStorage.setItem('user', JSON.stringify(user) ); // Aunque podemos hacer un efecto que esté pendiente del estado del use Reducer.
 
         authDispatch( action );
-    };
+    }, []);
 
     const logout = () => {
 
@@ -62,6 +62,14 @@ export const AuthProvider = ( { children } ) => {
         authDispatch( action );
     }
 
+    const editAlert = ( alert ) => {
+        const action = {
+            type: types.editAlert,
+            payload: alert
+        }
+        authDispatch( action );
+    }
+
 
     const setUserCoords = useCallback(( coords ) => {
         const action = {
@@ -88,6 +96,7 @@ export const AuthProvider = ( { children } ) => {
             logout,
             singup,
             editPet,
+            editAlert,
             setUserCoords,
             setUserAddress,
         }}>

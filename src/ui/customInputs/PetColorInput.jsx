@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { onRequieredInput } from '../../sniffNear/helpers';
 
-export const PetColorInput = ( { color1Name = 'color1', color1value, changeFunction, required = false, errors, checkErrors, setErrors }) => {
+export const PetColorInput = ( { color1Name = 'color1', color1value, changeFunction, required = false, errors, checkErrors, setErrors, label = 'Color' }) => {
 
     const error = errors[color1Name];
 
@@ -29,8 +29,8 @@ export const PetColorInput = ( { color1Name = 'color1', color1value, changeFunct
 
     return (
         <div className="inputContainer">
-            <label htmlFor={color1Name}>Color</label>
-                <input 
+            { label && <label htmlFor={color1Name}>{label}</label>}
+            <input 
                 type="hidden" 
                 name={color1Name}
                 id={color1Name}

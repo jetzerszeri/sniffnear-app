@@ -1,4 +1,4 @@
-import { NavBar } from '../components';
+import { NavBar, PostForm } from '../components';
 import { useFetchSniffNearApi, useForm, usePreviewAndUploadImg } from '../../hooks';
 import { ImgInput, Loader, Modal, SelectOptionInput, TextAreaInput, TextInput } from '../../ui';
 import { useContext } from 'react';
@@ -18,14 +18,6 @@ export const BlogNewPostPage = () => {
     const { imageSelected, uploadStatus, setImgFile, resetImg, uploadImg, imgFile } = usePreviewAndUploadImg();
     const { data, error, isLoading, create } = useFetchSniffNearApi();
 
-    const categoryOptions = {
-        salud : 'Salud',
-        educacion : 'Educación',
-        entrenenimiento: 'Entretenimiento',
-        alimentacion: 'Alimentación',
-        diversion: 'Diversión',
-        otros: 'Otros'
-    }
     const navigate = useNavigate();
 
     const onSubmit = async(e) => {
@@ -47,54 +39,17 @@ export const BlogNewPostPage = () => {
 
         <main className="fullHeight newPost" >
 
-            <form onSubmit={onSubmit}>
-
-                <div>
-                    <ImgInput imageSelected={ imageSelected } setImgFile={ setImgFile } resetImg={ resetImg } fullWidth={true} />
-                    { (!imageSelected && checkErrors) && <p className='errorInput'>*La imagen es obligatoria</p>} 
-                </div>
-
-                <TextInput
-                    label='Título'
-                    name='title'
-                    value={ title }
-                    onChangeFunction={ onInputChange }
-                    errors={ errors }
-                    setErrors={ setErrors }
-                    required={ true }
-                    checkErrors={ checkErrors }
-                />
-
-                <TextAreaInput
-                    label='Contenido'
-                    name='content'
-                    value={ content }
-                    onChangeFunction={ onInputChange }
-                    required={ true }
-                    errors={ errors }
-                    setErrors={ setErrors }
-                    checkErrors={ checkErrors }
-                />
-
-                <SelectOptionInput
-                    name='category'
-                    value={ category }
-                    label="Categoría"
-                    options={ categoryOptions }
-                    onChangeFunction={ onInputChange }
-                    errors={ errors }
-                    setErrors={ setErrors }
-                    required={ true }
-                    checkErrors={ checkErrors }
-                />
-
-                <div className="actions">
-                    <button type='submit' className='btn'>Publicar</button>
-                </div>
-            
-
-
-            </form>
+            <PostForm
+                imageSelected={ imageSelected }
+                setImgFile={ setImgFile }
+                resetImg={ resetImg }
+                checkErrors={ checkErrors }
+                formState={ formState }
+                onInputChange={ onInputChange }
+                errors={ errors }
+                setErrors={ setErrors }
+                onSubmit={ onSubmit }
+            />
 
             {
                 (isLoading || uploadStatus) && <Loader label='Publicando post...' />
@@ -107,7 +62,11 @@ export const BlogNewPostPage = () => {
                 </Modal>
             }
 
-
+            {
+                error && <Modal text={ error } type='error' icon={ true } >
+                    <button className="btn secundary" onClick={ () => { navigate(-1, {replace: true})} }>Ok</button>
+                </Modal>
+            }
 
 
         </main>

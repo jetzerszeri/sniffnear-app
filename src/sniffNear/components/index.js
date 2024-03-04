@@ -30,3 +30,4 @@ export * from './AuthStepOnForms';
 export * from './PostCardsList';
 export * from './PostCard';
 export * from './PostDetails';
+export * from './PostForm';

@@ -29,3 +29,4 @@ export * from './AlertFoundFormPart3';
 export * from './AuthStepOnForms';
 export * from './PostCardsList';
 export * from './PostCard';
+export * from './PostDetails';

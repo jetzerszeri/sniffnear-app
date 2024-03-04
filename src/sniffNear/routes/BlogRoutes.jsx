@@ -1,6 +1,5 @@
-import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { BlogNewPostPage, BlogPage } from '../pages';
+import { BlogNewPostPage, BlogPage, BlogPostDetailPage } from '../pages';
 
 export const BlogRoutes = () => {
     return (
@@ -9,8 +8,8 @@ export const BlogRoutes = () => {
             <Route path="/" element={ <BlogPage /> } />
             <Route path="/new" element={ <BlogNewPostPage /> } />
             <Route path="/*" element={ <BlogPage /> } />
-            {/* <Route path="/:id" element={ <AlertDetailPage /> } />
-            <Route path="/:id/edit" element={ <AlertsEditPage /> } /> */}
+            <Route path="/:id" element={ <BlogPostDetailPage /> } />
+            <Route path="/:id/edit" element={ <BlogPostDetailPage /> } />
         </Routes>
         
         </>

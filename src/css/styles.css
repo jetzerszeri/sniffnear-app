@@ -1261,17 +1261,17 @@ h3{
 
 
 /* estilos del perfil de la mascota */
-.petProfile, .alertDetails{
+.petProfile, .alertDetails, .postDetails{
     display: flex;
     flex-direction: column;
 }
-.petProfile img, .alertDetails img{
+.petProfile img, .alertDetails img, .postDetails img{
     width: 100%;
     object-fit: cover;
     height: 300px;
 }
 
-.petProfile .data, .alertDetails .data{
+.petProfile .data, .alertDetails .data, .postDetails .data{
     /* background-color: var(--color-green);
     color: var(--color-neutral-0); */
     padding: 30px;
@@ -2012,3 +2012,17 @@ svg{
     color: var(--color-neutral-90);
 }
 
+.postDetails h2{
+    font-size: 1.5em;
+    line-height: 1.1em;
+    font-weight: 500;
+    color: var(--color-darkblue);
+    margin-bottom: 10px;
+}
+
+
+.postDetails .data > p{
+    font-size: 1em;
+    color: var(--color-neutral-90);
+    margin-top: 20px;
+}

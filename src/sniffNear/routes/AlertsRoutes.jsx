@@ -5,23 +5,17 @@ import { PrivateRoutes } from '../../router/PrivateRoutes';
 export const AlertsRoutes = () => {
   return (
     <>
-    {/*  <PublicRoutes> */}
         <Routes>
             <Route path="/" element={ <AlertsPage /> } />
             <Route path="/new" element={ <AlertsAddPage /> } />
             <Route path="/*" element={ <AlertsPage /> } />
             <Route path="/:id" element={ <AlertDetailPage /> } />
-            <Route path="/:id/edit" element={ <AlertsEditPage /> } />
-
-
+            <Route path="/:id/edit" element={
+              <PrivateRoutes>
+                <AlertsEditPage /> 
+              </PrivateRoutes>
+            } />
         </Routes>
-
-        {/* <PrivateRoutes>
-          <Routes>
-            <Route path="/:id/edit" element={ <AlertsEditPage /> } />
-          </Routes>
-        </PrivateRoutes> */}
-    {/* </PublicRoutes> */}
     </>
   )
 }

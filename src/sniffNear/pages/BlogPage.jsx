@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { NavBar, PostCardsList } from '../components';
+import { BottomNav, NavBar, PostCardsList } from '../components';
 import { useFetchSniffNearApi } from '../../hooks';
 import { useFilter } from '../hooks';
 
@@ -20,9 +20,11 @@ export const BlogPage = () => {
 
     return (
     <>
-        <NavBar title='Artículos' />
+        <NavBar title='Publicaciones' sidebar={true} />
 
         { filteredData && <PostCardsList data={ filteredData } /> }
+
+        <BottomNav />
     
     </>
     )

@@ -2141,10 +2141,11 @@ ul.message-list {
 /* estilos del blog y de los posts */
 
 .blogPostsList{
-    margin: 20px 0;
+    margin: 20px 0 70px 0;
     display: flex;
     flex-direction: column;
     gap: 20px;
+    
 }
 
 .postCard .preview img{

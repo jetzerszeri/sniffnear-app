@@ -11,12 +11,6 @@ export const PostCardsList = ( { data } ) => {
                 />
             ))
         }
-
-        {/* {
-            data && 
-            <PostCard data={data}/>
-        } */}
-
     </ul>
   )
 }

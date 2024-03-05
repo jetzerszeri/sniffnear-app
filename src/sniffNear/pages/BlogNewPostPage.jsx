@@ -13,7 +13,7 @@ export const BlogNewPostPage = () => {
         content: '',
         category: '',
         img: '',
-        creator: user.id,
+        creator: user?.id,
     });
     const { imageSelected, uploadStatus, setImgFile, resetImg, uploadImg, imgFile } = usePreviewAndUploadImg();
     const { data, error, isLoading, create } = useFetchSniffNearApi();

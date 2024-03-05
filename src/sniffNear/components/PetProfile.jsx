@@ -58,7 +58,7 @@ export const PetProfile = ( { pet }) => {
 
 
                 {
-                    user.id === pet.owner &&
+                    user?.id === pet.owner &&
                     <div className='actions'>
                         <button className='btn secundary' onClick={ displayModal }>Eliminar</button>
                         <button className='btn' onClick={ onEditPetProfile }>Editar</button>

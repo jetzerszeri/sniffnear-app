@@ -4,14 +4,12 @@ import { PrivateRoutes } from '../../router/PrivateRoutes';
 
 export const PetsRoutes = () => {
   return (
-    // <PrivateRoutes>
+    <PrivateRoutes>
         <Routes>
             <Route path="/" element={ <PetsPage /> } />
-            <Route path="/add" element={ <PetsAddPage /> } />
-            <Route path="/*" element={ <PetsPage /> } />
-            <Route path="/:id" element={ <PetsProfilePage /> } />
             <Route path="/:id/edit" element={ <PetsEditPage /> } />
+            <Route path="/*" element={ <PetsPage /> } />
         </Routes>
-    // </PrivateRoutes>
+    </PrivateRoutes>
   )
 }

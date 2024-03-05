@@ -750,6 +750,9 @@ h3{
     display: flex;
     gap: 15px;
     align-items: center;
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
 }
 
 .welcomeCard{
@@ -759,13 +762,13 @@ h3{
 .welcomeCard img{
     width: 70px;
     height: 70px;
-    border-radius: 8px;
+    border-radius: 50%;
     overflow: hidden;
     object-fit: cover; 
 }
 
 .welcomeCard h1{
-    margin-bottom: 2px;
+    margin: 2px;
     color: var(--color-neutral-0);
 }
 

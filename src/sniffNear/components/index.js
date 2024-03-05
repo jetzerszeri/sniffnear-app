@@ -27,3 +27,8 @@ export * from './AlertFoundFormPart1';
 export * from './AlertFoundFormPart2';
 export * from './AlertFoundFormPart3';
 export * from './AuthStepOnForms';
+export * from './PostCardsList';
+export * from './PostCard';
+export * from './PostDetails';
+export * from './PostForm';
+export * from './HomeFeed';

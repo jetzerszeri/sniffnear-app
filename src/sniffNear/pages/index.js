@@ -12,3 +12,7 @@ export * from './AlertDetailPage';
 export * from './AlertsEditPage';
 export * from './InboxPage';
 export * from './ChatPage';
+export * from './BlogPage';
+export * from './BlogNewPostPage';
+export * from './BlogPostDetailPage';
+export * from './BlogPostEditPage';

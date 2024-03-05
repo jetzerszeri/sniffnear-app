@@ -70,6 +70,14 @@ export const AuthProvider = ( { children } ) => {
         authDispatch( action );
     }
 
+    const editPost = ( post ) => {
+        const action = {
+            type: types.editPost,
+            payload: post
+        }
+        authDispatch( action );
+    }
+
 
     const setUserCoords = useCallback(( coords ) => {
         const action = {
@@ -99,6 +107,7 @@ export const AuthProvider = ( { children } ) => {
             editAlert,
             setUserCoords,
             setUserAddress,
+            editPost,
         }}>
             { children }
         </AuthContext.Provider>

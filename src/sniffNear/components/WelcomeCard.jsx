@@ -1,14 +1,20 @@
 import { useContext } from 'react';
 import { AuthContext } from '../../auth/context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 
 export const WelcomeCard = () => {
 
     const { user, address } = useContext( AuthContext );
     const { name, profileImg } = user;
+    const navigate = useNavigate();
+
+    const onWelcomeCardClick = () => {
+        navigate('/account');
+    }
     
     return (
-        <section className="welcomeCard">
+        <section className="welcomeCard" onClick={onWelcomeCardClick}>
             <img src={ 
                 ( !!profileImg ) 
                 ? profileImg : 

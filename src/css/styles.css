@@ -57,6 +57,7 @@ a{
     color: var(--color-green);
     cursor: pointer;
     transition: all 0.2s ease;
+    white-space: nowrap;
 }
 
 .link:hover{
@@ -230,8 +231,12 @@ textarea{
 }
 
 .singUpView form div:last-of-type{
-    padding-top: 10px !important;
+    /* padding-top: 10px !important; */
     text-align: center;
+}
+
+.singUpView .btns{
+    margin-top: 40px;
 }
 
 .singUpView form div:last-of-type a{
@@ -756,6 +761,9 @@ h3{
     display: flex;
     gap: 15px;
     align-items: center;
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
 }
 
 .welcomeCard{
@@ -765,13 +773,13 @@ h3{
 .welcomeCard img{
     width: 70px;
     height: 70px;
-    border-radius: 8px;
+    border-radius: 50%;
     overflow: hidden;
     object-fit: cover; 
 }
 
 .welcomeCard h1{
-    margin-bottom: 2px;
+    margin: 2px;
     color: var(--color-neutral-0);
 }
 
@@ -840,6 +848,11 @@ h3{
     position: relative;
 }
 
+.labelImgInput.fullWidth{
+    width: 100%;
+    margin: 0;
+}
+
 .labelImgInput .loadLabel{
     color: var(--color-neutral-50);
 }
@@ -867,6 +880,10 @@ h3{
     cursor: pointer;
     transition: all 0.2s ease;
     text-align: center;
+}
+
+.labelImgInput.fullWidth + p{
+    margin: 0;
 }
 
 .labelImgInput + p:hover{
@@ -1258,17 +1275,17 @@ h3{
 
 
 /* estilos del perfil de la mascota */
-.petProfile, .alertDetails{
+.petProfile, .alertDetails, .postDetails{
     display: flex;
     flex-direction: column;
 }
-.petProfile img, .alertDetails img{
+.petProfile img, .alertDetails img, .postDetails img{
     width: 100%;
     object-fit: cover;
     height: 300px;
 }
 
-.petProfile .data, .alertDetails .data{
+.petProfile .data, .alertDetails .data, .postDetails .data{
     /* background-color: var(--color-green);
     color: var(--color-neutral-0); */
     padding: 30px;
@@ -1654,6 +1671,7 @@ svg{
     font-size: 1.2em;
     font-weight: 500;
     color: var(--color-darkblue);
+    margin: 0;
 }
 .alertCard .h h2::first-letter, .alertCard p::first-letter{
     text-transform: uppercase;
@@ -2093,3 +2111,123 @@ ul.message-list {
     margin-left: 10px; /* Ajusta según sea necesario */
  }
  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* estilos del blog y de los posts */
+
+.blogPostsList{
+    margin: 20px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.postCard .preview img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    max-height: 300px;
+    cursor: pointer;
+}
+
+.postCard{
+    /* border-bottom: 1px solid var(--color-neutral-20); */
+    background-color: var(--color-neutral-0);
+    padding-bottom: 10px;
+}
+
+.postCard .preview > div{
+    padding: 5px 15px 10px 15px;
+    cursor: pointer;
+}
+
+.postCard .preview > div > p:first-of-type{
+    font-size: 0.9em;
+    color: var(--color-neutral-50);
+}
+
+.postCard h2{
+    font-size: 1.3em;
+    font-weight: 500;
+    color: var(--color-darkblue);
+    margin-bottom: 10px;
+    overflow: hidden; /* Ocultar el exceso de contenido */
+    white-space: nowrap; /* No permitir saltos de línea */
+    text-overflow: ellipsis;
+
+}
+
+.postCard .userCard{
+    padding: 10px 15px;
+}
+.preview h2 + div{
+    display: flex;
+    gap: 10px;
+
+}
+.preview h2 + div p{
+    overflow: hidden; /* Ocultar el exceso de texto */
+    white-space: nowrap; /* No permitir saltos de línea */
+    text-overflow: ellipsis; /* Mostrar puntos suspensivos si el texto no cabe */
+}
+
+
+
+
+/* estilos de crear new post */
+.newPost label{
+    color: var(--color-neutral-90);
+}
+
+.postDetails h2{
+    font-size: 1.5em;
+    line-height: 1.1em;
+    font-weight: 500;
+    color: var(--color-darkblue);
+    margin-bottom: 10px;
+}
+
+
+.postDetails .data > p:last-of-type{
+    font-size: 1em;
+    color: var(--color-neutral-90);
+    margin-top: 20px;
+}
+
+.postDetails .data .category{
+    margin-top: -10px;
+    font-size: 0.8em;
+    color: var(--color-neutral-50);
+}
+
+.homeFeed .alertCard{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px;
+    border-radius: 0;
+    box-shadow: none;
+    background-color: var(--color-neutral-0);
+    /* margin-top: 10px; */
+}
+
+.homeFeed{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}

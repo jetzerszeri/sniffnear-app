@@ -58,7 +58,7 @@ export const BlogNewPostPage = () => {
             {
                 data &&
                 <Modal heading={`Publicación creada con éxito`} type='success' icon={ true }>
-                    <button className="btn" onClick={ () => { navigate(`/blog/${ data.data._id }`, { replace: true }) } }>Ver alerta</button>
+                    <button className="btn" onClick={ () => { navigate(`/blog/${ data.data._id }`, { replace: true }) } }>Ver</button>
                 </Modal>
             }
 

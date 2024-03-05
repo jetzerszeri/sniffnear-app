@@ -14,7 +14,7 @@ export const AlertsPage = () => {
     const location = useLocation();
     const { view = 'list', alertType = "all" } = queryString.parse( location.search );
     const { coords } = useContext( AuthContext );
-    const [ position, setPosition ] = useState({ "lat": 35.2713052, "lng": -80.9589791});
+    const [ position, setPosition ] = useState({});
     const { data, isLoading, error, getData } = useFetchSniffNearApi();
     const [ distance, setDistance ] = useState(5);
     const { filteredAlerts, filters, setFilters, clearFilters, addFilter, setFilteredAlerts, setInitialData } = useFilterAlerts();

@@ -152,9 +152,9 @@ export const AlertLostForm = () => {
 
         if ( imageSelected !== formState.img ) {
             setLoaderLabel('Subiendo la imagen...');
-            console.log('hay que subir la imagen');
+            // console.log('hay que subir la imagen');
             const link = await uploadImg('alerts/lost/', formState.pet);
-            console.log(link);
+            // console.log(link);
             const alertData = {
                 ...formState,
                 img: link

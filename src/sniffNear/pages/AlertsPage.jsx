@@ -2,8 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import { AlertCardList, BottomNav, FilterPetsOptions, MapSniffNear, NavBar } from '../components';
 import queryString from 'query-string';
 import { AuthContext } from '../../auth/context';
-import { useFetchSniffNearApi, useForm } from '../../hooks';
-import { AlertIcon, FoundIcon, MissigMarker, Modal, SelectOptionInput } from '../../ui';
+import { useFetchSniffNearApi } from '../../hooks';
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { addQuery, calculateDistance } from '../helpers';
 import { useFilterAlerts } from '../hooks';
@@ -17,8 +16,6 @@ export const AlertsPage = () => {
     const { coords } = useContext( AuthContext );
     const [ position, setPosition ] = useState({ "lat": 35.2713052, "lng": -80.9589791});
     const { data, isLoading, error, getData } = useFetchSniffNearApi();
-    const [ displayMap, setDisplayMap ] = useState( false );
-    const [ filteredData, setFilteredData ] = useState([]);
     const [ distance, setDistance ] = useState(5);
     const { filteredAlerts, filters, setFilters, clearFilters, addFilter, setFilteredAlerts, setInitialData } = useFilterAlerts();
 

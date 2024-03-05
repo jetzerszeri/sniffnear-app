@@ -6,4 +6,5 @@ export const types = {
     setCoords: '[auth] setCoords',
     setAddress: '[auth] setAddress',
     editAlert: '[auth] editAlert',
+    editPost: '[auth] editPost',
 }

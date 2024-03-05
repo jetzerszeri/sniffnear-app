@@ -48,7 +48,7 @@ export const BottomNav = () => {
                             <DogPawPrintIcon />
                             Mascota
                         </Link>
-                        <Link to="/posts/new">
+                        <Link to="/blog/new">
                             <NewPostIcon />
                             Publicación
                         </Link>

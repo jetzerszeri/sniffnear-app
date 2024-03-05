@@ -37,6 +37,12 @@ export const authReducer = (state = {}, action ) => {
                 alert: action.payload,
             };
 
+        case types.editPost:
+            return {
+                ...state,
+                post: action.payload,
+            };
+
         case types.setCoords:
             return {
                 ...state,

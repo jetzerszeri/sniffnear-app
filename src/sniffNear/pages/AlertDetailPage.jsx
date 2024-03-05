@@ -20,8 +20,9 @@ export const AlertDetailPage = () => {
 
     useEffect(() => {
         if ( data ) {
+            
             setAlert(data);
-            // console.log(data);
+    
         }
         if ( error ) {
             navigate('/alerts', { replace: true });

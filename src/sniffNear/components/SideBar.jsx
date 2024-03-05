@@ -52,7 +52,7 @@ export const SideBar = ( { displaySidebar, hideSidebar } ) => {
                     <li>
                         <NavLink 
                             className={ ({isActive}) => `${isActive ? 'active' : ''}`}
-                            to="/chat"
+                            to="/inbox"
                             onClick={ hideSidebar }
                         >
                             <SidebarChatIcon />

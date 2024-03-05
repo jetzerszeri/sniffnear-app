@@ -416,6 +416,13 @@ form .btn{
     color: var(--color-darkblue);
 }
 
+.topNavBar .avatar{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    object-fit: cover;
+}
 
 
 
@@ -1996,7 +2003,7 @@ ul.message-list {
 .chat-container{
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
+    height: calc(100vh - 60px);
 }
 .imgAvatarChat{
     align-items: center;
@@ -2018,20 +2025,21 @@ ul.message-list {
     text-align: center;
 }
 .messages{
-    flex-grow: 1;
+    flex: 1;
     /* min-height: calc(100vh - 100px);; */
     padding: 20px;
     background-image: url(/public/img/pattern2.svg);
     background-color: var(--color-neutral-0);
     display: flex;
     flex-direction: column; 
-    overflow-y: auto;
+    overflow-y: scroll;
+
 }
 
 .msg-received {
-    background-color: #009796;
+    background-color: var(--color-green-800);
     padding: 16px;
-    color: #000000;
+    color: white;
     align-self: flex-start;
     max-width: 50%;
     border-radius: 4px;
@@ -2039,8 +2047,8 @@ ul.message-list {
 
 .msg-sent {
     align-self: flex-end;
-    background-color: #FFD600;
-    color: #000000;
+    background-color: #363A59;
+    color: white;
     max-width: 50%;
     border-radius: 4px;
     padding: 16px;
@@ -2052,21 +2060,26 @@ ul.message-list {
     justify-content: space-around;
     margin-bottom: 15px;
     border-top: 1px solid #e0e0e0;
+    padding: 10px;
 }
 .inputMsg {
     width: 100%;
-    padding: 8px;
-    border: none;
-    border-top: 1px solid #e0e0e0;
+    padding: 10px;
+    border: 1px solid #e0e0e0;
+    height: 44px;
+    /* border-top: px solid #e0e0e0; */
     outline: none;
     font-size: 14px;
 }
-.btnSend{
-    border-radius: 5px;
-    background-color: #006567;
+.btn.btnSend{
+    /* border-radius: 8px;
+    background-color: var(--color-green);
     color:white;
     cursor: pointer;
-    padding: 10px 20px;
+    padding: 10px 20px; */
+    padding: 10px !important;
+    border: none;
+    height: 40px !important;
 }
 .message-card{
     margin: 5px;

@@ -96,7 +96,6 @@ return (
   <>
     <NavBar title='Bandeja de entrada'/>
     <main>
-      <h1 className='conversation'>Tus conversaciones</h1>
       <div>
       <ul className='message-list'>
           {chats.map(chat => (

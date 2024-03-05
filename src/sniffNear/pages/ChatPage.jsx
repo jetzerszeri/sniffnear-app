@@ -108,22 +108,8 @@ export const ChatPage = () => {
   };
   return (
     <>
-      <NavBar title={'Chat'} />
+      <NavBar title={receptor} img={imgReceptor ? imgReceptor : "/img/defaultAvatar.png" }/>
       <div className='chat-container'>
-        <div className='imgAvatarChat'>
-          {imgReceptor ? (
-            <img 
-            src={imgReceptor} 
-            alt={receptor}
-            /> 
-          ) : (
-            <img 
-              src="/img/defaultAvatar.png" 
-              alt="Imagen por defecto"
-            /> 
-          )}
-          <h1>{receptor}</h1> 
-        </div>
         <div className='messages'>
           {msgHistory.length > 0 && (
             <> 
@@ -147,7 +133,7 @@ export const ChatPage = () => {
             value={newMessage}
             onChange={(event) => setNewMessage(event.target.value)}
             placeholder='Escribe tu mensaje...'/><br/>
-            <button type='submit' className='btnSend'> Enviar </button>
+            <button type='submit' className=' btn'><i className="bi bi-send"></i></button>
         </form> 
       </div>  
     </>

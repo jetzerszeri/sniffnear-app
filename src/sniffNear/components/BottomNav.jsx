@@ -26,9 +26,9 @@ export const BottomNav = () => {
                 <li>
                     <NavLink
                         className={ ({isActive}) => `${isActive ? 'active' : ''}`}
-                        to="/pets"
+                        to="/blog"
                     >
-                        <i className="bi bi-list-task"></i>
+                        <i className="bi bi-book"></i>
                     </NavLink>
                 </li>
                 <li className="plusBtn">

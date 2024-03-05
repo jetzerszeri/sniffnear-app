@@ -3,6 +3,8 @@ import { Link, useParams } from 'react-router-dom';
 import { AuthContext } from '../../auth/context';
 import { BottomNav, NavBar } from '../components';
 import { io } from 'socket.io-client';
+import { formatTime } from '../helpers/formatTime';
+import { getCurrentTime } from '../helpers';
 const socket = io('https://sniffnear-api.onrender.com/');
 
 export const ChatPage = () => {
@@ -15,7 +17,7 @@ export const ChatPage = () => {
   const { user } = useContext( AuthContext ); 
   const sender = user.id;
   const {roomId} = useParams();
- 
+  const time = getCurrentTime();
   const [receptor, setReceptor ] = useState('');
   const [imgReceptor, setImgReceptor] = useState('')
 
@@ -102,10 +104,11 @@ export const ChatPage = () => {
       socket.emit('sendMessage',{
           roomId: roomId , 
           sender:sender, 
-          text:newMessage
+          text:newMessage,
       })
       setNewMessage('');
   };
+
   return (
     <>
       <NavBar title={'Chat'} />
@@ -128,8 +131,11 @@ export const ChatPage = () => {
           {msgHistory.length > 0 && (
             <> 
             {msgHistory.map((mensaje, index) => (
+              
               <div key={index}  className={` message-card ${mensaje.sender === sender ? "msg-sent" : "msg-received"}`}>
+                
                 <p className='message-text'>{mensaje.text}</p>
+                <p className='message-time'>{formatTime(mensaje.createdAt,index,msgHistory)}</p>
               </div>
             ))}
             </>   
@@ -137,6 +143,7 @@ export const ChatPage = () => {
           {messages.map((mensaje, index) => (
             <div key={index}  className={`message-card ${mensaje.sender === sender ? "msg-sent" : "msg-received"}`}>
               <p className='message-text'>{mensaje.text}</p>
+              <p className='message-time'>{time}</p>
             </div>
           ))}
         </div> 

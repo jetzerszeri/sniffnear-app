@@ -8,3 +8,4 @@ export * from './deg2rad';
 export * from './filterData';
 export * from './getDistance';
 export * from './getCurrentTime';
+export * from './orderData';

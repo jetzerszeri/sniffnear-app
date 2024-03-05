@@ -29,7 +29,7 @@ export const PostDetails = ( {post}) => {
 
     const onEditPost = () => {
         editPost( post );
-        navigate(`/blog/${_id}/edit`);
+        navigate(`/blog/${_id}/edit`, { replace: true });
     }
 
     return (
@@ -37,9 +37,10 @@ export const PostDetails = ( {post}) => {
         <img src={img ? img : '/img/noImgPlaceholder.svg'} alt={title} />
 
         <div className="data">
-            <h2>{title}</h2>
+            <p className='category cap'>{category}</p>
+            <h2 className='cap'>{title}</h2>
             {creator && <UserCard user={creator} createdAt={created} />}
-            <p>{content}</p>
+            <p className='cap'>{content}</p>
 
             {
                 user.id === creator?._id &&

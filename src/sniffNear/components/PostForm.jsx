@@ -4,10 +4,10 @@ export const PostForm = ( { imageSelected, setImgFile, resetImg, checkErrors, fo
 
     const categoryOptions = {
         salud : 'Salud',
-        educacion : 'Educación',
+        educación : 'Educación',
         entrenenimiento: 'Entretenimiento',
-        alimentacion: 'Alimentación',
-        diversion: 'Diversión',
+        alimentación: 'Alimentación',
+        diversión: 'Diversión',
         otros: 'Otros'
     }
 

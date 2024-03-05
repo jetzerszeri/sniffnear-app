@@ -13,3 +13,4 @@ export * from './AlertsEditPage';
 export * from './BlogPage';
 export * from './BlogNewPostPage';
 export * from './BlogPostDetailPage';
+export * from './BlogPostEditPage';

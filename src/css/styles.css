@@ -2021,8 +2021,14 @@ svg{
 }
 
 
-.postDetails .data > p{
+.postDetails .data > p:last-of-type{
     font-size: 1em;
     color: var(--color-neutral-90);
     margin-top: 20px;
+}
+
+.postDetails .data .category{
+    margin-top: -10px;
+    font-size: 0.8em;
+    color: var(--color-neutral-50);
 }

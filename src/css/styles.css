@@ -1660,6 +1660,7 @@ svg{
     font-size: 1.2em;
     font-weight: 500;
     color: var(--color-darkblue);
+    margin: 0;
 }
 .alertCard .h h2::first-letter, .alertCard p::first-letter{
     text-transform: uppercase;
@@ -2034,4 +2035,21 @@ svg{
     margin-top: -10px;
     font-size: 0.8em;
     color: var(--color-neutral-50);
+}
+
+.homeFeed .alertCard{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px;
+    border-radius: 0;
+    box-shadow: none;
+    background-color: var(--color-neutral-0);
+    /* margin-top: 10px; */
+}
+
+.homeFeed{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }

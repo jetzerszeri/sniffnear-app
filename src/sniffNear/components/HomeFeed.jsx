@@ -3,6 +3,8 @@ import { AuthContext } from '../../auth/context';
 import { useFetchSniffNearApi } from '../../hooks';
 import { useFilterAlerts } from '../hooks';
 import { calculateDistance, orderData } from '../helpers';
+import { AlertCard } from './AlertCard';
+import { PostCard } from './PostCard';
 
 export const HomeFeed = ( { postsData }) => {
 
@@ -40,6 +42,30 @@ export const HomeFeed = ( { postsData }) => {
       
 
     return (
-    <div>HomeFeed</div>
+    <>
+
+    {
+        feedData &&
+        <ul className="homeFeed">
+            {
+                feedData.map( item => {
+                    if (item.alertType) {
+                        return <AlertCard
+                            key={ item._id }
+                            data={ item }
+                        />
+                    } else {
+                        return <PostCard
+                            key={ item._id }
+                            data={ item }
+                        />
+                    }
+                }
+                )
+            }
+        </ul>
+    }
+    
+    </>
     )
 }

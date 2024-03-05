@@ -43,7 +43,7 @@ export const PostDetails = ( {post}) => {
             <p className='cap'>{content}</p>
 
             {
-                user.id === creator?._id &&
+                user?.id === creator?._id &&
                 <div className='actions'>
                     <button className='btn secundary' onClick={ displayModal }>Eliminar</button>
                     <button className='btn' onClick={ onEditPost }>Editar</button>

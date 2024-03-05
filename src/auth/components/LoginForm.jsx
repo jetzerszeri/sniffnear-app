@@ -81,7 +81,7 @@ export const LoginForm = ( { authFlow = true, label, onPrevFunction, onNextFunct
 
             {
                 authFlow 
-                ?<div>
+                ?<div className="btns">
                     <button type="submit" className="btn">Iniciar sesión</button>
                     <p>¿No tenés una cuenta? <Link to="/auth/register">Registrate</Link></p>
                 </div>

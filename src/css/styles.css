@@ -231,8 +231,12 @@ textarea{
 }
 
 .singUpView form div:last-of-type{
-    padding-top: 10px !important;
+    /* padding-top: 10px !important; */
     text-align: center;
+}
+
+.singUpView .btns{
+    margin-top: 40px;
 }
 
 .singUpView form div:last-of-type a{

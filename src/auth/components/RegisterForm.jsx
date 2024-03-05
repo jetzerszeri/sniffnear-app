@@ -98,7 +98,7 @@ export const RegisterForm = ( { accountStatus, authFlow = true, label = 'Registr
                 !authFlow && children && children
             }
 
-            <div className={!authFlow ? "actions" : ''}>
+            <div className={`${!authFlow ? "actions" : ''} btns`}>
                 { !authFlow && <button type="button" className="btn secundary" onClick={onPrevFunction}>Regresar</button> }
                 <button type="submit" className="btn">{ label }</button>
                 { authFlow && <p>¿Ya tenés una cuenta? <Link to="/auth/login">Iniciá sesión</Link></p> }

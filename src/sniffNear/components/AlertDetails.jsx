@@ -26,7 +26,7 @@ export const AlertDetails = ( { data, preview = false, imgSelected } ) => {
         try {
         const sender = user.id;
         const receptor = creator._id;
-    
+        
         const existingChatRoomResponse = await fetch('https://sniffnear-api.onrender.com/api/chats/find', {
             method: 'POST',
             headers: {
@@ -96,7 +96,7 @@ export const AlertDetails = ( { data, preview = false, imgSelected } ) => {
                     <UserCard user={ creator } createdAt={ created } >
                         {
                             (creator._id !== user?.id) &&
-                            <button className='btn small' onClick={handleContactClick}>Contactar BOTOOOON</button>
+                            <button className='btn small' onClick={handleContactClick}>Contactar</button>
                         }
                     </UserCard>
 

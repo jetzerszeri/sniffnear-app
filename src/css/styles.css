@@ -2004,6 +2004,16 @@ ul.message-list {
     object-fit: cover;
     transition: all 0.2s ease;
 }
+.message-date{
+    text-align: center;
+    color: #707070;
+}
+.message-time{
+    text-align: right;
+    margin-top: 4px;
+    color: #ffffff;
+    font-size: 10px;
+}
   
 .profile-image:hover {
     transform: scale(1.1); 

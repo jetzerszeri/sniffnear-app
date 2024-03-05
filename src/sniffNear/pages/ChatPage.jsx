@@ -3,7 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import { AuthContext } from '../../auth/context';
 import { BottomNav, NavBar } from '../components';
 import { io } from 'socket.io-client';
-import { formatTime } from '../helpers/formatTime';
+import { formatDate, formatTime } from '../helpers/formatTime';
 import { getCurrentTime } from '../helpers';
 const socket = io('https://sniffnear-api.onrender.com/');
 
@@ -116,14 +116,21 @@ export const ChatPage = () => {
         <div className='messages'>
           {msgHistory.length > 0 && (
             <> 
-            {msgHistory.map((mensaje, index) => (
-              
-              <div key={index}  className={` message-card ${mensaje.sender === sender ? "msg-sent" : "msg-received"}`}>
-                
-                <p className='message-text'>{mensaje.text}</p>
-                <p className='message-time'>{formatTime(mensaje.createdAt,index,msgHistory)}</p>
-              </div>
-            ))}
+            {msgHistory.map((mensaje, index) => {
+                const datePart = formatDate(mensaje.createdAt);
+                const timePart = formatTime(mensaje.createdAt);
+                return(
+                    <React.Fragment key={index}>
+                      {index === 0 || new Date(msgHistory[index - 1].createdAt).getDate() !== new Date(mensaje.createdAt).getDate() ? (
+                        <p className='message-date'>{datePart}</p>
+                        ) : null}
+                        <div className={`message-card ${mensaje.sender === sender ? "msg-sent" : "msg-received"}`}>
+                            <p className='message-text'>{mensaje.text}</p>
+                            <p className='message-time'>{timePart}</p>
+                        </div>
+                    </React.Fragment>
+                )
+            })}
             </>   
           )}
           {messages.map((mensaje, index) => (

@@ -4,7 +4,7 @@ import queryString from 'query-string';
 import { AuthContext } from '../../auth/context';
 import { useFetchSniffNearApi } from '../../hooks';
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
-import { addQuery, calculateDistance } from '../helpers';
+import { addQuery, calculateDistance, orderData } from '../helpers';
 import { useFilter, useFilterAlerts } from '../hooks';
 
 export const AlertsPage = () => {
@@ -24,6 +24,10 @@ export const AlertsPage = () => {
         size: '',
         creator: ''
     } );
+    const [ showFilterOptions, setShowFilterOptions] = useState(false);
+    const [ isFiltered, setIsFiltered ] = useState(false);
+    const [ order, setOrder ] = useState('desc');
+
 
 
     useEffect(() => {
@@ -38,9 +42,11 @@ export const AlertsPage = () => {
 
     useEffect(() => {
         if (data){
-            setinitialData(data.filter( alert => (calculateDistance(position.lat, position.lng, alert.latitude, alert.longitude) <= distance)));
+            const localAlerts = data.filter( alert => (calculateDistance(position.lat, position.lng, alert.latitude, alert.longitude) <= distance));
+
+            setinitialData(orderData(localAlerts, 'created', order));
         }
-    }, [data, distance, position, setinitialData]);
+    }, [data, distance, position, setinitialData, order]);
 
     useEffect(() => {
         if (alertType !== "all"){
@@ -63,8 +69,6 @@ export const AlertsPage = () => {
     }
 
 
-    const [ showFilterOptions, setShowFilterOptions] = useState(false);
-    const [ isFiltered, setIsFiltered ] = useState(false);
 
 
     useEffect(() => {
@@ -123,6 +127,8 @@ export const AlertsPage = () => {
                     displayModal={setShowFilterOptions}
                     prevFilters={filters}
                     isFiltered={isFiltered}
+                    order={order}
+                    setOrder={setOrder}
                 />
         }
 

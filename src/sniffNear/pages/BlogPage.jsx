@@ -13,7 +13,7 @@ export const BlogPage = () => {
     const { filteredData, filters, setFilters, filterCurrentData, clearFilters, addFilter, setinitialData } = useFilter( { category: '', creator: '' } );
     const [ showFilterOptions, setShowFilterOptions] = useState(false);
     const [ isFiltered, setIsFiltered ] = useState( false );
-    const [ order, setOrder ] = useState('desc')
+    const [ order, setOrder ] = useState('desc');
 
     useEffect(() => {
         getData('blog');

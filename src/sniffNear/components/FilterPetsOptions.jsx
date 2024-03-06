@@ -15,6 +15,8 @@ export const FilterPetsOptions = ( { setFilters, clearFilters, displayModal, pre
         creator: '',
     }
     const { formState, onInputChange, onResetForm, setCurrentValues } = useForm(initialState);
+    const [sortOrder, setSortOrder] = useState(order);
+
 
     useEffect(() => {
         if (prevFilters !== formState){
@@ -51,6 +53,11 @@ export const FilterPetsOptions = ( { setFilters, clearFilters, displayModal, pre
 
     const onSetFilters = () => {
         setFilters(formState);
+        
+        if (sortOrder !== order) {
+            setOrder(sortOrder);
+        }
+
         displayModal(false);
     }
 
@@ -58,6 +65,10 @@ export const FilterPetsOptions = ( { setFilters, clearFilters, displayModal, pre
         onResetForm();
         clearFilters();
         displayModal(false);
+    }
+
+    const onOrderChange = ({ target }) => {
+        setSortOrder(target.value);
     }
 
 
@@ -97,7 +108,6 @@ export const FilterPetsOptions = ( { setFilters, clearFilters, displayModal, pre
                 />
 
                 {
-
                     user &&
                     <SelectOptionInput
                         label='Creador'
@@ -107,8 +117,16 @@ export const FilterPetsOptions = ( { setFilters, clearFilters, displayModal, pre
                         onChangeFunction={onInputChange}
                         defaultOption='Todas las Alertas'
                     />
-
                 }
+
+                <h2><i className="bi bi-sort-alpha-down-alt"></i> Ordenar por</h2>
+                <SelectOptionInput
+                    label='Fecha de publicación'
+                    name='order'
+                    options={{'desc': 'Más recientes primero', 'asc': 'Más antiguas primero'}}
+                    value={sortOrder}
+                    onChangeFunction={onOrderChange}
+                />
 
                 
                 <div className="actions">

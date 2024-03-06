@@ -1,10 +1,12 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { AuthContext } from '../../auth/context';
 import { BottomNav, NavBar } from '../components';
 import { io } from 'socket.io-client';
 import { formatDate, formatTime } from '../helpers/formatTime';
 import { getCurrentTime } from '../helpers';
+import { getCurrentDate } from '../helpers';
+import {  Modal } from '../../ui';
 const socket = io('https://sniffnear-api.onrender.com/');
 
 export const ChatPage = () => {
@@ -13,7 +15,7 @@ export const ChatPage = () => {
   const [messages, setMessages]=useState([]);
   const [newMessage, setNewMessage]= useState('');
   const [msgHistory , setMsgHistory] = useState([])
-  
+  const navigate = useNavigate();
   const { user } = useContext( AuthContext ); 
   const sender = user.id;
   const {roomId} = useParams();
@@ -21,6 +23,7 @@ export const ChatPage = () => {
   const [receptor, setReceptor ] = useState('');
   const [imgReceptor, setImgReceptor] = useState('')
 
+  const [displayModal , setDisplayModal]= useState(false)
   useEffect(()=>{
    
       socket.on("connect",()=>setIsConnected(true));
@@ -101,17 +104,42 @@ export const ChatPage = () => {
 
   const handleSendMessage = async (e)=>{
       e.preventDefault();
+      
+        const currentDate = getCurrentDate();
+        const currentTime = getCurrentTime();
+        const formattedDate = `${currentDate}T${currentTime}:00.000Z`;
+    
       socket.emit('sendMessage',{
           roomId: roomId , 
           sender:sender, 
           text:newMessage,
+          createdAt: formattedDate
       })
       setNewMessage('');
   };
+  const onDeleteChat = async () => {
+    try {
+        const response = await fetch(`https://sniffnear-api.onrender.com/api/chats/delete/${roomId}`, {
+            method: 'DELETE',
+        });
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        navigate('/inbox');
+    } catch (error) {
+        console.error('Error al eliminar el chat:', error);
+    }
+};
+
+
+
 
   return (
     <>
-      <NavBar title={receptor} img={imgReceptor ? imgReceptor : "/img/defaultAvatar.png" }/>
+      <NavBar title={receptor} img={imgReceptor ? imgReceptor : "/img/defaultAvatar.png"}>
+        <i className="bi bi-trash3" onClick={() => { setDisplayModal(true) }}></i>
+    </NavBar>
+
       <div className='chat-container'>
         <div className='messages'>
           {msgHistory.length > 0 && (
@@ -149,7 +177,14 @@ export const ChatPage = () => {
             placeholder='Escribe tu mensaje...'/><br/>
             <button type='submit' className=' btn'><i className="bi bi-send"></i></button>
         </form> 
-      </div>  
+      </div> 
+      {
+        displayModal &&
+        <Modal text={`¿Estás seguro que queres eliminar el chat?`} type='danger' icon={ true }>
+            <button className="btn secundary" onClick={() => setDisplayModal(false)}>Cancelar</button>
+            <button className="btn" onClick={onDeleteChat}>Si, Eliminar</button>
+        </Modal>
+        }
     </>
    
   )

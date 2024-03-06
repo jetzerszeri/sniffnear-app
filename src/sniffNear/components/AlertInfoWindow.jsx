@@ -14,7 +14,7 @@ export const AlertInfoWindow = ( { data } ) => {
             <div>
                 { alertType === 'perdido' ? <AlertIcon /> : <FoundIcon /> }
                 <div>
-                    <h2>{ type } { alertType }</h2>
+                    <h2 className='cap'>{ type } { alertType }</h2>
                     <p><i className="bi bi-geo-alt"> </i>
                         {
                             alertType === 'perdido'
@@ -28,8 +28,8 @@ export const AlertInfoWindow = ( { data } ) => {
             <div>
                 <img src={img}  alt={`${ type } color ${ color1 }`} />
 
-                <p>{ breed ? `${breedType} - ${breed}, ${sex}, ${color1}, ${size}` : `${sex}, ${color1}, ${size}`}</p>
-                <p>{ description }</p>
+                <p className='cap'>{ breed ? `${breedType} - ${breed}, ${sex}, color ${color1}, tamaño ${size}.` : `${sex}, color ${color1}, tamaño ${size}.`}</p>
+                <p className='cap'>{ description }</p>
                 <div className="actions">
                     <Link to={`/alerts/${_id}`} className='btn'>Ver más</Link>
                 </div>

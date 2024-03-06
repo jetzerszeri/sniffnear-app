@@ -7,6 +7,7 @@ import { UserCard } from './UserCard';
 import { Modal } from '../../ui';
 import { useNavigate } from 'react-router-dom';
 import { useFetchSniffNearApi } from '../../hooks';
+import { AuthFormModal } from './AuthFormModal';
 
 export const AlertDetails = ( { alert, preview = false, imgSelected } ) => {
 
@@ -68,7 +69,7 @@ export const AlertDetails = ( { alert, preview = false, imgSelected } ) => {
 
     const onFinalizeAlert = async() => {
         await update(`alerts`, _id, { status: 'finalized' });
-    }
+    };
     
     return (
         <div className='alertDetails'>
@@ -138,6 +139,8 @@ export const AlertDetails = ( { alert, preview = false, imgSelected } ) => {
                     </div>
                 }
             </div>
+
+            <AuthFormModal />
 
             {
                 // finalizeAlertModal &&

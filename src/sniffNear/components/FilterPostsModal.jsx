@@ -1,13 +1,14 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useForm } from '../../hooks';
 import { Modal, SelectOptionInput } from '../../ui';
 import { AuthContext } from '../../auth/context';
 
-export const FilterPostsModal = ( { setFilters, clearFilters, displayModal, prevFilters, isFiltered, creatorId } ) => {
+export const FilterPostsModal = ( { setFilters, clearFilters, displayModal, prevFilters, isFiltered, order, setOrder } ) => {
     const { user } = useContext( AuthContext );
     const { id = null } = user;
     const initialState = { category: '', creator: '', userId: id}
     const { formState, onInputChange, onResetForm, setCurrentValues } = useForm(initialState);
+    const [sortOrder, setSortOrder] = useState(order);
 
     useEffect(() => {
         if (prevFilters !== formState){
@@ -31,6 +32,10 @@ export const FilterPostsModal = ( { setFilters, clearFilters, displayModal, prev
 
     const onSetFilters = () => {
         setFilters(formState);
+
+        if (sortOrder !== order) {
+            setOrder(sortOrder);
+        }
         displayModal(false);
     }
 
@@ -39,6 +44,12 @@ export const FilterPostsModal = ( { setFilters, clearFilters, displayModal, prev
         clearFilters();
         displayModal(false);
     }
+
+    const onOrderChange = ({ target }) => {
+        setSortOrder(target.value);
+    }
+
+
 
 
     return (
@@ -63,9 +74,19 @@ export const FilterPostsModal = ( { setFilters, clearFilters, displayModal, prev
                         options={authorOptions}
                         value={formState.creator}
                         onChangeFunction={onInputChange}
+                        defaultOption='Todas las publicaciones'
                     />
 
                 }
+
+                <h2><i className="bi bi-sort-alpha-down-alt"></i> Ordenar por</h2>
+                <SelectOptionInput
+                    label='Fecha de publicación'
+                    name='order'
+                    options={{'desc': 'Más recientes primero', 'asc': 'Más antiguas primero'}}
+                    value={sortOrder}
+                    onChangeFunction={onOrderChange}
+                />
 
                 <div className="actions">
 

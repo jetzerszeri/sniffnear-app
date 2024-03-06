@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { onRemoveInputError, onRequieredInput } from '../../sniffNear/helpers';
 
-export const SelectOptionInput = ( { name, value, onChangeFunction, label, errors, required = false, setErrors, checkErrors, options = {} } ) => {
+export const SelectOptionInput = ( { name, value, onChangeFunction, label, errors, required = false, defaultOption = false,  setErrors, checkErrors, options = {} } ) => {
 
     let error = errors ? errors[name] : null;
 
@@ -26,7 +26,7 @@ export const SelectOptionInput = ( { name, value, onChangeFunction, label, error
 
     return (
     <div className="inputContainer">
-            <label htmlFor={ name }>{label}</label>
+            {label && <label htmlFor={ name }>{label}</label>}
             <select 
                 name={ name }
                 value={ value }
@@ -34,7 +34,11 @@ export const SelectOptionInput = ( { name, value, onChangeFunction, label, error
                 className={ error ? 'error' : '' }
                 onBlur={  onBlur }
             >
-                <option value="" disabled defaultValue>Seleccioná una opción</option>
+                { 
+                    defaultOption
+                    ? <option value="" defaultValue>{ defaultOption }</option>
+                    : <option value="" disabled defaultValue>Seleccioná una opción</option>
+                }
 
                 {
                     Object.keys(options).map( key => {

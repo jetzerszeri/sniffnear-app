@@ -13,14 +13,20 @@ export const BlogPage = () => {
     const { filteredData, filters, setFilters, filterCurrentData, clearFilters, addFilter, setinitialData } = useFilter( { category: '', creator: '' } );
     const [ showFilterOptions, setShowFilterOptions] = useState(false);
     const [ isFiltered, setIsFiltered ] = useState( false );
+    const [ order, setOrder ] = useState('desc')
 
     useEffect(() => {
         getData('blog');
     }, [ getData ]);
 
     useEffect(() => {
-        data && setinitialData(orderData(data, 'created', 'desc'));
-    }, [data])
+        data && setinitialData(orderData(data, 'created', order));
+    }, [data, order])
+
+    // useEffect(() => {
+    //     setinitialData(orderData(data, 'created', order))
+    // }, [order])
+    
 
     useEffect(() => {
         (filters.category !== '' || filters.creator !== '') ? setIsFiltered(true) : setIsFiltered(false);
@@ -47,6 +53,8 @@ export const BlogPage = () => {
                     displayModal={setShowFilterOptions}
                     prevFilters={filters}
                     isFiltered={isFiltered}
+                    order={order}
+                    setOrder={setOrder}
                 />
         }
     

@@ -138,7 +138,7 @@ export const FilterPetsOptions = ( { setFilters, clearFilters, displayModal, pre
 
 
 
-                <h2><i className="bi bi-sort-alpha-down-alt"></i> Ordenar por</h2>
+                <h2><i className="bi bi-sort-alpha-down-alt"></i> Ordenar por:</h2>
                 <SelectOptionInput
                     label='Fecha de publicación'
                     name='order'

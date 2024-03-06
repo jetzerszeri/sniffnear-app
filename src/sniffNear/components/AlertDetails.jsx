@@ -11,7 +11,6 @@ export const AlertDetails = ( { data, preview = false, imgSelected } ) => {
 
     const { coords, user, editAlert } = useContext( AuthContext );
     const { alertType, breed, breedType, city, color1, country, created, creator, date,description, img, pet, latitude, longitude, sex, size, state, status, time, type, _id} = data;
-    const [ displayHelpOptions, setDisplayHelpOptions ] = useState(false);
     const navigate = useNavigate();
     const [chatExist,setChatExist]=useState(false)
     
@@ -125,24 +124,13 @@ export const AlertDetails = ( { data, preview = false, imgSelected } ) => {
                                 <button className='btn'>Finalizar alerta <i className="bi bi-check2-square"></i></button>
                             </>
                             : <>
-                                <button className='btn' onClick={()=> setDisplayHelpOptions(true)}>Tengo info que puede ayudar</button>
+                                <button className='btn' onClick={handleContactClick}>Contactar</button>
                             </>
                         }
                     </div>
                 }
             </div>
 
-            {
-                displayHelpOptions &&
-                <Modal heading='¿Viste o sabés donde está esta mascota?' >
-
-                    <button className='btn secundary'>La vi</button>
-                    <button className='btn secundary'>Sé donde está</button>
-                    <button className='btn'>Yo la tengo</button>
-
-                    <i className="bi bi-x-lg closeBtn" onClick={() => setDisplayHelpOptions(false)}></i>
-                </Modal>
-            }
         </div>
     )
 }

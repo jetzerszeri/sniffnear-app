@@ -5,6 +5,7 @@ import { BottomNav, NavBar } from '../components';
 import { io } from 'socket.io-client';
 import { formatDate, formatTime } from '../helpers/formatTime';
 import { getCurrentTime } from '../helpers';
+import { getCurrentDate } from '../helpers';
 const socket = io('https://sniffnear-api.onrender.com/');
 
 export const ChatPage = () => {
@@ -101,10 +102,16 @@ export const ChatPage = () => {
 
   const handleSendMessage = async (e)=>{
       e.preventDefault();
+      
+        const currentDate = getCurrentDate();
+        const currentTime = getCurrentTime();
+        const formattedDate = `${currentDate}T${currentTime}:00.000Z`;
+    
       socket.emit('sendMessage',{
           roomId: roomId , 
           sender:sender, 
           text:newMessage,
+          createdAt: formattedDate
       })
       setNewMessage('');
   };

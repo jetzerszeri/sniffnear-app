@@ -1400,7 +1400,7 @@ h3{
     text-align: center;
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    /* gap: 16px; */
     margin: 10px;
     align-items: center;
     position: relative;

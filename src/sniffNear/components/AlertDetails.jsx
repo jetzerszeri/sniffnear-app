@@ -6,18 +6,21 @@ import { MapSniffNear } from './MapSniffNear';
 import { UserCard } from './UserCard';
 import { Modal } from '../../ui';
 import { useNavigate } from 'react-router-dom';
+import { useFetchSniffNearApi } from '../../hooks';
 
-export const AlertDetails = ( { data, preview = false, imgSelected } ) => {
+export const AlertDetails = ( { alert, preview = false, imgSelected } ) => {
 
     const { coords, user, editAlert } = useContext( AuthContext );
-    const { alertType, breed, breedType, city, color1, country, created, creator, date,description, img, pet, latitude, longitude, sex, size, state, status, time, type, _id} = data;
+    const { alertType, breed, breedType, city, color1, country, created, creator, date,description, img, pet, latitude, longitude, sex, size, state, status, time, type, _id} = alert;
     const navigate = useNavigate();
-    const [chatExist,setChatExist]=useState(false)
+    const [ chatExist,setChatExist ]=useState( false );
+    const [ finalizeAlertModal, setFinalizeAlertModal ] = useState( false );
+    const { data, isLoading, update } = useFetchSniffNearApi();
     
 
     const onEditAlert = () => {
         if (user.id !== creator._id) return;
-        editAlert( data );
+        editAlert( alert );
         navigate(`/alerts/${_id}/edit`);
     }
 
@@ -62,6 +65,10 @@ export const AlertDetails = ( { data, preview = false, imgSelected } ) => {
             console.error('Error al contactar al usuario:', error);
         }
     };
+
+    const onFinalizeAlert = async() => {
+        await update(`alerts`, _id, { status: 'finalized' });
+    }
     
     return (
         <div className='alertDetails'>
@@ -121,7 +128,7 @@ export const AlertDetails = ( { data, preview = false, imgSelected } ) => {
                             (creator && creator._id === user?.id)
                             ? <>
                                 <button className='btn secundary' onClick={onEditAlert}>Editar <i className="bi bi-pencil"></i></button>
-                                <button className='btn'>Finalizar alerta <i className="bi bi-check2-square"></i></button>
+                                {/* <button className='btn' onClick={() => { setFinalizeAlertModal(true)}}>Finalizar alerta <i className="bi bi-check2-square"></i></button> */}
                             </>
                             : <>
                                 <button className='btn' onClick={handleContactClick}>Contactar</button>
@@ -130,6 +137,14 @@ export const AlertDetails = ( { data, preview = false, imgSelected } ) => {
                     </div>
                 }
             </div>
+
+            {
+                // finalizeAlertModal &&
+                // <Modal heading={`¿Estás seguro de finalizar la alerta?`} text={`Si la finalizás, la alerta ya no va a ser visible para el resto de usuarios. Pero si lo necesitás, podrás ponerla pública de nuevo más tarde.`} >
+                //     <button className="btn secundary" onClick={ () => {setFinalizeAlertModal(false)} }>Cancelar</button>
+                //     <button className="btn" onClick={ onFinalizeAlert }>Si, Finalizar</button>
+                // </Modal>
+            }
 
         </div>
     )

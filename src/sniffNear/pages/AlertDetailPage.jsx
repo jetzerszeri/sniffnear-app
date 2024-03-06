@@ -60,7 +60,7 @@ export const AlertDetailPage = () => {
 
         {
             alert.alertType
-            && <AlertDetails data={ alert } />
+            && <AlertDetails alert={ alert } />
         }
 
 

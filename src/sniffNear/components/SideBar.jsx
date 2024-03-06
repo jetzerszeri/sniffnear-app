@@ -1,5 +1,5 @@
 import { Link, NavLink } from 'react-router-dom';
-import { SidebarBlogIcon, SidebarChatIcon, SidebarHomeIcon, SidebarLogoutIcon, SniffNearLogotipo } from '../../ui/customIcons';
+import { SidebarAdoptionIcon, SidebarBlogIcon, SidebarChatIcon, SidebarHomeIcon, SidebarLogoutIcon, SniffNearLogotipo } from '../../ui/customIcons';
 import { useContext } from 'react';
 import { AuthContext } from '../../auth/context';
 
@@ -56,6 +56,15 @@ export const SideBar = ( { displaySidebar, hideSidebar } ) => {
                             onClick={ hideSidebar }
                         >
                             <SidebarChatIcon />
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink 
+                            className={ ({isActive}) => `${isActive ? 'active' : ''}`}
+                            to="/adoptions"
+                            onClick={ hideSidebar }
+                        >
+                            <SidebarAdoptionIcon />
                         </NavLink>
                     </li>
 

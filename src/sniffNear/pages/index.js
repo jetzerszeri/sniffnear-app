@@ -16,3 +16,7 @@ export * from './BlogPage';
 export * from './BlogNewPostPage';
 export * from './BlogPostDetailPage';
 export * from './BlogPostEditPage';
+export * from './AdoptionsPage';
+export * from './AdoptionNewPage';
+export * from './AdoptionsDetailPage';
+export * from './AdoptionEditPage';

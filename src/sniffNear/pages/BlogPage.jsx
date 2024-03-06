@@ -3,6 +3,7 @@ import { BottomNav, FilterPostsModal, NavBar, PostCardsList } from '../component
 import { useFetchSniffNearApi } from '../../hooks';
 import { useFilter } from '../hooks';
 import { AuthContext } from '../../auth/context';
+import { orderData } from '../helpers';
 
 export const BlogPage = () => {
 
@@ -18,7 +19,7 @@ export const BlogPage = () => {
     }, [ getData ]);
 
     useEffect(() => {
-        data && setinitialData(data);
+        data && setinitialData(orderData(data, 'created', 'desc'));
     }, [data])
 
     useEffect(() => {

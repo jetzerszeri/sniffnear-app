@@ -1,13 +1,18 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useForm } from '../../hooks';
 import { Modal, SelectOptionInput } from '../../ui';
+import { AuthContext } from '../../auth/context';
 
-export const FilterPetsOptions = ( { setFilters, clearFilters, displayModal, prevFilters, isFiltered } ) => {
+export const FilterPetsOptions = ( { setFilters, clearFilters, displayModal, prevFilters, isFiltered, order, setOrder } ) => {
+
+    const { user } = useContext( AuthContext );
+    const { id = null } = user;
     const initialState = {
         alertType: '',
         sex: '',
         color1: '',
         size: '',
+        creator: '',
     }
     const { formState, onInputChange, onResetForm, setCurrentValues } = useForm(initialState);
 
@@ -17,8 +22,6 @@ export const FilterPetsOptions = ( { setFilters, clearFilters, displayModal, pre
         }
     }, [])
 
-    console.log(initialState === formState, 'initialState === formState')
-    
 
 
     const colorOptions = {
@@ -41,8 +44,12 @@ export const FilterPetsOptions = ( { setFilters, clearFilters, displayModal, pre
         grande: 'Grande'
     }
 
+    const authorOptions = {
+        [id]: 'Mis alertas',
+        others: 'Alertas de otros'
+    }
+
     const onSetFilters = () => {
-        console.log('le di a filtrar en modal')
         setFilters(formState);
         displayModal(false);
     }
@@ -68,7 +75,7 @@ export const FilterPetsOptions = ( { setFilters, clearFilters, displayModal, pre
                     label="Sexo"
                     onChangeFunction={onInputChange}
                     options={sexOptions}
-                    
+                    defaultOption='Ambos'
                 />
 
                 <SelectOptionInput
@@ -77,6 +84,7 @@ export const FilterPetsOptions = ( { setFilters, clearFilters, displayModal, pre
                     label="Color"
                     onChangeFunction={onInputChange}
                     options={colorOptions}
+                    defaultOption='Todos los colores'
                 />
 
                 <SelectOptionInput
@@ -85,7 +93,22 @@ export const FilterPetsOptions = ( { setFilters, clearFilters, displayModal, pre
                     label="Tamaño"
                     onChangeFunction={onInputChange}
                     options={sizeOptions}
+                    defaultOption='Todos los tamaños'
                 />
+
+                {
+
+                    user &&
+                    <SelectOptionInput
+                        label='Creador'
+                        name='creator'
+                        options={authorOptions}
+                        value={formState.creator}
+                        onChangeFunction={onInputChange}
+                        defaultOption='Todas las Alertas'
+                    />
+
+                }
 
                 
                 <div className="actions">

@@ -6,7 +6,7 @@ import { AuthContext } from '../../auth/context';
 export const FilterPostsModal = ( { setFilters, clearFilters, displayModal, prevFilters, isFiltered, order, setOrder } ) => {
     const { user } = useContext( AuthContext );
     const { id = null } = user;
-    const initialState = { category: '', creator: '', userId: id}
+    const initialState = { category: '', creator: '' }
     const { formState, onInputChange, onResetForm, setCurrentValues } = useForm(initialState);
     const [sortOrder, setSortOrder] = useState(order);
 

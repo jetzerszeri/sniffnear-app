@@ -5,7 +5,7 @@ import { AuthContext } from '../../auth/context';
 import { useFetchSniffNearApi } from '../../hooks';
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { addQuery, calculateDistance } from '../helpers';
-import { useFilterAlerts } from '../hooks';
+import { useFilter, useFilterAlerts } from '../hooks';
 
 export const AlertsPage = () => {
 
@@ -17,7 +17,13 @@ export const AlertsPage = () => {
     const [ position, setPosition ] = useState({});
     const { data, isLoading, error, getData } = useFetchSniffNearApi();
     const [ distance, setDistance ] = useState(5);
-    const { filteredAlerts, filters, setFilters, clearFilters, addFilter, setFilteredAlerts, setInitialData } = useFilterAlerts();
+    const { filteredData, filters, setFilters, filterCurrentData, clearFilters, addFilter, setinitialData } = useFilter( {
+        alertType: '',
+        sex: '',
+        color1: '',
+        size: '',
+        creator: ''
+    } );
 
 
     useEffect(() => {
@@ -31,15 +37,10 @@ export const AlertsPage = () => {
     }, [ getData ]);
 
     useEffect(() => {
-        // console.log(data);
         if (data){
-
-            // setFilteredData(data.filter( alert => (calculateDistance(position.lat, position.lng, alert.latitude, alert.longitude) <= distance)));
-
-            setInitialData(data.filter( alert => (calculateDistance(position.lat, position.lng, alert.latitude, alert.longitude) <= distance)));
-
+            setinitialData(data.filter( alert => (calculateDistance(position.lat, position.lng, alert.latitude, alert.longitude) <= distance)));
         }
-    }, [data, distance, position, setFilteredAlerts]);
+    }, [data, distance, position, setinitialData]);
 
     useEffect(() => {
         if (alertType !== "all"){
@@ -51,9 +52,7 @@ export const AlertsPage = () => {
         } else {
             addFilter('alertType', '');
         }
-        
-        // alertType !== "all" && addFilter('alertType', alertType);
-    }, [alertType])
+    }, [alertType]);
     
 
 
@@ -69,7 +68,7 @@ export const AlertsPage = () => {
 
 
     useEffect(() => {
-        if (filters.sex !== '' || filters.color1 !== '' || filters.size !== ''){
+        if (filters.sex !== '' || filters.color1 !== '' || filters.size !== '', filters.creator !== ''){
             setIsFiltered(true);
             // console.log('hay filtros')
         } else {
@@ -104,13 +103,13 @@ export const AlertsPage = () => {
         <div className='alertsPage'>
 
             {
-                ( position && view === "map" ) &&
-                <MapSniffNear position={position} data={filteredAlerts} />
+                ( position.lat && position.lng && view === "map" ) &&
+                <MapSniffNear position={position} data={filteredData} />
             }
 
 
             {
-                (data && view === "list") && <AlertCardList list={filteredAlerts} />
+                (data && view === "list") && <AlertCardList list={filteredData} />
             }
 
         </div>

@@ -32,7 +32,7 @@ export const BlogNewPostPage = () => {
     }
 
 
-
+    
     return (
     <>
         <NavBar title='Nuevo post'/>

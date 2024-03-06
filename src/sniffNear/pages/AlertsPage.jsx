@@ -82,31 +82,6 @@ export const AlertsPage = () => {
 
 
 
-    // const colorOptions = {
-    //     blanco: 'Blanco',
-    //     negro: 'Negro',
-    //     marrón: 'Marrón',
-    //     gris: 'Gris',
-    //     naranja: 'Naranja',
-    //     otro: 'Otro'
-    // }
-
-    // const sexOptions = {
-    //     macho: 'Macho', 
-    //     hembra: 'Hembra'
-    // }
-
-    // const onSetFilters = () => {
-    //     console.log('le di a filtrar en modal')
-    //     setFilters(formState);
-    //     setShowFilterOptions(false);
-    // }
-
-    // const onClearFilters = () => {
-    //     onResetForm();
-    //     clearFilters();
-    //     setShowFilterOptions(false);
-    // }
 
 
     return (

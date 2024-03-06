@@ -1832,7 +1832,7 @@ svg{
 }
 
 /* icono de filtro */
-.tabs div i{
+.tabs div i, .filterIcon{
     padding: 0.5rem 1rem 0.5rem 0.5em;
     cursor: pointer;
     position: relative;
@@ -1842,7 +1842,7 @@ svg{
     color: var(--color-darkblue);
 }
 
-.tabs div i.filtered::after{
+i.filtered::after{
     content: '';
     display: block;
     width: 6px;

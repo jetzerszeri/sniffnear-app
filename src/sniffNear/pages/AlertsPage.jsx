@@ -108,7 +108,7 @@ export const AlertsPage = () => {
 
             {
                 ( position.lat && position.lng && view === "map" ) &&
-                <MapSniffNear position={position} data={filteredData} />
+                <MapSniffNear position={position} data={filteredData} blueMarker={true} />
             }
 
 

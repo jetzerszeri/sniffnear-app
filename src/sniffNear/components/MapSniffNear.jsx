@@ -9,7 +9,7 @@ import { AlertIcon, BuleMarkerIcon, MissigMarker } from '../../ui';
 import { Link } from 'react-router-dom';
 import { AlertInfoWindow } from './AlertInfoWindow';
 
-export const MapSniffNear = ( { position, alertForm = false, drag = false, updateCoords, data = null, displayOnly = false }  ) => {
+export const MapSniffNear = ( { position, alertForm = false, drag = false, updateCoords, data = null, displayOnly = false, blueMarker = false }  ) => {
 
     const googleMapId = process.env.REACT_APP_GOOGLE_MAP_SIFFNEAR_ID;
     const [ zoom, setZoom ] = useState(15);
@@ -68,8 +68,13 @@ export const MapSniffNear = ( { position, alertForm = false, drag = false, updat
                     :  <AdvancedMarker
                         position={ position }
                     >
-                        {/* <img src='/img/sniffnearmarkergreen.png' alt="marcador" className='marker' /> */}
-                        <BuleMarkerIcon />
+
+                        {
+                            blueMarker
+                            ? <BuleMarkerIcon />
+                            : <img src='/img/sniffnearmarkergreen.png' alt="marcador" className='marker' />
+                        }
+
                     
                     </AdvancedMarker>
                 }

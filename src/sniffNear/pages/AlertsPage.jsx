@@ -129,6 +129,8 @@ export const AlertsPage = () => {
                     isFiltered={isFiltered}
                     order={order}
                     setOrder={setOrder}
+                    distance={distance}
+                    setDistance={setDistance}
                 />
         }
 

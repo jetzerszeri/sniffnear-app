@@ -3,7 +3,7 @@ import { useForm } from '../../hooks';
 import { Modal, SelectOptionInput } from '../../ui';
 import { AuthContext } from '../../auth/context';
 
-export const FilterPetsOptions = ( { setFilters, clearFilters, displayModal, prevFilters, isFiltered, order, setOrder } ) => {
+export const FilterPetsOptions = ( { setFilters, clearFilters, displayModal, prevFilters, isFiltered, order, setOrder, distance, setDistance } ) => {
 
     const { user } = useContext( AuthContext );
     const { id = null } = user;
@@ -15,7 +15,8 @@ export const FilterPetsOptions = ( { setFilters, clearFilters, displayModal, pre
         creator: '',
     }
     const { formState, onInputChange, onResetForm, setCurrentValues } = useForm(initialState);
-    const [sortOrder, setSortOrder] = useState(order);
+    const [ sortOrder, setSortOrder ] = useState(order);
+    const [ radio, setRadio ] = useState(distance);
 
 
     useEffect(() => {
@@ -53,9 +54,13 @@ export const FilterPetsOptions = ( { setFilters, clearFilters, displayModal, pre
 
     const onSetFilters = () => {
         setFilters(formState);
-        
+
         if (sortOrder !== order) {
             setOrder(sortOrder);
+        }
+
+        if (radio !== distance){
+            setDistance(radio);
         }
 
         displayModal(false);
@@ -69,6 +74,10 @@ export const FilterPetsOptions = ( { setFilters, clearFilters, displayModal, pre
 
     const onOrderChange = ({ target }) => {
         setSortOrder(target.value);
+    }
+
+    const onRadioChange = ( { target }) => {
+        setRadio(target.value);
     }
 
 
@@ -118,6 +127,16 @@ export const FilterPetsOptions = ( { setFilters, clearFilters, displayModal, pre
                         defaultOption='Todas las Alertas'
                     />
                 }
+
+                <SelectOptionInput
+                    label='Distancia a la redonda'
+                    name='distance'
+                    options={{'1': '1 km', '5': '5 km', '10': '10 km', '20': '20 km', '50': '50 km', '100': '100 km'}}
+                    value={radio}
+                    onChangeFunction={onRadioChange}
+                />
+
+
 
                 <h2><i className="bi bi-sort-alpha-down-alt"></i> Ordenar por</h2>
                 <SelectOptionInput

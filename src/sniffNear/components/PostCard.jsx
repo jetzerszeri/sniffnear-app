@@ -13,7 +13,7 @@ export const PostCard = ( { data = {} } ) => {
         <div className='preview'>
             <img src={img ? img : '/img/noImgPlaceholder.svg'} alt={title} onClick={() => {navigate(`/blog/${_id}`)}}/>
             <div onClick={() => {navigate(`/blog/${_id}`)}}>
-                <p>{category}</p>
+                <p className='cap'>{category}</p>
                 <h2 className='cap'>{title}</h2>
                 <div>
                     <p className='cap'>{content}</p>

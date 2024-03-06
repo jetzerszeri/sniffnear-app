@@ -1795,7 +1795,7 @@ svg{
     flex-grow: 1;
     flex-wrap: nowrap;
     border-bottom: 1px solid #F0F0F0;
-    z-index: 100;
+    z-index: 92;
     background-color: var(--color-neutral-10);
     overflow-x: scroll;
     overflow-y: hidden;

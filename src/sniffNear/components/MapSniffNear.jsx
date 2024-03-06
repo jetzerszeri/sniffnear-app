@@ -5,7 +5,7 @@ import {
     Pin,
     InfoWindow,
   } from '@vis.gl/react-google-maps';
-import { AlertIcon, MissigMarker } from '../../ui';
+import { AlertIcon, BuleMarkerIcon, MissigMarker } from '../../ui';
 import { Link } from 'react-router-dom';
 import { AlertInfoWindow } from './AlertInfoWindow';
 
@@ -68,7 +68,8 @@ export const MapSniffNear = ( { position, alertForm = false, drag = false, updat
                     :  <AdvancedMarker
                         position={ position }
                     >
-                        <img src='/img/sniffnearmarkergreen.png' alt="marcador" className='marker' />
+                        {/* <img src='/img/sniffnearmarkergreen.png' alt="marcador" className='marker' /> */}
+                        <BuleMarkerIcon />
                     
                     </AdvancedMarker>
                 }

@@ -89,7 +89,7 @@ export const AlertsPage = () => {
 
     return (
     <>
-        <NavBar title='Alertas' >
+        <NavBar title='Alertas' sidebar={true} >
                 <i 
                     className={`bi ${view === 'map' ? 'bi-list-task' : 'bi-map'}`}
                     onClick={ toggleMapIcon }

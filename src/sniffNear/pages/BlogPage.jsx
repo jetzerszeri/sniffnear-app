@@ -8,7 +8,6 @@ import { orderData } from '../helpers';
 export const BlogPage = () => {
 
     const { user } = useContext( AuthContext );
-    const { id = null } = user;
     const { data, isLoading, error, getData } = useFetchSniffNearApi();
     const { filteredData, filters, setFilters, filterCurrentData, clearFilters, addFilter, setinitialData } = useFilter( { category: '', creator: '' } );
     const [ showFilterOptions, setShowFilterOptions] = useState(false);

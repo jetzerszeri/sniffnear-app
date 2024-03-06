@@ -6,7 +6,6 @@ import { AuthContext } from '../../auth/context';
 export const FilterPetsOptions = ( { setFilters, clearFilters, displayModal, prevFilters, isFiltered, order, setOrder, distance, setDistance } ) => {
 
     const { user } = useContext( AuthContext );
-    const { id = null } = user;
     const initialState = {
         alertType: '',
         sex: '',
@@ -48,7 +47,7 @@ export const FilterPetsOptions = ( { setFilters, clearFilters, displayModal, pre
     }
 
     const authorOptions = {
-        [id]: 'Mis alertas',
+        [user?.id]: 'Mis alertas',
         others: 'Alertas de otros'
     }
 

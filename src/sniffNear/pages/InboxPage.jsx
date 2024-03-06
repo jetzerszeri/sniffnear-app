@@ -8,7 +8,7 @@ export const InboxPage = () => {
   const [chats, setChats] = useState([]);
   const [senders, setsenders] = useState({});
   const userId= user.id;
-
+  const [lastMessages, setLastMessages] = useState([])
   useEffect(()=>{
     const getUserChatsRooms = async () => {
       try {
@@ -18,7 +18,24 @@ export const InboxPage = () => {
 
             const data = await response.json();
             setChats(data);
-
+            //obtener el ultimo mensaje
+            // const lastMessages = [];
+            for (let chat of data) {
+              const roomId  = chat._id;
+              const messageResponse = await fetch (
+                ` https://sniffnear-api.onrender.com/api/chats/${roomId}/messages`
+              );
+              if(messageResponse.ok){
+                const messageData = await messageResponse.json();
+                //tomar ultimo mensaje del array
+                const lastMessage = messageData[messageData.length -1];
+                
+                lastMessages.push(lastMessage);
+              }else{
+                console.error('Error al obtener los mensajes de la sala')
+              }
+              setLastMessages(lastMessages)
+            }
           } else {
 
             console.error('Error al obtener los chats');
@@ -34,7 +51,6 @@ export const InboxPage = () => {
     getUserChatsRooms();
 
   }, [userId]);
-  
   const updatesendersInfo = async (chats, userId) => {
     const newsenders = {};
 
@@ -99,7 +115,11 @@ return (
       <div>
       <ul className='message-list'>
           {chats.map(chat => (
-            <Link to={`/inbox/chat/${chat._id}`} key={chat._id} className="message-link" >
+            <Link 
+            to={`/inbox/chat/${chat._id}`} 
+            key={chat._id} 
+            className="message-link">
+
               <li className='inbox-card'>
                 <div className='inbox-content'>
                     <div className='img-container-chat'>
@@ -111,15 +131,30 @@ return (
                                         />
                     )}
                     </div>
-                   <div className='username-container'>
-                     {senders[chat._id] && (
-                        <p className='message-username'>{senders[chat._id].name}</p>
-                    )}
+                   
+                   <div className='container-message'>
+                            <div className='username-container'>
+                            {senders[chat._id] && (
+                                <p className='message-username'>{senders[chat._id].name}</p>
+                            )}
+                          </div>
+                          <div className='lastMessage-container'>
+                        {lastMessages.find(
+                            (message) => message.chatRoom === chat._id
+                          ) && (
+                            <p className="last-message">
+                              {lastMessages.find(
+                                (message) => message.chatRoom === chat._id
+                              ).text}
+                            </p>
+                          )}
+                        </div>
                    </div>
                  
                     <i className="bi bi-chat"/>
-                  </div>
+                </div>
                 </li>
+
               </Link>
           ))}
       </ul>

@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../auth/context';
 import { getDistance } from '../helpers';
 import { calculateAge, combineDateAndTime } from '../../helpers';
@@ -17,6 +17,10 @@ export const AlertDetails = ( { alert, preview = false, imgSelected } ) => {
     const [ chatExist,setChatExist ]=useState( false );
     const [ finalizeAlertModal, setFinalizeAlertModal ] = useState( false );
     const { data, isLoading, update } = useFetchSniffNearApi();
+    const [ displayAuthModal, setDisplayAuthModal ] = useState( false );
+    const [ redirectToChat, setRedirectToChat ] = useState( false );
+    const [ myOwnAlertContact, setMyOwnAlertContact] = useState( false );
+
     
 
     const onEditAlert = () => {
@@ -25,52 +29,79 @@ export const AlertDetails = ( { alert, preview = false, imgSelected } ) => {
         navigate(`/alerts/${_id}/edit`);
     }
 
-    const handleContactClick = async () => {
-        try {
+    const handleContactClick = useCallback( async () => {
+
+        if (!user) {
+            setDisplayAuthModal(true);
+            return;
+        }
+
         const sender = user.id;
         const receptor = creator._id;
-        
-        const existingChatRoomResponse = await fetch('https://sniffnear-api.onrender.com/api/chats/find', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ sender, receptor })
-        });
-    
-        if (existingChatRoomResponse.ok) {
-            
-            const existingData = await existingChatRoomResponse.json();
-            const existingRoomId = existingData._id;
-            setChatExist(true)
-            navigate(`/inbox/chat/${existingRoomId}`);
 
-        } else {
-                
-            const createChatRoomResponse = await fetch('https://sniffnear-api.onrender.com/api/chats/create', {
+        if (user && (sender === receptor)) {
+            setMyOwnAlertContact(true);
+            return;
+        }
+
+        try {
+            
+            const existingChatRoomResponse = await fetch('https://sniffnear-api.onrender.com/api/chats/find', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ participants: [sender, receptor] })
+                body: JSON.stringify({ sender, receptor })
             });
-    
-            if (createChatRoomResponse.ok) {
-                const data = await createChatRoomResponse.json();
-                const newRoomId = data._id;
-                setChatExist(false)
-                navigate(`/inbox/chat/${newRoomId}`);
-            } 
-        }
-        } catch (error) {
+        
+            if (existingChatRoomResponse.ok) {
+                
+                const existingData = await existingChatRoomResponse.json();
+                const existingRoomId = existingData._id;
+                setChatExist(true)
+                navigate(`/inbox/chat/${existingRoomId}`);
+
+            } else {
+                    
+                const createChatRoomResponse = await fetch('https://sniffnear-api.onrender.com/api/chats/create', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ participants: [sender, receptor] })
+                });
+        
+                if (createChatRoomResponse.ok) {
+                    const data = await createChatRoomResponse.json();
+                    const newRoomId = data._id;
+                    setChatExist(false)
+                    navigate(`/inbox/chat/${newRoomId}`);
+                } 
+            }
+        } catch ( error ) {
             console.error('Error al contactar al usuario:', error);
         }
-    };
+    }, [user, creator, navigate]);
 
-    const onFinalizeAlert = async() => {
-        await update(`alerts`, _id, { status: 'finalized' });
-    };
+    useEffect(() => {
+        if ( user && redirectToChat ) {
+            handleContactClick();
+            setRedirectToChat(false);
+            setDisplayAuthModal(false);
+        }
+    }, [user, redirectToChat, handleContactClick ])
     
+
+    const prevStep = () => {
+        setDisplayAuthModal(false);
+    }
+
+    const onNext = () => {
+        setRedirectToChat(true);
+    }
+
+
+
     return (
         <div className='alertDetails'>
 
@@ -130,7 +161,6 @@ export const AlertDetails = ( { alert, preview = false, imgSelected } ) => {
                             (creator && creator._id === user?.id)
                             ? <>
                                 <button className='btn secundary' onClick={onEditAlert}>Editar <i className="bi bi-pencil"></i></button>
-                                {/* <button className='btn' onClick={() => { setFinalizeAlertModal(true)}}>Finalizar alerta <i className="bi bi-check2-square"></i></button> */}
                             </>
                             : <>
                                 <button className='btn' onClick={handleContactClick}>Contactar</button>
@@ -140,14 +170,26 @@ export const AlertDetails = ( { alert, preview = false, imgSelected } ) => {
                 }
             </div>
 
-            <AuthFormModal />
-
             {
-                // finalizeAlertModal &&
-                // <Modal heading={`¿Estás seguro de finalizar la alerta?`} text={`Si la finalizás, la alerta ya no va a ser visible para el resto de usuarios. Pero si lo necesitás, podrás ponerla pública de nuevo más tarde.`} >
-                //     <button className="btn secundary" onClick={ () => {setFinalizeAlertModal(false)} }>Cancelar</button>
-                //     <button className="btn" onClick={ onFinalizeAlert }>Si, Finalizar</button>
-                // </Modal>
+                displayAuthModal &&
+                <AuthFormModal
+                    prevStep={ prevStep }
+                    onNextFunction={ onNext }
+                />
+            }
+            {
+                myOwnAlertContact &&
+                <Modal 
+                    type='danger'
+                    icon={true}
+                    heading='Al parecer esta alerta es tuya'
+                    text='No podés contactarte a ti mismo, pero sí podés editarla o eliminarla.'
+                >
+                    <button className='btn secundary' onClick={() => {setMyOwnAlertContact(false)}}>Cerrar ventana emergente</button>
+
+                    <i className="bi bi-x-lg closeBtn" onClick={() => {setMyOwnAlertContact(false)}}></i>
+
+                </Modal>
             }
 
         </div>

@@ -2,18 +2,11 @@ import { useState } from 'react';
 import { Modal } from '../../ui';
 import { AuthStepOnForms } from './AuthStepOnForms';
 
-export const AuthFormModal = () => {
+export const AuthFormModal = ( { prevStep, onNextFunction } ) => {
 
     const [ authForm, setAuthForm ] = useState('login');
     const formState = { name: 'Mascota' }
 
-    const prevStep = () => {
-        console.log('prevStep');
-    }
-
-    const onCreateAlert = () => {
-        console.log('onCreateAlert');
-    }
 
     return (
     <Modal custom={true} >
@@ -24,13 +17,12 @@ export const AuthFormModal = () => {
                 setAuthForm={ setAuthForm }
                 formState={ formState }
                 onPrevius={ prevStep }
-                onNextFunction={ onCreateAlert }
+                onNextFunction={ onNextFunction }
                 alertType='contact'
             />
-
         </div>
 
-        <i className="bi bi-x-lg closeBtn" ></i>
+        <i className="bi bi-x-lg closeBtn" onClick={ prevStep }></i>
         
 
     </Modal>

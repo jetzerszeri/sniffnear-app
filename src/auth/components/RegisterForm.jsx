@@ -20,7 +20,6 @@ export const RegisterForm = ( { accountStatus, authFlow = true, label = 'Registr
 
     useEffect(() => {
         if (data && data.user && !isLogged) {
-            console.log('entré al data')
             const user = data.user;
 
             if ( authFlow) {

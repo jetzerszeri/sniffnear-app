@@ -18,8 +18,8 @@ export const InboxPage = () => {
 
             const data = await response.json();
             setChats(data);
-            //obtener el ultimo mensaje
-            // const lastMessages = [];
+            const messagePromise=[];
+
             for (let chat of data) {
               const roomId  = chat._id;
               const messageResponse = await fetch (
@@ -27,14 +27,15 @@ export const InboxPage = () => {
               );
               if(messageResponse.ok){
                 const messageData = await messageResponse.json();
-                //tomar ultimo mensaje del array
-                const lastMessage = messageData[messageData.length -1];
-                
-                lastMessages.push(lastMessage);
+                if (messageData.length > 0) {
+                  const lastMessage = messageData[messageData.length -1];
+                  messagePromise.push(lastMessage)
+                  }
               }else{
                 console.error('Error al obtener los mensajes de la sala')
               }
-              setLastMessages(lastMessages)
+              const lastMessages = await Promise.all(messagePromise);
+              setLastMessages(lastMessages);
             }
           } else {
 

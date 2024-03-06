@@ -38,6 +38,7 @@ export const AlertFoundForm = () => {
         alertType: 'encontrado',
         sex: '',
         creator: '',
+        petName: '',
     });
     const [ loaderLabel, setLoaderLabel ] = useState('Cargando...');
     const [ isCreated, setIsCreated ] = useState(false);

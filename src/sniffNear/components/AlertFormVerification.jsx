@@ -13,7 +13,7 @@ export const AlertFormVerification = ( { data, img, prevStep, onCreateAlert, ale
                 <p>Muchas gracias por ayudarnos a que el regreso a casa sea una realidad. Por favor verificá que la información sea correcta.</p>
             }
 
-            <AlertDetails data={data} imgSelected={img} preview={true}/>
+            <AlertDetails alert={data} imgSelected={img} preview={true}/>
 
 
 

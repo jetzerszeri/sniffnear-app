@@ -1,4 +1,4 @@
-import { PetBreedInput, PetSexInput, TextAreaInput } from '../../ui';
+import { PetBreedInput, PetSexInput, TextAreaInput, TextInput } from '../../ui';
 
 export const AlertFoundFormPart2 = ( { onInputChange, formState, nextStep, prevStep, errors, checkErrors, setErrors, setManualValue, setCheckErrors }) => {
 
@@ -43,6 +43,17 @@ export const AlertFoundFormPart2 = ( { onInputChange, formState, nextStep, prevS
                 placeholder={`Puedés compartir todos los datos que consideres necesarios.`}
                 onChangeFunction={ onInputChange }
                 required={ true }
+                errors={ errors }
+                setErrors={ setErrors }
+                checkErrors={ checkErrors }
+            />
+
+            <TextInput
+                name="petName"
+                value={ formState.petName }
+                label="¿Tiene nombre?"
+                onChangeFunction={ onInputChange }
+                required={ false }
                 errors={ errors }
                 setErrors={ setErrors }
                 checkErrors={ checkErrors }

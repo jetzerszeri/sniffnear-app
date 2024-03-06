@@ -41,9 +41,10 @@ export const TextInput = ( { name, value, placeholder, onChangeFunction, label, 
 
     return (
         <div className="inputContainer">
-            {
-                label && <label htmlFor={ name }>{ label }</label>
-            }
+            <div>
+                { label && <label htmlFor={ name }>{ label }</label>}
+                { !required && <p>Si tiene collar o sabes su nombre por favor agregalo.</p>}
+            </div>
             <input
             name={ name }
             type="text"

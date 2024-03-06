@@ -11,7 +11,7 @@ import { useFetchSniffNearApi } from '../../hooks';
 export const AlertDetails = ( { alert, preview = false, imgSelected } ) => {
 
     const { coords, user, editAlert } = useContext( AuthContext );
-    const { alertType, breed, breedType, city, color1, country, created, creator, date,description, img, pet, latitude, longitude, sex, size, state, status, time, type, _id} = alert;
+    const { alertType, petName, breed, breedType, city, color1, country, created, creator, date,description, img, pet, latitude, longitude, sex, size, state, status, time, type, _id} = alert;
     const navigate = useNavigate();
     const [ chatExist,setChatExist ]=useState( false );
     const [ finalizeAlertModal, setFinalizeAlertModal ] = useState( false );
@@ -109,6 +109,7 @@ export const AlertDetails = ( { alert, preview = false, imgSelected } ) => {
                 }
 
                 <ul className='petDataList alert'>
+                    { petName && <li>Nombre <span>{petName}</span></li>}
                     { sex && <li>Sexo <span>{sex}</span></li>}
                     <li>Color <span>{color1}</span></li>
                     { (breed && breedType) && <li>{ breedType } <span>{ breed }</span></li>}

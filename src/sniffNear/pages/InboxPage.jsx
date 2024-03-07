@@ -129,7 +129,7 @@ return (
     <NavBar title='Bandeja de entrada'/>
     <main className='fullHeight'>
         {
-          chats.length === 0
+          (chats.length === 0 && !isLoading)
           ? <NoResultsFound type="chat"/>
           :<div>
             <ul className='message-list'>

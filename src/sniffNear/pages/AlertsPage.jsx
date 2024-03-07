@@ -72,14 +72,16 @@ export const AlertsPage = () => {
 
 
     useEffect(() => {
-        if (filters.sex !== '' || filters.color1 !== '' || filters.size !== '', filters.creator !== ''){
-            setIsFiltered(true);
-            // console.log('hay filtros')
-        } else {
-            setIsFiltered(false);
-            // console.log('no hay filtros')
-        }
-    }, [filters])
+        // if (filters.sex !== '' || filters.color1 !== '' || filters.size !== '', filters.creator !== ''){
+        //     setIsFiltered(true);
+        //     console.log('hay filtros')
+        // } else {
+        //     setIsFiltered(false);
+        //     console.log('no hay filtros')
+        // }
+
+        (filters.sex !== '' || filters.color1 !== '' || filters.size !== '' || filters.creator !== '') ? setIsFiltered(true) : setIsFiltered(false);
+    }, [ filters ])
     
 
 
@@ -105,6 +107,7 @@ export const AlertsPage = () => {
             </div>
         </div>
         <div className='alertsPage'>
+
 
             {
                 ( position.lat && position.lng && view === "map" ) &&

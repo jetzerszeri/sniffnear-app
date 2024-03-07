@@ -1,19 +1,27 @@
 import { AlertCard } from './AlertCard';
+import { NoResultsFound } from './NoResultsFound';
 
 export const AlertCardList = ( { list } ) => {
 
     return (
-        <ul className='alertList'>
+    <>
+        {
 
-            {
-                list.map( alert => (
-                    <AlertCard
-                        key={ alert._id }
-                        data={ alert }
-                    />
-                ))
-            }
-
-        </ul>
+            list.length > 0 
+            ?<ul className='alertList'>
+                {
+                    list.map( alert => (
+                        <AlertCard
+                            key={ alert._id }
+                            data={ alert }
+                        />
+                    ))
+                }
+            </ul>
+            : <NoResultsFound type="alerts"/>
+            
+        }
+        
+    </>
     )
 }

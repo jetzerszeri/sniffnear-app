@@ -16,7 +16,7 @@ export const NoResultsFound = ( { type = "chat" } ) => {
 
                 {
                     type === "alerts" 
-                    && <p>Si necesitás crear una laerta, por favor <Link to={'/alerts/new'} className='link'>hacelo desde aquí</Link> para que otros puedan ayudarte a recuperar tu mascota.</p>
+                    && <p>Si necesitás crear una alerta, por favor <Link to={'/alerts/new'} className='link'>hacelo desde aquí</Link> para que otros puedan ayudarte a recuperar tu mascota.</p>
                 }
 
                 {

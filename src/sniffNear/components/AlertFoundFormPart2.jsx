@@ -52,6 +52,7 @@ export const AlertFoundFormPart2 = ( { onInputChange, formState, nextStep, prevS
                 name="petName"
                 value={ formState.petName }
                 label="¿Tiene nombre?"
+                placeholder="Si tiene collar o sabes su nombre por favor agregalo."
                 onChangeFunction={ onInputChange }
                 required={ false }
                 errors={ errors }

@@ -2,7 +2,7 @@ import { useCallback, useEffect } from "react";
 import { onRemoveInputError } from "../../sniffNear/helpers";
 
 
-export const TextInput = ( { name, value, placeholder, onChangeFunction, label, errors, required = false, setErrors, checkErrors } ) => {
+export const TextInput = ( { name, value, placeholder, onChangeFunction, label, errors, required = false, setErrors, checkErrors, subText = null} ) => {
 
     let error = errors[name];
 
@@ -43,7 +43,7 @@ export const TextInput = ( { name, value, placeholder, onChangeFunction, label, 
         <div className="inputContainer">
             <div>
                 { label && <label htmlFor={ name } className="textInputLabel">{ label }</label>}
-                { !required && <p>Si tiene collar o sabes su nombre por favor agregalo.</p>}
+                { subText && <p>{subText}</p>}
             </div>
             <input
             name={ name }

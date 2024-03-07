@@ -63,32 +63,14 @@ export const PetsAddPage = () => {
     useEffect(() => {
 
         if (totalSteps === 3 && formState.img) {
-        // console.log('img:', formState.img);
-            console.log('guardando imagen y creando perfil')
             createPetProfile( formState, user.id );
         } 
         
-        // if (totalSteps === 4 && user?.id) {
-        //     console.log('guardando imagen - totalSteps === 4 && user?.id');
-
-        //     uploadPetImgAndSetLink();
-        // } 
         else if ( totalSteps === 4 && user?.id && formState.img) {
             createPetProfile( formState, user.id );
-            console.log('estoy en totalSteps === 4 && user?.id y formState.img, en teoría ya se subió la imagen y se creó el perfil de la mascota');
         }
     
     }, [ formState, user, totalSteps, createPetProfile ]);
-
-
-
-
-    // useEffect(() => {
-
-
-    // }, [third]);
-    
-
 
 
     useEffect(() => {
@@ -103,7 +85,6 @@ export const PetsAddPage = () => {
 
     useEffect(() => {
         if (error) {
-            console.log('ocurrió un error:', error);
         }
     }, [error])
     
@@ -129,7 +110,6 @@ export const PetsAddPage = () => {
 
 
     const onNext = () => {
-        // console.log('currentStep:', currentStep);
         if (currentStep === 1){
             nextStep();
             return;
@@ -143,7 +123,6 @@ export const PetsAddPage = () => {
         } else if (currentStep === 3) {
             if ( totalSteps === 3 ) {
                 if (imageSelected) {
-                    // setUploadImg(true);
                     uploadPetImgAndSetLink( user.id );
                 } else {
                     createPetProfile( formState, user.id );
@@ -152,7 +131,6 @@ export const PetsAddPage = () => {
 
             if ( totalSteps === 4 ) {
                 if ( imgFile === null ){
-                    console.log('no hay imagen');
                     setImgError(true);
                     return;
                 }
@@ -179,13 +157,14 @@ export const PetsAddPage = () => {
 
 
     const uploadPetImgAndSetLink = async ( idUsuario ) => {
-        // console.log('subiendo imagen...');
         const link = await uploadImg( 'pets/avatars/', `${idUsuario}-${name}` );
         setManualValue( 'img', link );
-        // console.log('se subio la imagen - link:', link);
     }
 
 
+    const onOkayBtnModal = () => {
+        navigate(-1, { replace: true });
+    }
 
 
 
@@ -292,6 +271,13 @@ export const PetsAddPage = () => {
                 }
 
             </main>
+
+            {
+                (error && !isLoading )
+                && <Modal text={ error } type='error' icon={ true } >
+                    <button className="btn secundary" onClick={ onOkayBtnModal }>Ok</button>
+                </Modal>
+            }
         </>
     )
 }

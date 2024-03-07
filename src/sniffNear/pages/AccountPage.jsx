@@ -12,7 +12,7 @@ export const AccountPage = () => {
 
     return (
     <>
-        <NavBar title='Mi perfil' />
+        <NavBar title='Mi perfil' sidebar={true}/>
 
         <main className='accountView'>
             <section>

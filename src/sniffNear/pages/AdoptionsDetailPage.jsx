@@ -1,31 +1,61 @@
 import { useParams } from 'react-router-dom';
-import { NavBar } from '../components';
+import { AdoptionPetProfile, NavBar } from '../components';
 import { Link, useNavigate } from "react-router-dom";
 import React, {useEffect, useState} from "react";
 // import {BottomNav} from "../BottomNav";
 import { setDefaults, geocode, RequestType, } from "react-geocode";
+import { useFetchSniffNearApi } from '../../hooks';
+import { Loader } from '../../ui';
 // import { getCurrentUserId } from "../../js/functions";
 
-export const AdoptionsDetailPage = ({adoption,   onDeleteClick , onEditClick , showButtons}) => {
+export const AdoptionsDetailPage = () => {
 
     const { id } = useParams();
     const navigate = useNavigate();
+
+    const { data, isLoading, error, getData } = useFetchSniffNearApi();
+
+
+    useEffect(() => {
+      getData(`adoption/${id}`);
+  }, [ getData, id ]);
+
+
+    useEffect(() => {
+      data && console.log(data);
+    }, [data])
+    
+
+
+
     const [showModal, setShowModal] = useState(false)
+
+
+
    
-    const handleDeleteConfirm =()=>{
-      onDeleteClick(adoption._id);
-      setShowModal(false)
-    }
-    const handleCancel = () => {
-      setShowModal(false);
-      navigate('/adoption');
-    };
+    // const handleDeleteConfirm =()=>{
+    //   onDeleteClick(adoption._id);
+    //   setShowModal(false)
+    // }
+    // const handleCancel = () => {
+    //   setShowModal(false);
+    //   navigate('/adoption');
+    // };
 
     return (
     <>
         <NavBar title='Detalle de mascota' />
 
-        <main>
+        {
+          data && 
+          <AdoptionPetProfile pet={data} />
+
+        }
+
+
+
+
+        {/* <main>
              {showModal && (
       <div className="myModal">
           <div className="headerModal">
@@ -45,9 +75,9 @@ export const AdoptionsDetailPage = ({adoption,   onDeleteClick , onEditClick , s
        <li>
         <img src={adoption.img} alt={adoption.type}/>
         <p>Color: {adoption.color1}, tamaño: {adoption.size}</p>
-        {/* <Link to={`/adoption-detail?adoptionId=${adoption._id}`}>
+        <Link to={`/adoption-detail?adoptionId=${adoption._id}`}>
           <button className="viewAlert">Ver adopción</button>
-        </Link> */}
+        </Link>
         
         {showButtons && (
          <div className="buttonsAlert">
@@ -55,15 +85,19 @@ export const AdoptionsDetailPage = ({adoption,   onDeleteClick , onEditClick , s
            <i className="bi bi-trash"/>
          </button>
        
-         {/* <Link to={`/edit-adoption?adoptionId=${adoption._id}`}>
+         <Link to={`/edit-adoption?adoptionId=${adoption._id}`}>
          <button className="btn">
            <i className="bi bi-pencil"/>
          </button>
-         </Link> */}
+         </Link>
        </div>
         )}
     </li>
-        </main>
+        </main> */}
+
+      {
+          isLoading && <Loader />
+      }
 
     
     </>

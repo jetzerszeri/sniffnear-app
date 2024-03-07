@@ -4,6 +4,7 @@ import { useFetchSniffNearApi } from '../../hooks';
 import { useFilter } from '../hooks';
 import { AuthContext } from '../../auth/context';
 import { orderData } from '../helpers';
+import { Loader } from '../../ui';
 
 export const BlogPage = () => {
 
@@ -41,10 +42,9 @@ export const BlogPage = () => {
         </NavBar>
 
         <main className='fullHeight blog'>
-            { filteredData.length > 0 
+            { (filteredData.length > 0 && !isLoading)
             ? <PostCardsList data={ filteredData } /> 
             : <NoResultsFound type='posts' />
-        
             }
 
         </main>
@@ -63,6 +63,10 @@ export const BlogPage = () => {
                     order={order}
                     setOrder={setOrder}
                 />
+        }
+
+        {
+            isLoading && <Loader />
         }
     
     </>

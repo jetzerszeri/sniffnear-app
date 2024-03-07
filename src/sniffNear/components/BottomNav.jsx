@@ -26,22 +26,24 @@ export const BottomNav = () => {
                 <li>
                     <NavLink
                         className={ ({isActive}) => `${isActive ? 'active' : ''}`}
-                        to="/blog"
+                        to="/alerts"
                     >
-                        <i className="bi bi-book"></i>
+                        <i className="bi bi-search"></i>
                     </NavLink>
                 </li>
+
                 <li className="plusBtn">
                     <button onClick={ toggleOptions }>
                         <i className="bi bi-plus"></i>
                     </button>
                 </li>
+
                 <li>
                     <NavLink
                         className={ ({isActive}) => `${isActive ? 'active' : ''}`}
-                        to="/alerts"
+                        to="/blog"
                     >
-                        <i className="bi bi-search"></i>
+                        <i className="bi bi-book"></i>
                     </NavLink>
                 </li>
                 <li>

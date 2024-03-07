@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../auth/context';
-import { NavBar } from '../components';
+import { ChangePasswordModal, NavBar } from '../components';
 import { useFetchSniffNearApi, useForm, usePreviewAndUploadImg } from '../../hooks';
 import { EmailInput, Loader, TextInput } from '../../ui';
 import { ImgInput } from '../../ui';
@@ -20,6 +20,7 @@ export const AccountEditPage = () => {
   const { imageSelected, uploadStatus, imgFile, setImgFile, resetImg, uploadImg, setCurrentImg } = usePreviewAndUploadImg();
   const { data, isLoading, error, update } = useFetchSniffNearApi();
   const [ loaderLabel, setLoaderLabel ] = useState(null);
+  const [ displayPasswordModal, setdisplayPasswordModal ] = useState(false)
 
 
   useEffect(() => { 
@@ -134,11 +135,17 @@ export const AccountEditPage = () => {
                 : <button className="btn secundary" onClick={ () => navigate(-1) }>Cancelar</button>
             }
             </div>
-
         </form>
-
-        <Link to="/account/settings/changePassword" className='link'>Cambiar contraseña <i className="bi bi-box-arrow-up-right"></i></Link>
+        <p className='link' onClick={() => setdisplayPasswordModal(true)}>Cambiar contraseña  <i className="bi bi-box-arrow-up-right"></i></p>
       </main>
+
+
+
+      { displayPasswordModal && <ChangePasswordModal 
+        setDisplayModal={ setdisplayPasswordModal }
+      />}
+
+
 
       {
         ( uploadStatus || isLoading )

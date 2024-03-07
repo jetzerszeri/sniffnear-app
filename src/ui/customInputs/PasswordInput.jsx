@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 
 
-export const PasswordInput = ( { name = "password", value, onChangeFunction, errors, required = false, setErrors, confirm = false, confirmValue, confirmName ="validatePassword", checkErrors} ) => {
+export const PasswordInput = ( { name = "password", value, onChangeFunction, errors, required = false, setErrors, confirm = false, newPassword = false,  confirmValue, confirmName ="validatePassword", checkErrors, label = "Contraseña", placeholder = "Ingresá tu contraseña"} ) => {
 
     const [showPassword, setShowPassword] = useState( false );
     let error = errors[name];
@@ -79,12 +79,12 @@ export const PasswordInput = ( { name = "password", value, onChangeFunction, err
     return (
     <>
             <div className="inputContainer">
-                <label htmlFor={ name }>Contraseña</label>
+                <label htmlFor={ name }>{label}</label>
                 <div className="pswdInput">
                     <input
                     type={ showPassword ? 'text' : 'password'}
                     name={ name }
-                    placeholder="Ingresá tu contraseña"
+                    placeholder={placeholder}
                     id={ name }
                     value={ value }
                     onChange={ onChangeFunction }
@@ -103,12 +103,12 @@ export const PasswordInput = ( { name = "password", value, onChangeFunction, err
 
             { confirm &&
                 <div className="inputContainer">
-                    <label htmlFor={ confirmName }>Confirmar contraseña</label>
+                    <label htmlFor={ confirmName }>{ newPassword ? 'Confirma tu nueva contraseña' : 'Confirmar contraseña'}</label>
                     <div className="pswdInput">
                         <input
                         type={showPassword ? 'text' : 'password'}
                         name={ confirmName }
-                        placeholder="Ingresá tu contraseña nuevamente"
+                        placeholder={newPassword ? "Volvé a ingresar tu nueva contraseña" : "Ingresá nuevamente tu contraseña"}
                         id={ confirmName }
                         value={ confirmValue }
                         onChange={ onChangeFunction }

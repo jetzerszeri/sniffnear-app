@@ -34,3 +34,4 @@ export * from './PostForm';
 export * from './HomeFeed';
 export * from './FilterPostsModal';
 export * from './AuthFormModal';
+export * from './ChangePasswordModal';

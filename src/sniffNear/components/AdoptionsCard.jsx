@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { AlertIcon } from "../../ui";
+import { AdoptionIcon } from "../../ui";
 
 export const AdoptionCard = ({adoption,   onDeleteClick , onEditClick , showButtons}) => {
   const navigate = useNavigate();
@@ -35,7 +35,7 @@ export const AdoptionCard = ({adoption,   onDeleteClick , onEditClick , showButt
     )}
     <li className="alertCard">
       <div className="h">
-        <AlertIcon />
+        <AdoptionIcon />
         <div>
           <h2>Mascota en adopción</h2>
           {/* <p><i className="bi bi-geo-alt"></i> A 5km de tu ubicación</p> */}

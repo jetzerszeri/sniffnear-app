@@ -44,7 +44,7 @@ export const PetProfile = ( { pet }) => {
             <div className='data'>
 
                 <div className={ type }>
-                    <p className='h'>{ name }</p>
+                    <p className='h cap'>{ name }</p>
                     <p>{ (breed && breedType) && `${breed} - `}{ `${calculateAge( birthdate, false ) } de edad` }</p>
                     {/* Mostrar perfil del usuario en caso que el user actual sea distinto del owner id */}
                 </div>

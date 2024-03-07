@@ -1,7 +1,7 @@
 import React, {useContext, useState, useEffect} from 'react';
 import { BottomNav, NavBar } from '../components';
 import { AuthContext } from '../../auth/context';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 export const InboxPage = () => {
   //logica del inbox
   const { user } = useContext( AuthContext );
@@ -9,6 +9,7 @@ export const InboxPage = () => {
   const [senders, setsenders] = useState({});
   const userId= user.id;
   const [lastMessages, setLastMessages] = useState([])
+  const navigate = useNavigate();
   useEffect(()=>{
     const getUserChatsRooms = async () => {
       try {
@@ -70,13 +71,13 @@ export const InboxPage = () => {
              
               newsenders[chat._id] = {
                 name: userData.user.name,
-                profileImg: userData.user.profileImg || '/img/defaultAvatar.png',
+                profileImg: userData.user.profileImg || "/img/avatarPorDefecto.webp",
               };
             } else {
               console.error(`Error al obtener el usuario senders: ${response.status}`);
               newsenders[chat._id] = {
                 name: 'Nombre no disponible',
-                profileImg: '/default-avatar.png'
+                profileImg: "/img/avatarPorDefecto.webp"
               };
             }
           } catch (error) {
@@ -108,6 +109,10 @@ export const InboxPage = () => {
 
   }, [chats, userId]);
 
+  const onChatClick = (chatId) => {
+    navigate(`/inbox/chat/${chatId}`);
+  }
+
 
 return (
   <>
@@ -116,12 +121,8 @@ return (
       <div>
       <ul className='message-list'>
           {chats.map(chat => (
-            <Link 
-            to={`/inbox/chat/${chat._id}`} 
-            key={chat._id} 
-            className="message-link">
 
-              <li className='inbox-card'>
+              <li className='inbox-card' onClick={() => {onChatClick(chat._id)}} key={chat._id} >
                 <div className='inbox-content'>
                     <div className='img-container-chat'>
                       {senders[chat._id] && senders[chat._id].profileImg && (
@@ -134,29 +135,33 @@ return (
                     </div>
                    
                    <div className='container-message'>
-                            <div className='username-container'>
-                            {senders[chat._id] && (
-                                <p className='message-username'>{senders[chat._id].name}</p>
-                            )}
-                          </div>
-                          <div className='lastMessage-container'>
+                        {senders[chat._id] && (
+                            <p>{senders[chat._id].name}</p>
+                        )}
+
+                        
                         {lastMessages.find(
                             (message) => message.chatRoom === chat._id
                           ) && (
-                            <p className="last-message">
-                              {lastMessages.find(
+                          <p className="last-message">
+                            {
+                              ( lastMessages.find(
                                 (message) => message.chatRoom === chat._id
-                              ).text}
-                            </p>
-                          )}
-                        </div>
+                              ).sender === userId ) && <i className="bi bi-check2-all"> </i> 
+                            }
+                            
+                            {lastMessages.find(
+                              (message) => message.chatRoom === chat._id
+                            ).text}
+
+                          </p>
+                        )}
                    </div>
                  
                     <i className="bi bi-chat"/>
                 </div>
-                </li>
+              </li>
 
-              </Link>
           ))}
       </ul>
       </div>

@@ -37,7 +37,7 @@ export const AdoptionNewPage = () => {
             nextStep();
             return;
         } else if ( currentStep === 2) {
-            if ( name === '' || birthdate === '' || breedType === '' || sex === '' || size === '' || color1 === '' || content === '') {
+            if ( birthdate === '' || breedType === '' || sex === '' || size === '' || color1 === '' || content === '') {
                 setCheckErrors( true );
                 return;
             } else {
@@ -91,7 +91,7 @@ export const AdoptionNewPage = () => {
     // }
 
     const redirectToPetProfile = () => {
-        navigate(`/adoptions/${ data.pet._id }`, { replace: true });
+        navigate(`/adoptions`);
     }
 
     return (
@@ -174,8 +174,8 @@ export const AdoptionNewPage = () => {
             }
 
             {
-                data && <Modal heading={`Perfil de mascota para dar en adopción creado con éxito`} type='success' icon={ true }>
-                    <button className="btn" onClick={ redirectToPetProfile }>Ver perfil</button>
+                data && <Modal heading={`Mascota para dar en adopción creada con éxito`} type='success' icon={ true }>
+                    <button className="btn" onClick={ redirectToPetProfile }>Ver adopciones</button>
                 </Modal>
             }
 

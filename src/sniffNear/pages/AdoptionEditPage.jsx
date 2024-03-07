@@ -1,95 +1,92 @@
 import React, { useState, useEffect, useContext } from "react";
-// import { NavBar, PetFormPart1, PetFormPart2 } from '../components';
-// import { AuthContext } from '../../auth/context';
-// import { convertDate } from '../helpers';
-// import { ImgInput, Loader, Modal } from '../../ui';
+import { useFetchSniffNearApi, useForm, usePreviewAndUploadImg } from '../../hooks';
+import { useNavigate, useParams } from 'react-router-dom';
+import { NavBar, PetFormPart1, PetFormPart2 } from '../components';
+import { AuthContext } from '../../auth/context';
+import { convertDate } from '../helpers';
+import { ImgInput, Loader, Modal } from '../../ui';
 
 
 export const AdoptionEditPage = () => {
 
-//   const { id } = useParams();
-//   const navigate = useNavigate();
-//   const { user, adoption } = useContext( AuthContext );
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const { user, pet } = useContext( AuthContext );
 
-//   const currentPetAdoption{
-//     type: adoption?.type,
-//     name: adoption?.name,
-//     birthdate: convertDate( padoptionet?.birthdate ),
-//     breed: adoption?.breed,
-//     breedType: adoption?.breedType,
-//     sex: adoption?.sex,
-//     size: adoption?.size,
-//     color1: adoption?.color1,
-//     content: adoption?.content,
-//     city: '',
-//     // img: img,
-//     // owner: user.id,
-// }
-// const { type, name, content, city, birthdate, breedType, breed, sex, size, color1, errors, checkErrors, formState, setErrors, setCheckErrors, onInputChange, setManualValue } = useForm(currentPetAdoption);
-// const { data, isLoading, error, update } = useFetchSniffNearApi();
-// const { imageSelected, uploadStatus, setImgFile, resetImg, uploadImg, setCurrentImg } = usePreviewAndUploadImg();
-
-
-
-// useEffect(() => {
-//     if ( !pet ){ navigate( `/adoptions/${id}`, { replace: true });}
-// }, [ adoption, id, navigate ])
-
-// useEffect(() => {( adoption?.img ) && setCurrentImg( adoption?.img )}, [ adoption?.img, setCurrentImg ]);
-
-
-// const onUpdateSubmit = async (e) => {
-//     e.preventDefault();
-//     setCheckErrors( true );
-
-//     if ( Object.keys(errors).length > 0  || !formState.type || !formState.name || !formState.birthdate || !formState.breedType ){
-//         setCheckErrors( false );
-//         return;
-//     } 
-
-//     const dataToUpdate = {
-//         ...formState
-//     }
-
-//     if ( adoption.img !== imageSelected ) {
-//         if ( imageSelected === null ){
-//             dataToUpdate.deleteImg = true;
-//         } else {
-//             const link = await uploadImg( 'pets/avatars/', `${user.id}-${name}` );
-//             dataToUpdate.img = link;
-//         }
-//     } 
-
-//     await update( 'adoptions', id, dataToUpdate );
-//     setCheckErrors( false );
-
-// }
-
-
-// useEffect(() => {
-//     if (error){
-//         console.log(error);
-//     }
-// }, [error ])
+  const currentPetAdoption = {
+    type: pet?.type,
+    name: pet?.name,
+    birthdate: convertDate( pet?.birthdate ),
+    breed: pet?.breed,
+    breedType: pet?.breedType,
+    sex: pet?.sex,
+    size: pet?.size,
+    color1: pet?.color1,
+    content: pet?.content,
+    city: pet?.city,
+    img: pet?.img,
+    owner: user.id,
+}
+const { type, name, content, city, birthdate, breedType, breed, sex, size, color1, errors, checkErrors, formState, setErrors, setCheckErrors, onInputChange, setManualValue } = useForm(currentPetAdoption);
+const { data, isLoading, error, update } = useFetchSniffNearApi();
+const { imageSelected, uploadStatus, setImgFile, resetImg, uploadImg, setCurrentImg } = usePreviewAndUploadImg();
 
 
 
+useEffect(() => {
+    if ( !pet ){ navigate( `/adoptions/${id}`, { replace: true });}
+    pet && console.log(pet)
+}, [ pet, id, navigate ])
+
+useEffect(() => {( pet?.img ) && setCurrentImg( pet?.img )}, [ pet?.img, setCurrentImg ]);
 
 
+const onUpdateSubmit = async (e) => {
+    e.preventDefault();
+    setCheckErrors( true );
+
+    if ( !formState.type || !formState.birthdate || !formState.breedType ){
+        setCheckErrors( false );
+        console.log('hay errores')
+        console.log(formState)
+        return;
+    } 
+
+    const dataToUpdate = {
+        ...formState
+    }
+    console.log('estoy dentro 2')
+    if ( pet.img !== imageSelected ) {
+        if ( imageSelected === null ){
+            console.log('imageSelected === null ')
+            dataToUpdate.deleteImg = true;
+        } else {
+            const link = await uploadImg( 'pets/avatars/', `${user.id}-${name}` );
+            dataToUpdate.img = link;
+        }
+    } 
+
+    await update( 'adoption', id, dataToUpdate );
+    setCheckErrors( false );
+
+}
 
 
-
+useEffect(() => {
+    if (error){
+        console.log(error);
+    }
+}, [error ])
 
 
     return (
     <>
 
-{/* <NavBar title={`Editar perfil de ${adoption?.name}`} /> */}
+<NavBar title={`Editar perfil de ${pet?.name}`} />
 
 <main>
-    <h1>llegué</h1>
 
-        {/* <form onSubmit={ onUpdateSubmit }>
+        <form onSubmit={ onUpdateSubmit }>
 
             <ImgInput imageSelected={ imageSelected } setImgFile={ setImgFile } resetImg={ resetImg } />
 
@@ -131,7 +128,7 @@ export const AdoptionEditPage = () => {
             data && <Modal text={`Perfil de "${name}" actualizado correctamente`} type='success' icon={ true } >
                 <button className="btn" onClick={ () => navigate(-1, { replace: true }) }>Aceptar</button>
             </Modal>
-        } */}
+        }
 
 </main>
     

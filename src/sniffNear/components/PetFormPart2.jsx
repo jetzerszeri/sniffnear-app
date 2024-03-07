@@ -1,22 +1,26 @@
-import { DateInput, PetBreedInput, PetColorInput, PetSexInput, PetSizeInput, TextInput } from '../../ui/customInputs';
+import { DateInput, PetBreedInput, PetColorInput, PetSexInput, PetSizeInput, TextAreaInput, TextInput } from '../../ui/customInputs';
 
-export const PetFormPart2 = ( { name, birthdate, breedType, breed, sex, size, color1, errors, setErrors, checkErrors, onInputChange, setManualValue, bySteps = false } ) => {
+export const PetFormPart2 = ( { name, birthdate, breedType, breed, sex, size, color1, errors, setErrors, checkErrors, onInputChange, setManualValue, bySteps = false, displayContentInput = null, content } ) => {
     
     return (
     <div className={ bySteps ? 'step' : '' }>
         { bySteps && <h2>Contanos sobre tu mascota</h2>}
 
-        <TextInput
-            name="name"
-            value={ name }
-            placeholder="Ingresa el nombre de tu mascota"
-            onChangeFunction={ onInputChange }
-            label="Nombre"
-            errors={ errors }
-            setErrors={ setErrors }
-            required={ true }
-            checkErrors={ checkErrors }
-        />
+        {
+            name &&
+            <TextInput
+                name="name"
+                value={ name }
+                placeholder="Ingresa el nombre de tu mascota"
+                onChangeFunction={ onInputChange }
+                label="Nombre"
+                errors={ errors }
+                setErrors={ setErrors }
+                required={ true }
+                checkErrors={ checkErrors }
+            />
+        }
+
 
         <DateInput
             name="birthdate"
@@ -67,6 +71,21 @@ export const PetFormPart2 = ( { name, birthdate, breedType, breed, sex, size, co
             checkErrors={ checkErrors }
             setErrors={ setErrors }
         />
+
+        {
+            displayContentInput &&
+            <TextAreaInput
+                name="content"
+                value={ content }
+                placeholder="Por favor agregá una descripción de la mascota"
+                onChangeFunction={ onInputChange }
+                label="Descripción"
+                errors={ errors }
+                setErrors={ setErrors }
+                required={ true }
+                checkErrors={ checkErrors }
+            />
+        }
 
     </div>
     )

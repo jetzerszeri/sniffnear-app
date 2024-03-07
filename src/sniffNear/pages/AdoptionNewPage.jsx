@@ -1,188 +1,369 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { NavBar } from '../components'
+import { NavBar, PetFormPart1, PetFormPart2, PetFormPart3 } from '../components'
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../auth/context';
+import { useMultiSteps } from '../hooks';
+import { Loader, Modal, MultiStepsIndicator } from '../../ui';
+import { useFetchSniffNearApi, useForm, usePreviewAndUploadImg } from '../../hooks';
+import { getCurrentDate } from '../helpers';
 // import {getCurrentUserId, createLoader, removeLoader} from '../../js/functions';
 
 export const AdoptionNewPage = () => {
-    
-    const getCurrentDate = () => {
-        const date = new Date();
-        const year = date.getFullYear();
-        const month = String(date.getMonth() + 1).padStart(2, "0");
-        const day = String(date.getDate()).padStart(2, "0");
-        return `${year}-${month}-${day}`;
-      };
 
-      const { user } = useContext( AuthContext ); 
-      const [currentStep, setCurrentStep]=useState(1);
-      const [selectedType, setSelectedType] = useState("");
-      const [selectedSize, setSelectedSize] = useState("");
-      const [selectedGender, setSelectedGender] = useState("");
-      const [selectedColor, setSelectedColor] = useState("");
-      const [img, setImg] = useState('')
-  
-      const handlePrev = (e) => {
-          e.preventDefault();
-          setCurrentStep(currentStep - 1);
-        };
-  
-      const handleNext = (e) => {
-          e.preventDefault();
-          const newErrors={};
-          if(currentStep === 1){
-              if (!formData.type) {
-                  newErrors.type = 'El tipo de mascota es requerido';
-              }
-          }
-          if(currentStep === 2){
-              if (!formData.name) {
-                  newErrors.name = 'El nombre de la mascota es requerido';
-              }
-              if (!formData.color1) {
-                  newErrors.color1 = "Debes elegir un color"
-              }
-              if (!formData.sex.trim()) {
-                  newErrors.sex = 'El género es requerido';
-              }
-              if (!formData.city) {
-                  newErrors.city = 'La ciudad es requerida';
-              }
-              if (!formData.content) {
-                  newErrors.content = 'La descripción es requerida';
-              }
-              if (!formData.size.trim()) {
-                  newErrors.size = 'El tamaño es requerido';
-              }
-          
-              if (!formData.breed.trim()) {
-                  newErrors.breed = 'La raza es requerida';
-              }
-          }
-          if(currentStep === 3){
-              if (!formData.img) {
-                  newErrors.img = 'La imagen de la mascota es requerida';
-              }
-          }
-          setErrors(newErrors);
-          if (Object.keys(newErrors).length === 0) {
-              setCurrentStep(currentStep + 1);
-          }
-      };
-  
-      
-      const [formData, setFormData] = useState({
-          type: '',
-          name: '',
-          birthdate: getCurrentDate(),
-          breed: '',
-          sex: '',
-          content: '',
-          city:'',
-          size: '',
-          color1: '',
-          img: img,
-          owner: user.id,
-      });
-  
-      const [errors, setErrors] = useState({});
-      const handleChange = (e) => {
-          const { name, value } = e.target;
-          setFormData({
-            ...formData,
-            [name]: value,
-          });
-      };
-  
-      const handleSelectType = (value) => {
-          setSelectedType(value);
-          setFormData({
-            ...formData,
-            type: value,
-          });
-      };
-  
-      const handleSelectSize = (value) => {
-          setSelectedSize(value)
-          setFormData({
-            ...formData,
-            size: value,
-          });
-      };
-  
-      const handleSelectGender = (value) => {
-          setSelectedGender(value)
-          setFormData({
-              ...formData,
-              sex: value,
-          });
-      };
-  
-      const handleSelectContent = (value) => {
-          setFormData({
-              ...formData,
-              content: value,
-          });
-      };
-  
-      const handleSelectCity = (value) => {
-          console.log(value)
-      };
-  
-      const handleSeleccionColor = (color) => {
-          setFormData({
-            ...formData,
-            color1: color,
-          });
-          setSelectedColor(color);
-      };
-      
-      const handleImgLink = (link) => {
-          setImg(link)
-          setFormData({
-              ...formData,
-              img: link,
-          });
-      }
-  
-      const navigate = useNavigate();
-  
-    const handleSubmit = async (e) => {
-      e.preventDefault();
-  console.log(formData);
-        try {
-        //   createLoader();
+    const { user, address } = useContext( AuthContext );
+    const navigate = useNavigate();
+    const [ prevBtnLabel, setPrevBtnLabel ] = useState( 'Cancelar' );
+    const { currentStep, totalSteps, maxStepReached, nextStep, prevStep, onResetSteps} = useMultiSteps(3);
+    const { type, name, birthdate, breedType, breed, sex, size, color1, errors, checkErrors, content,  formState, setErrors, setCheckErrors, onInputChange, setManualValue, onResetForm } = useForm({
+        type: '',
+        name: '',
+        birthdate: getCurrentDate(),
+        breed: '',
+        breedType: '',
+        sex: '',
+        size: '',
+        color1: '',
+        color2: '',
+        content: '',
+        city: address.city,
+        img: '',
+    });
+    const { imageSelected, uploadStatus, setImgFile, resetImg, uploadImg, imgFile } = usePreviewAndUploadImg();
+    const [ imgError, setImgError ] = useState(false);
+    const { data, isLoading, error, create, onResetFetchState } = useFetchSniffNearApi();
     
-          const response = await fetch(`https://sniffnear-api.onrender.com/api/adoption`, {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(formData),
-              });
-              const json = await response.json();
+//     const getCurrentDate = () => {
+//         const date = new Date();
+//         const year = date.getFullYear();
+//         const month = String(date.getMonth() + 1).padStart(2, "0");
+//         const day = String(date.getDate()).padStart(2, "0");
+//         return `${year}-${month}-${day}`;
+//       };
+
+//       const { user } = useContext( AuthContext ); 
+//       const [currentStep, setCurrentStep]=useState(1);
+//       const [selectedType, setSelectedType] = useState("");
+//       const [selectedSize, setSelectedSize] = useState("");
+//       const [selectedGender, setSelectedGender] = useState("");
+//       const [selectedColor, setSelectedColor] = useState("");
+//       const [img, setImg] = useState('')
   
-          if (response.ok) {
-//   removeLoader();
-            console.log('adopcion publicada')
-            navigate('/adoptions')
+//       const handlePrev = (e) => {
+//           e.preventDefault();
+//           setCurrentStep(currentStep - 1);
+//         };
+  
+//       const handleNext = (e) => {
+//           e.preventDefault();
+//           const newErrors={};
+//           if(currentStep === 1){
+//               if (!formData.type) {
+//                   newErrors.type = 'El tipo de mascota es requerido';
+//               }
+//           }
+//           if(currentStep === 2){
+//               if (!formData.name) {
+//                   newErrors.name = 'El nombre de la mascota es requerido';
+//               }
+//               if (!formData.color1) {
+//                   newErrors.color1 = "Debes elegir un color"
+//               }
+//               if (!formData.sex.trim()) {
+//                   newErrors.sex = 'El género es requerido';
+//               }
+//               if (!formData.city) {
+//                   newErrors.city = 'La ciudad es requerida';
+//               }
+//               if (!formData.content) {
+//                   newErrors.content = 'La descripción es requerida';
+//               }
+//               if (!formData.size.trim()) {
+//                   newErrors.size = 'El tamaño es requerido';
+//               }
+          
+//               if (!formData.breed.trim()) {
+//                   newErrors.breed = 'La raza es requerida';
+//               }
+//           }
+//           if(currentStep === 3){
+//               if (!formData.img) {
+//                   newErrors.img = 'La imagen de la mascota es requerida';
+//               }
+//           }
+//           setErrors(newErrors);
+//           if (Object.keys(newErrors).length === 0) {
+//               setCurrentStep(currentStep + 1);
+//           }
+//       };
+  
+      
+//       const [formData, setFormData] = useState({
+//           type: '',
+//           name: '',
+//           birthdate: getCurrentDate(),
+//           breed: '',
+//           sex: '',
+//           content: '',
+//           city:'',
+//           size: '',
+//           color1: '',
+//           img: img,
+//           owner: user.id,
+//       });
+  
+//       const [errors, setErrors] = useState({});
+//       const handleChange = (e) => {
+//           const { name, value } = e.target;
+//           setFormData({
+//             ...formData,
+//             [name]: value,
+//           });
+//       };
+  
+//       const handleSelectType = (value) => {
+//           setSelectedType(value);
+//           setFormData({
+//             ...formData,
+//             type: value,
+//           });
+//       };
+  
+//       const handleSelectSize = (value) => {
+//           setSelectedSize(value)
+//           setFormData({
+//             ...formData,
+//             size: value,
+//           });
+//       };
+  
+//       const handleSelectGender = (value) => {
+//           setSelectedGender(value)
+//           setFormData({
+//               ...formData,
+//               sex: value,
+//           });
+//       };
+  
+//       const handleSelectContent = (value) => {
+//           setFormData({
+//               ...formData,
+//               content: value,
+//           });
+//       };
+  
+//       const handleSelectCity = (value) => {
+//           console.log(value)
+//       };
+  
+//       const handleSeleccionColor = (color) => {
+//           setFormData({
+//             ...formData,
+//             color1: color,
+//           });
+//           setSelectedColor(color);
+//       };
+      
+//       const handleImgLink = (link) => {
+//           setImg(link)
+//           setFormData({
+//               ...formData,
+//               img: link,
+//           });
+//       }
+  
+//       const navigate = useNavigate();
+  
+//     const handleSubmit = async (e) => {
+//       e.preventDefault();
+//   console.log(formData);
+//         try {
+//         //   createLoader();
+    
+//           const response = await fetch(`https://sniffnear-api.onrender.com/api/adoption`, {
+//                 method: 'POST',
+//                 headers: {
+//                   'Content-Type': 'application/json',
+//                 },
+//                 body: JSON.stringify(formData),
+//               });
+//               const json = await response.json();
+  
+//           if (response.ok) {
+// //   removeLoader();
+//             console.log('adopcion publicada')
+//             navigate('/adoptions')
        
-          } else {
-            // removeLoader();
-            console.error('Error en el registro:', json.message);
-          }
-        } catch (error) {
-        //   removeLoader();
-          console.error('Error en la solicitud:', error);
-        }
+//           } else {
+//             // removeLoader();
+//             console.error('Error en el registro:', json.message);
+//           }
+//         } catch (error) {
+//         //   removeLoader();
+//           console.error('Error en la solicitud:', error);
+//         }
      
+//     };
+    const onNext = async () => {
+        if (currentStep === 1){
+            nextStep();
+            return;
+        } else if ( currentStep === 2) {
+            if ( birthdate === '' || breedType === '' || sex === '' || size === '' || color1 === '' || content === '') {
+                setCheckErrors( true );
+                return;
+            } else {
+                nextStep();
+            }
+        } else if (currentStep === 3) {
+            if ( imageSelected ) {
+                const link = await uploadImg( 'adoptions/avatars/', `${user.id}-${breedType}-${content}` );
+                console.log('link:', link);
+                const data = {
+                    ...formState,
+                    img: link,
+                    owner: user.id,
+                }
+                console.log('data:', data);
+                await create('adoption', data);
+
+                // createAdoptionProfile( formState, user.id );
+            } else {
+                setImgError(true);
+            }
+        }
+    }
+
+    useEffect(() => {
+        if (imageSelected) {
+            setImgError(false);
+        }
+    }, [imageSelected])
+
+    useEffect(() => {
+        currentStep === 1 ? setPrevBtnLabel('Cancelar') : setPrevBtnLabel('Anterior');
+    }, [ currentStep ]);
+
+    const onPrevius = () => {
+        prevStep();
+        if (currentStep === 1) {
+            navigate(-1);
+        }
     };
+
+    const onSubmit = (e) => {
+        e.preventDefault();
+    }
+
+    // const uploadPetImgAndSetLink = async ( idUsuario ) => {
+    //     // console.log('subiendo imagen...');
+    //     const link = await uploadImg( 'pets/avatars/', `${idUsuario}-${name}` );
+    //     setManualValue( 'img', link );
+    //     // console.log('se subio la imagen - link:', link);
+    // }
+
+    const redirectToPetProfile = () => {
+        navigate(`/adoptions/${ data.pet._id }`, { replace: true });
+    }
 
     return (
     <>
         <NavBar title='Nueva adopción' />
 
-        <main className='adoptionForm'>
+        <main className='fullHeight' onSubmit={onSubmit}>
+            <MultiStepsIndicator total={totalSteps} current={currentStep} />
+
+            <form className='multiSteps'>
+
+            {
+                currentStep === 1 
+                    && <PetFormPart1
+                        setManualValue={ setManualValue }
+                        type={ type }
+                        onNext={ onNext }
+                        bySteps={ true }
+                    />
+            }
+
+            {
+                currentStep === 2
+                && <PetFormPart2
+                    name={ null }
+                    birthdate={ birthdate }
+                    breedType={ breedType }
+                    breed={ breed }
+                    sex={ sex }
+                    size={ size }
+                    color1={ color1 }
+                    errors={ errors }
+                    setErrors={ setErrors }
+                    checkErrors={ checkErrors }
+                    onInputChange={ onInputChange }
+                    setManualValue={ setManualValue }
+                    bySteps={ true }
+                    content={ content }
+                    displayContentInput= {true}
+                />
+            }
+
+
+            {
+                currentStep === 3 
+                && <PetFormPart3
+                    bySteps={ true }
+                    imageSelected={ imageSelected } 
+                    setImgFile={ setImgFile } 
+                    resetImg={ resetImg }
+                    uploadStatus={ uploadStatus }
+                    imgError={ imgError }
+                />
+            }
+
+            <div className='actions'>
+                <button 
+                    className='btn secundary'
+                    onClick={ onPrevius }
+                >
+                    { prevBtnLabel}
+                </button>
+
+                {
+                    (currentStep > 1 || maxStepReached > 1) 
+                        && <button 
+                            className='btn'
+                            onClick={ onNext }
+                            type='button'
+                        >
+                            { currentStep === totalSteps ? 'Crear perfil' : 'Siguiente'}
+                        </button>
+                }
+            </div>
+
+
+
+
+            </form>
+
+            {
+                isLoading && <Loader label='Creando perfil' />
+            }
+
+            {
+                data && <Modal heading={`Mascota para dar adopción creada con éxito`} type='success' icon={ true }>
+                    <button className="btn" onClick={ redirectToPetProfile }>Ver perfil</button>
+                </Modal>
+            }
+
+
+
+
+
+
+
+
+        </main>
+
+
+    {/* <main className='adoptionForm'>
       <h1>Formulario de Adopción</h1>
       <p>Si querés dar en adopción a una mascota rellena el formulario con los datos y te ayudaremos a encontrarle una familia.</p>
         <div className='stepsForm'>
@@ -403,7 +584,7 @@ export const AdoptionNewPage = () => {
         {currentStep === 3 &&(
             <div>
             <h2>Foto de perfil de tu mascota</h2>
-                {/* <ImgInput setImgLink={handleImgLink}/> */}
+               
                 {errors.img && <p style={{ color: 'red' }}>{errors.img}</p>}
             </div>
         )}    
@@ -424,7 +605,7 @@ export const AdoptionNewPage = () => {
             )}
         </div>
         </form>
-    </main>
+    </main> */}
     
     </>
     )

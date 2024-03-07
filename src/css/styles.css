@@ -736,6 +736,8 @@ main{
     gap: 20px;
 }
 
+
+
 main.fullHeight{
     /* min-height: 80vh; */
     height: calc(100dvh - 60px);
@@ -1642,7 +1644,7 @@ svg{
 .alertsPage{
     display: flex;
     flex-direction: column;
-    /* height: 100vh; */
+    height: calc(100dvh - 150px);
     
     /* margin-bottom: 60px; */
 }
@@ -2353,4 +2355,9 @@ ul.message-list {
     font-size: 1.2em;
     color: var(--color-green);
 
+}
+
+
+main.blog{
+    padding: 0 ;
 }

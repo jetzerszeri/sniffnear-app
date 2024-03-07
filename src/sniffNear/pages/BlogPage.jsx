@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
-import { BottomNav, FilterPostsModal, NavBar, PostCardsList } from '../components';
+import { BottomNav, FilterPostsModal, NavBar, NoResultsFound, PostCardsList } from '../components';
 import { useFetchSniffNearApi } from '../../hooks';
 import { useFilter } from '../hooks';
 import { AuthContext } from '../../auth/context';
@@ -40,7 +40,15 @@ export const BlogPage = () => {
             <i className={`bi filterIcon ${isFiltered ? 'bi-funnel-fill filtered' : 'bi-funnel'}`} onClick={()=> setShowFilterOptions(true)}></i>
         </NavBar>
 
-        { filteredData && <PostCardsList data={ filteredData } /> }
+        <main className='fullHeight blog'>
+            { filteredData.length > 0 
+            ? <PostCardsList data={ filteredData } /> 
+            : <NoResultsFound type='posts' />
+        
+            }
+
+        </main>
+
 
         <BottomNav />
 

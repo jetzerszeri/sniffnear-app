@@ -1,32 +1,22 @@
-import { useParams } from 'react-router-dom';
-import { NavBar } from '../components';
-import { Link, useNavigate } from "react-router-dom";
 import React, {useEffect, useState} from "react";
-// import {BottomNav} from "../BottomNav";
-import { setDefaults, geocode, RequestType, } from "react-geocode";
-// import { getCurrentUserId } from "../../js/functions";
+import { Link, useNavigate } from "react-router-dom";
 
-export const AdoptionsDetailPage = ({adoption,   onDeleteClick , onEditClick , showButtons}) => {
+export const AdoptionCard = ({adoption,   onDeleteClick , onEditClick , showButtons}) => {
+  const navigate = useNavigate();
+  const [showModal, setShowModal] = useState(false)
+ 
+  const handleDeleteConfirm =()=>{
+    onDeleteClick(adoption._id);
+    setShowModal(false)
+  }
+  const handleCancel = () => {
+    setShowModal(false);
+    navigate('/adoption');
+  };
 
-    const { id } = useParams();
-    const navigate = useNavigate();
-    const [showModal, setShowModal] = useState(false)
-   
-    const handleDeleteConfirm =()=>{
-      onDeleteClick(adoption._id);
-      setShowModal(false)
-    }
-    const handleCancel = () => {
-      setShowModal(false);
-      navigate('/adoption');
-    };
-
-    return (
-    <>
-        <NavBar title='Detalle de mascota' />
-
-        <main>
-             {showModal && (
+  return (
+    <> 
+    {showModal && (
       <div className="myModal">
           <div className="headerModal">
             <h1>¿Estás seguro que deseas eliminar esta adopción?</h1>
@@ -63,9 +53,8 @@ export const AdoptionsDetailPage = ({adoption,   onDeleteClick , onEditClick , s
        </div>
         )}
     </li>
-        </main>
+    </>
 
     
-    </>
-    )
+  )
 }

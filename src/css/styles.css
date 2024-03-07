@@ -103,7 +103,7 @@ a{
 .authHome h1 + p {
     padding: 0 10px;
     font-size: 1em;
-    font-weight: 300;
+    font-weight: 400;
     max-width: 250px;
 }
 
@@ -123,7 +123,7 @@ a{
 
 .authHome div:last-of-type p{
     font-size: 0.9em;
-    font-weight: 300;
+    font-weight: 400;
     margin-top: 16px;
 }
 

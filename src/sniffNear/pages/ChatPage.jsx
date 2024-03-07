@@ -141,15 +141,16 @@ export const ChatPage = () => {
     </NavBar>
 
       <div className='chat-container'>
+        <div className='messages-container'>
         <div className='messages'>
-          {msgHistory.length > 0 && (
+        {msgHistory.length > 0 && (
             <> 
             {msgHistory.map((mensaje, index) => {
                 const datePart = formatDate(mensaje.createdAt);
                 const timePart = formatTime(mensaje.createdAt);
                 return(
                     <React.Fragment key={index}>
-                      {index === 0 || new Date(msgHistory[index - 1].createdAt).getDate() !== new Date(mensaje.createdAt).getDate() ? (
+                    {index === 0 || new Date(msgHistory[index - 1].createdAt).getDate() !== new Date(mensaje.createdAt).getDate() ? (
                         <p className='message-date'>{datePart}</p>
                         ) : null}
                         <div className={`message-card ${mensaje.sender === sender ? "msg-sent" : "msg-received"}`}>
@@ -160,14 +161,17 @@ export const ChatPage = () => {
                 )
             })}
             </>   
-          )}
-          {messages.map((mensaje, index) => (
+        )}
+        {messages.map((mensaje, index) => (
             <div key={index}  className={`message-card ${mensaje.sender === sender ? "msg-sent" : "msg-received"}`}>
-              <p className='message-text'>{mensaje.text}</p>
-              <p className='message-time'>{time}</p>
+            <p className='message-text'>{mensaje.text}</p>
+            <p className='message-time'>{time}</p>
             </div>
-          ))}
+        ))}
         </div> 
+
+        </div>
+
         <form className='chat-form'onSubmit={handleSendMessage}>
           <input 
             type='text' 

@@ -2091,6 +2091,14 @@ ul.message-list {
     flex-direction: column;
     height: calc(100dvh - 60px);
 }
+
+.messages-container{
+    flex: 1;
+    display: flex;
+    flex-direction: column-reverse; 
+    overflow-y: scroll;
+}
+
 .imgAvatarChat{
     align-items: center;
     padding: 8px;
@@ -2118,8 +2126,6 @@ ul.message-list {
     background-color: var(--color-neutral-0);
     display: flex;
     flex-direction: column; 
-    overflow-y: scroll;
-
 }
 
 .msg-received {

@@ -560,10 +560,10 @@ transform-origin: left;
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 94px;
+    height: 80px;
     background-color: var(--color-green-800);
     box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
-    padding-bottom: 34px;
+    padding-bottom: 20px;
 }
 
 .bottomNavBar ul {
@@ -2240,10 +2240,12 @@ ul.message-list {
     font-size: 1.3em;
     font-weight: 500;
     color: var(--color-darkblue);
-    margin-bottom: 10px;
-    overflow: hidden; /* Ocultar el exceso de contenido */
-    white-space: nowrap; /* No permitir saltos de línea */
-    text-overflow: ellipsis;
+    margin: 2px auto 10px auto;
+    line-height: 1.1em;
+
+    /* overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis; */
 
 }
 

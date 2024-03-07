@@ -2361,3 +2361,13 @@ ul.message-list {
 main.blog{
     padding: 0;
 }
+
+.noResultsFound.alerts h2{
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.noResultsFound.alerts{
+    margin: 10px 10px 50px 10px;
+    padding: 20px;
+}

@@ -5,7 +5,7 @@ export const NoResultsFound = ( { type = "chat" } ) => {
 
 
     return (
-        <div className="noResultsFound">
+        <div className={`noResultsFound ${type}`}>
             <div>
                 <h2>No se encontraron resultados</h2>
 

@@ -8,12 +8,14 @@ import {
 import { AlertIcon, BuleMarkerIcon, MissigMarker } from '../../ui';
 import { Link } from 'react-router-dom';
 import { AlertInfoWindow } from './AlertInfoWindow';
+import { NoResultsFound } from './NoResultsFound';
 
 export const MapSniffNear = ( { position, alertForm = false, drag = false, updateCoords, data = null, displayOnly = false, blueMarker = false }  ) => {
 
     const googleMapId = process.env.REACT_APP_GOOGLE_MAP_SIFFNEAR_ID;
     const [ zoom, setZoom ] = useState(15);
     const [ activeMarker, setActiveMarker ] = useState(null);
+    const [hayData, setHayData] = useState(false);
 
     useEffect(() => {
         alertForm && setZoom(18);
@@ -41,10 +43,15 @@ export const MapSniffNear = ( { position, alertForm = false, drag = false, updat
     const closeInfoWindow = () => {
         setActiveMarker( null );
     }
+
+    useEffect(() => {
+        data && data.length > 0 ? setHayData(false) : setHayData(true);
+    }, [data]);
     
 
 
     return (
+        <>
         <div className={`${alertForm ? 'map alert' : 'map'} ${displayOnly ? 'alertDetail' : ''}`}>
 
             <Map 
@@ -108,9 +115,17 @@ export const MapSniffNear = ( { position, alertForm = false, drag = false, updat
                         </AdvancedMarker>
                     )) 
                 }
+
             </Map>
 
 
         </div>
+
+                {
+                    hayData && 
+                    <NoResultsFound type="alerts"/>
+
+                }
+        </>
     )
 }

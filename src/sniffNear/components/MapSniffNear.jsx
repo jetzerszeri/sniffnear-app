@@ -15,7 +15,7 @@ export const MapSniffNear = ( { position, alertForm = false, drag = false, updat
     const googleMapId = process.env.REACT_APP_GOOGLE_MAP_SIFFNEAR_ID;
     const [ zoom, setZoom ] = useState(15);
     const [ activeMarker, setActiveMarker ] = useState(null);
-    const [hayData, setHayData] = useState(false);
+    const [displayNoResultMsg, setDisplayNoResultMsg ]= useState(false);
 
     useEffect(() => {
         alertForm && setZoom(18);
@@ -45,7 +45,9 @@ export const MapSniffNear = ( { position, alertForm = false, drag = false, updat
     }
 
     useEffect(() => {
-        data && data.length > 0 ? setHayData(false) : setHayData(true);
+        if (data !== null){
+            data.length === 0 ? setDisplayNoResultMsg(true) : setDisplayNoResultMsg(false);
+        }
     }, [data]);
     
 
@@ -122,7 +124,7 @@ export const MapSniffNear = ( { position, alertForm = false, drag = false, updat
         </div>
 
                 {
-                    hayData && 
+                    displayNoResultMsg && 
                     <NoResultsFound type="alerts"/>
 
                 }

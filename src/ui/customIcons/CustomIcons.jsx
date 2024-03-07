@@ -3,7 +3,7 @@
 export const SidebarHomeIcon = () => {
   return(
     <>
-        <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        {/* <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
         <g clipPath="url(#clip0_15_58)">
             <path opacity="0.964" fillRule="evenodd" clipRule="evenodd" d="M7.94531 1.24219C9.18722 1.16408 10.0544 1.69533 10.5469 2.83594C10.9815 4.03202 10.872 5.17266 10.2188 6.25781C9.43247 7.26994 8.45587 7.51214 7.28906 6.98438C6.35733 6.31641 5.88858 5.40235 5.88281 4.24219C5.88511 3.15186 6.30698 2.26905 7.14844 1.59375C7.4063 1.44897 7.67194 1.33178 7.94531 1.24219Z"/>
             <path opacity="0.963" fillRule="evenodd" clipRule="evenodd" d="M15.164 1.24218C16.5022 1.16572 17.4007 1.75947 17.8593 3.02343C18.2418 4.23682 18.0699 5.36184 17.3437 6.39843C16.2307 7.53993 15.0901 7.57115 13.9218 6.49218C13.0895 5.37239 12.9176 4.15364 13.4062 2.83593C13.7573 2.04027 14.3433 1.50902 15.164 1.24218Z"/>
@@ -24,7 +24,8 @@ export const SidebarHomeIcon = () => {
             <rect width="24" height="24" fill="white"/>
             </clipPath>
         </defs>
-        </svg>
+        </svg> */}
+        <i className="bi bi-house-door"></i>
         <span>Home</span>
     </>
   )

@@ -1,22 +1,24 @@
-import { Link } from 'react-router-dom';
-import { NavBar } from '../components';
+import { Link, useNavigate } from 'react-router-dom';
+import { AdoptionCard, NavBar } from '../components';
 import { AdoptionsDetailPage } from './AdoptionsDetailPage';
+import { useFetchSniffNearApi } from '../../hooks';
+import { useContext, useEffect } from 'react';
+import { Loader } from '../../ui';
+import { AuthContext } from '../../auth/context';
 
-export const AdoptionsPage = ({ adoptions, onAdoptionDelete, userId }) => {
+export const AdoptionsPage = () => {
 
-    const handleDeleteClick = async (id) => {
-        try {
-            const response = await fetch(`https://sniffnear-api.onrender.com/api/adoption/${id}`, {
-                method: 'DELETE',
-            });
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            console.log(`La adopción con el id ${id} se ha eliminado correctamente.`);
-        } catch (error) {
-            console.error('Error al eliminar la adopción:', error);
-        }
-    };
+    const { data, isLoading, error, getData } = useFetchSniffNearApi();
+    const { user } = useContext( AuthContext );
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        getData('adoption');
+    }, [ getData ]);
+    
+    const onAddNewAdoption = () => {
+        navigate('/adoptions/new');
+    }
 
     const handleEditClick = (adoptionToEdit) => {
         console.log('Editar adopción:', adoptionToEdit);
@@ -24,30 +26,31 @@ export const AdoptionsPage = ({ adoptions, onAdoptionDelete, userId }) => {
 
     return (
     <>
-        <NavBar title='Adopciones' />
-
+        <NavBar title='Adopciones' >
+            <i className="bi bi-plus-lg" onClick={onAddNewAdoption}></i>
+        </NavBar>
         <main>
-            <Link to='/adoptions/new' className="btn btn-primary">Agregar mascota para adopción</Link>
 
-            <div className="listAlertas">
-            <div className='topNavBar'>
-                <h1>Listado de adopciones</h1>
-            </div>
-            <ul>
-                
-                {adoptions.map((adoption) => {
+                <ul className='alertList'>
                     
-                    const isOwner = adoption.owner === userId;
-                    return <AdoptionsDetailPage
-                        adoption={adoption}
-                        key={adoption._id}
-                        onDeleteClick={handleDeleteClick}
-                        onEditClick={handleEditClick}
-                        showButtons={isOwner}
-                    />
-                })}
-            </ul>
-        </div>
+                    {
+                    data &&
+                    data.map((adoption) => {
+                        
+                        const isOwner = adoption.owner === user.id;
+                        return <AdoptionCard
+                            adoption={adoption}
+                            key={adoption._id}
+                            onDeleteClick={handleEditClick}
+                            onEditClick={handleEditClick}
+                            showButtons={isOwner}
+                        />
+                    })}
+                </ul>
+
+            {
+                isLoading && <Loader label='cargando data'/>
+            }
 
         </main>
 

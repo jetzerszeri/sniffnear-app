@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { AlertIcon } from "../../ui";
 
 export const AdoptionCard = ({adoption,   onDeleteClick , onEditClick , showButtons}) => {
   const navigate = useNavigate();
@@ -32,26 +33,53 @@ export const AdoptionCard = ({adoption,   onDeleteClick , onEditClick , showButt
           </div>
       </div>
     )}
-       <li>
+    <li className="alertCard">
+      <div className="h">
+        <AlertIcon />
+        <div>
+          <h2>Mascota en adopción</h2>
+          {/* <p><i className="bi bi-geo-alt"></i> A 5km de tu ubicación</p> */}
+        </div>
+
+      </div>
+
+
+      <div>
         <img src={adoption.img} alt={adoption.type}/>
-        <p>Color: {adoption.color1}, tamaño: {adoption.size}</p>
-        {/* <Link to={`/adoption-detail?adoptionId=${adoption._id}`}>
-          <button className="viewAlert">Ver adopción</button>
-        </Link> */}
+
+        <div>
+          <div>
+            <p>Color: {adoption.color1}, tamaño: {adoption.size}</p>
+            <p>{adoption.content}</p>
+          </div>
+
+          <div className="actions">
+            <Link to={`/adoptions/${adoption._id}`} className="btn">
+              Ver alerta
+            </Link> 
+          </div>
+
+        </div>
+      </div>
+
+
+
+
+
         
-        {showButtons && (
+        {/* {showButtons && (
          <div className="buttonsAlert">
          <button className="buttonDelete" onClick={() => setShowModal(true)}>
            <i className="bi bi-trash"/>
          </button>
        
-         {/* <Link to={`/edit-adoption?adoptionId=${adoption._id}`}>
+         <Link to={`/edit-adoption?adoptionId=${adoption._id}`}>
          <button className="btn">
            <i className="bi bi-pencil"/>
          </button>
-         </Link> */}
+         </Link>
        </div>
-        )}
+        )} */}
     </li>
     </>
 

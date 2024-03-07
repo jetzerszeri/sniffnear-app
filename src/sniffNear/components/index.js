@@ -33,3 +33,4 @@ export * from './PostDetails';
 export * from './PostForm';
 export * from './HomeFeed';
 export * from './FilterPostsModal';
+export * from './AdoptionsCard';

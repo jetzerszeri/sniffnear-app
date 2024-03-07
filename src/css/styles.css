@@ -2207,11 +2207,11 @@ ul.message-list {
 /* estilos del blog y de los posts */
 
 .blogPostsList{
-    margin: 20px 0 70px 0;
+    margin: 10px 0 70px 0;
     display: flex;
     flex-direction: column;
     gap: 20px;
-    
+    padding-bottom: 80px;
 }
 
 .postCard .preview img{
@@ -2359,5 +2359,5 @@ ul.message-list {
 
 
 main.blog{
-    padding: 0 ;
+    padding: 0;
 }

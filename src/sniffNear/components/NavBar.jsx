@@ -4,7 +4,7 @@ import { SideBar } from './SideBar';
 import { SniffNearLogotipo } from '../../ui/customIcons';
 
 
-export const NavBar = ( { sidebar = false, title = null, rightIcon={display: false, link: "/", icon: ""}, img= false, children } ) => {
+export const NavBar = ( { sidebar = false, title = null, rightIcon={display: false, link: "/", icon: ""}, img= false, children, forChat = false } ) => {
 
     const navigate = useNavigate();
 
@@ -52,17 +52,23 @@ export const NavBar = ( { sidebar = false, title = null, rightIcon={display: fal
                 </div>
                 <div className={`logoLabelTopBar ${ (rightIcon.display || children) ? '' : 'noRightIcon' } `}>
 
-                    {
-                        img && <img src={ img } alt={`avatar de ${title}`}  className='avatar'/>
-                    }
 
-                    {
-                        (title)
-                        ? <h1 className='label cap'>{ title }</h1>
-                        : <Link to='/'>
-                            <SniffNearLogotipo />
-                        </Link> 
-                    }
+                {
+                forChat ? (
+                        <>
+                        <img src={img} alt={`avatar de ${title}`} className="avatar" />
+                        <h1 className="label cap">{title}</h1>
+                        </>
+                    ) : title ? (
+                        <h1 className="label cap">{title}</h1>
+                    ) : (
+                        <Link to="/">
+                        <SniffNearLogotipo />
+                        </Link>
+                    )
+                }
+
+
 
                 </div>
                 

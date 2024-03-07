@@ -136,7 +136,7 @@ export const ChatPage = () => {
 
   return (
     <>
-      <NavBar title={receptor} img={imgReceptor ? imgReceptor : "/img/defaultAvatar.png"}>
+      <NavBar title={receptor} img={imgReceptor ? imgReceptor : "/img/defaultAvatar.png"} forChat={true}>
         <i className="bi bi-trash3" onClick={() => { setDisplayModal(true) }}></i>
     </NavBar>
 

@@ -2144,9 +2144,9 @@ ul.message-list {
     gap: 3px;
     width: auto;
     justify-content: space-around;
-    margin-bottom: 15px;
+    margin-bottom: 25px;
     border-top: 1px solid #e0e0e0;
-    padding: 10px;
+    padding: 16px;
 }
 .inputMsg {
     width: 100%;

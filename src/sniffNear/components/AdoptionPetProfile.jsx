@@ -22,7 +22,7 @@ export const AdoptionPetProfile = ( { pet }) => {
     const onDeletePetProfile = () => {
         if ( user.id === pet.owner ) {
             setShowModal( false );
-            deleteDocument('adoptions', _id, { owner: user.id });
+            deleteDocument('adoption', _id, { owner: user.id });
         }
     }
 

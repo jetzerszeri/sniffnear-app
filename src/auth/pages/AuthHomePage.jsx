@@ -6,7 +6,7 @@ export const AuthHomePage = () => {
 
             <div>
                 <h1>Bienvenido a<span> SniffNear</span></h1>
-                <p>Juntos, hacemos que el regreso a casa sea realidad.</p>
+                <p>Juntos hacemos que el regreso a casa sea realidad.</p>
             </div>
                 <img src="/img/animals1.png" alt="" />
 

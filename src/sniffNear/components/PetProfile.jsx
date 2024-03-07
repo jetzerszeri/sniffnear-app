@@ -14,6 +14,7 @@ export const PetProfile = ( { pet }) => {
     const [ showModal, setShowModal ] = useState( false );
     const { name, breed, breedType, birthdate, type, size, color1, img, sex, _id } = pet;
 
+
     const displayModal = () => {
         setShowModal( !showModal );
     }
@@ -44,7 +45,7 @@ export const PetProfile = ( { pet }) => {
 
                 <div className={ type }>
                     <p className='h'>{ name }</p>
-                    <p>{ (breed && breedType) && `${breed} - `}{ `${calculateAge( birthdate ) } de edad` }</p>
+                    <p>{ (breed && breedType) && `${breed} - `}{ `${calculateAge( birthdate, false ) } de edad` }</p>
                     {/* Mostrar perfil del usuario en caso que el user actual sea distinto del owner id */}
                 </div>
 

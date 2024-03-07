@@ -1,4 +1,4 @@
-export const calculateAge = ( isoDate ) => {
+export const calculateAge = ( isoDate, displayHrs = true ) => {
     const birthDate = new Date(isoDate);
     const currentDate = new Date();
 
@@ -12,17 +12,25 @@ export const calculateAge = ( isoDate ) => {
     const minutes = Math.floor((differenceInMilliseconds % millisecondsInHour) / millisecondsInMinute);
 
     if (days < 30) {
-        if (days === 0 && hours === 0 && minutes <= 1) {
-            return '1 minuto';
-        } else if (days === 0 && hours === 0) {
-            return `${minutes} minutos`;
-        } else if (days === 0 && hours === 1) {
-            return '1 hora';
-        } else if (days === 0) {
-            return `${hours} horas`;
+        if ( displayHrs ){
+            if (days === 0 && hours === 0 && minutes <= 1) {
+                return '1 minuto';
+            } else if (days === 0 && hours === 0) {
+                return `${minutes} minutos`;
+            } else if (days === 0 && hours === 1) {
+                return '1 hora';
+            } else if (days === 0) {
+                return `${hours} horas`;
+            } else {
+                return (
+                    days === 1
+                    ? '1 día'
+                    : `${days} días`
+                );
+            }
         } else {
             return (
-                days === 1
+                days <= 1
                 ? '1 día'
                 : `${days} días`
             );

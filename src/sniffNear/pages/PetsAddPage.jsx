@@ -10,6 +10,7 @@ import { AuthContext } from '../../auth/context';
 import { Loader, Modal } from '../../ui';
 import { RegisterForm } from '../../auth/components/RegisterForm';
 import { LoginForm } from '../../auth/components/LoginForm';
+import { getCurrentDate } from '../helpers';
 
 export const PetsAddPage = () => {
 
@@ -22,7 +23,7 @@ export const PetsAddPage = () => {
     const { type, name, birthdate, breedType, breed, sex, size, color1, errors, checkErrors, formState, setErrors, setCheckErrors, onInputChange, setManualValue, onResetForm } = useForm({
         type: '',
         name: '',
-        birthdate: '',
+        birthdate: getCurrentDate(),
         breed: '',
         breedType: '',
         sex: '',

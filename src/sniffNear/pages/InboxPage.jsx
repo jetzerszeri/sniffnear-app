@@ -1,7 +1,8 @@
 import React, {useContext, useState, useEffect} from 'react';
-import { BottomNav, NavBar } from '../components';
+import { BottomNav, NavBar, NoResultsFound } from '../components';
 import { AuthContext } from '../../auth/context';
 import { Link, useNavigate } from 'react-router-dom';
+import { Loader } from '../../ui';
 export const InboxPage = () => {
   //logica del inbox
   const { user } = useContext( AuthContext );
@@ -10,6 +11,8 @@ export const InboxPage = () => {
   const userId= user.id;
   const [lastMessages, setLastMessages] = useState([])
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(true);
+
   useEffect(()=>{
     const getUserChatsRooms = async () => {
       try {
@@ -20,6 +23,7 @@ export const InboxPage = () => {
             const data = await response.json();
             setChats(data);
             const messagePromise=[];
+            setIsLoading(false);
 
             for (let chat of data) {
               const roomId  = chat._id;
@@ -40,6 +44,7 @@ export const InboxPage = () => {
             }
           } else {
 
+            setIsLoading(false);
             console.error('Error al obtener los chats');
           }
 
@@ -73,14 +78,19 @@ export const InboxPage = () => {
                 name: userData.user.name,
                 profileImg: userData.user.profileImg || "/img/avatarPorDefecto.webp",
               };
+
+              setIsLoading(false);
             } else {
               console.error(`Error al obtener el usuario senders: ${response.status}`);
               newsenders[chat._id] = {
                 name: 'Nombre no disponible',
                 profileImg: "/img/avatarPorDefecto.webp"
               };
+              setIsLoading(false);
             }
           } catch (error) {
+
+            setIsLoading(false);
 
             console.error('Error al traer el usuario senders:', error);
 
@@ -117,56 +127,66 @@ export const InboxPage = () => {
 return (
   <>
     <NavBar title='Bandeja de entrada'/>
-    <main>
-      <div>
-      <ul className='message-list'>
-          {chats.map(chat => (
+    <main className='fullHeight'>
+        {
+          chats.length === 0
+          ? <NoResultsFound type="chat"/>
+          :<div>
+            <ul className='message-list'>
+                {chats.map(chat => (
 
-              <li className='inbox-card' onClick={() => {onChatClick(chat._id)}} key={chat._id} >
-                <div className='inbox-content'>
-                    <div className='img-container-chat'>
-                      {senders[chat._id] && senders[chat._id].profileImg && (
-                                        <img
-                                          src={senders[chat._id].profileImg}
-                                          alt="Profile"
-                                          className="profile-image"
-                                        />
-                    )}
-                    </div>
-                   
-                   <div className='container-message'>
-                        {senders[chat._id] && (
-                            <p>{senders[chat._id].name}</p>
-                        )}
-
+                    <li className='inbox-card' onClick={() => {onChatClick(chat._id)}} key={chat._id} >
+                      <div className='inbox-content'>
+                          <div className='img-container-chat'>
+                            {senders[chat._id] && senders[chat._id].profileImg && (
+                                              <img
+                                                src={senders[chat._id].profileImg}
+                                                alt="Profile"
+                                                className="profile-image"
+                                              />
+                          )}
+                          </div>
                         
-                        {lastMessages.find(
-                            (message) => message.chatRoom === chat._id
-                          ) && (
-                          <p className="last-message">
-                            {
-                              ( lastMessages.find(
-                                (message) => message.chatRoom === chat._id
-                              ).sender === userId ) && <i className="bi bi-check2-all"> </i> 
-                            }
-                            
-                            {lastMessages.find(
-                              (message) => message.chatRoom === chat._id
-                            ).text}
+                        <div className='container-message'>
+                              {senders[chat._id] && (
+                                  <p>{senders[chat._id].name}</p>
+                              )}
 
-                          </p>
-                        )}
-                   </div>
-                 
-                    <i className="bi bi-chat"/>
-                </div>
-              </li>
+                              
+                              {lastMessages.find(
+                                  (message) => message.chatRoom === chat._id
+                                ) && (
+                                <p className="last-message">
+                                  {
+                                    ( lastMessages.find(
+                                      (message) => message.chatRoom === chat._id
+                                    ).sender === userId ) && <i className="bi bi-check2-all"> </i> 
+                                  }
+                                  
+                                  {lastMessages.find(
+                                    (message) => message.chatRoom === chat._id
+                                  ).text}
 
-          ))}
-      </ul>
-      </div>
+                                </p>
+                              )}
+                        </div>
+                      
+                          <i className="bi bi-chat"/>
+                      </div>
+                    </li>
+
+                ))}
+            </ul>
+          </div>
+
+        }
+
     </main>
     <BottomNav/>
+    
+    {
+      isLoading && <Loader label='Cargando mensajes...'/>
+    }
   </>
   )
 }

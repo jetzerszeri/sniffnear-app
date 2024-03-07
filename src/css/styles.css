@@ -2334,3 +2334,23 @@ ul.message-list {
 .textModal{
     margin-top: 16px;
 }
+
+
+.noResultsFound{
+    color: var(--color-neutral-50);
+    text-align: center;
+    margin: 30px;
+    font-weight: 400;
+    font-size: 0.9em;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 80px;
+}
+
+.noResultsFound h2{
+    font-size: 1.2em;
+    color: var(--color-green);
+
+}

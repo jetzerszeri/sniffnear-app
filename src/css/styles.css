@@ -41,8 +41,9 @@ h1,h2,h3,h4,h5,h6{
 }
 
 body{
-    min-height: 100vh;
+    min-height: 100dvh;
     background-color: var(--color-neutral-10);
+    /* margin-bottom: 34px; */
 }
 
 li{
@@ -67,7 +68,7 @@ a{
 
 /* authHome */
 .authHome{
-    min-height: 100vh;
+    min-height: 100dvh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -148,7 +149,7 @@ a{
     background-color: var(--color-green);
     background-image: url(/public/img/pattern1.svg);
     position: relative;
-    min-height: 100vh;
+    min-height: 100dvh;
     height:max-content;
 }
 
@@ -259,6 +260,10 @@ textarea{
     /* text-align: right; */
 }
 
+
+.singUpView .inputContainer div{
+    text-align: left !important;
+}
 
 
 
@@ -555,9 +560,10 @@ transform-origin: left;
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 60px;
+    height: 94px;
     background-color: var(--color-green-800);
     box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+    padding-bottom: 34px;
 }
 
 .bottomNavBar ul {
@@ -732,7 +738,7 @@ main{
 
 main.fullHeight{
     /* min-height: 80vh; */
-    height: calc(100vh - 60px);
+    height: calc(100dvh - 60px);
     padding: 20px;
     gap: 5px;
 }
@@ -918,7 +924,7 @@ h3{
 
 /* estilos del loader */
 .loadingBackground, .plusOptionsContainer, .modalBackground{
-    height: 100vh;
+    height: 100dvh;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -1642,7 +1648,7 @@ svg{
 }
 
 .alertsPage .map{
-    height: calc(100vh - 120px);
+    height: calc(100dvh - 120px);
     flex-grow: 1;
 }
 
@@ -2053,7 +2059,7 @@ ul.message-list {
 .chat-container{
     display: flex;
     flex-direction: column;
-    height: calc(100vh - 60px);
+    height: calc(100dvh - 60px);
 }
 .imgAvatarChat{
     align-items: center;

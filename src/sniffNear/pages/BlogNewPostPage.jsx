@@ -1,7 +1,7 @@
-import { NavBar, PostForm } from '../components';
+import { AuthFormModal, NavBar, PostForm } from '../components';
 import { useFetchSniffNearApi, useForm, usePreviewAndUploadImg } from '../../hooks';
 import { ImgInput, Loader, Modal, SelectOptionInput, TextAreaInput, TextInput } from '../../ui';
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../auth/context';
 import { useNavigate } from 'react-router-dom';
 
@@ -17,6 +17,7 @@ export const BlogNewPostPage = () => {
     });
     const { imageSelected, uploadStatus, setImgFile, resetImg, uploadImg, imgFile } = usePreviewAndUploadImg();
     const { data, error, isLoading, create } = useFetchSniffNearApi();
+    const [ displayAuthModal, setDisplayAuthModal ] = useState( false );
 
     const navigate = useNavigate();
 
@@ -30,6 +31,11 @@ export const BlogNewPostPage = () => {
 
         await create('blog', postData);
     }
+
+    useEffect(() => {
+        user ? setDisplayAuthModal(false) : setDisplayAuthModal(true);   
+    }, [ user ])
+    
 
 
     
@@ -66,6 +72,14 @@ export const BlogNewPostPage = () => {
                 error && <Modal text={ error } type='error' icon={ true } >
                     <button className="btn secundary" onClick={ () => { navigate(-1, {replace: true})} }>Ok</button>
                 </Modal>
+            }
+
+            {
+                displayAuthModal &&
+                <AuthFormModal
+                    prevStep={ () => { navigate(-1)} }
+                    onNextFunction={ () => { setDisplayAuthModal(false) } }
+                />
             }
 
 

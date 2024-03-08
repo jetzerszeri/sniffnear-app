@@ -1,6 +1,6 @@
 import { DateInput, PetBreedInput, PetColorInput, PetSexInput, PetSizeInput, TextAreaInput, TextInput } from '../../ui/customInputs';
 
-export const PetFormPart2 = ( { name, birthdate, breedType, breed, sex, size, color1, errors, setErrors, checkErrors, onInputChange, setManualValue, bySteps = false, content } ) => {
+export const PetFormPart2 = ( { name, birthdate, breedType, breed, sex, size, color1, errors, setErrors, checkErrors, onInputChange, setManualValue, bySteps = false, displayContentInput = null, content } ) => {
     
     return (
     <div className={ bySteps ? 'step' : '' }>
@@ -72,6 +72,7 @@ export const PetFormPart2 = ( { name, birthdate, breedType, breed, sex, size, co
         />
 
         {
+            displayContentInput &&
             <TextAreaInput
                 name="content"
                 value={ content }

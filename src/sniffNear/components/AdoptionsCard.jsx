@@ -55,7 +55,7 @@ export const AdoptionCard = ({adoption,   onDeleteClick , onEditClick , showButt
 
           <div className="actions">
             <Link to={`/adoptions/${adoption._id}`} className="btn">
-              Ver alerta
+              Ver detalles
             </Link> 
           </div>
 

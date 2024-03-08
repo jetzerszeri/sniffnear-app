@@ -103,6 +103,10 @@ export const AlertsPage = () => {
             <Link to={ addQuery('/alerts', { alertType: 'missing' }) } className={ alertType === "missing" ? "active" : "" } replace={true}> <img src="/img/MissingMarker.png" alt="" /> Perdidos</Link>
             <Link to={ addQuery('/alerts', { alertType: 'found' }) } className={ alertType === "found" ? "active" : "" } replace={true}> <img src="/img/FoundMarker.png" alt="" /> Encontrados</Link>
             <div>
+                <i 
+                    className={`bi ${view === 'map' ? 'bi-list-task' : 'bi-map'} viewSwitcher`}
+                    onClick={ toggleMapIcon }
+                ></i>
                 <i className={`bi ${isFiltered ? 'bi-funnel-fill filtered' : 'bi-funnel'}`} onClick={()=> setShowFilterOptions(true)}></i>
             </div>
         </div>

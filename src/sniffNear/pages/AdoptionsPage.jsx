@@ -37,7 +37,7 @@ export const AdoptionsPage = () => {
                     data &&
                     data.map((adoption) => {
                         
-                        const isOwner = adoption.owner === user.id;
+                        const isOwner = adoption.owner === user?.id;
                         return <AdoptionCard
                             adoption={adoption}
                             key={adoption._id}

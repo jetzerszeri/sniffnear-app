@@ -21,9 +21,9 @@ export const AdoptionsDetailPage = () => {
   }, [ getData, id ]);
 
 
-    useEffect(() => {
-      data && console.log(data);
-    }, [data])
+    // useEffect(() => {
+    //   data && console.log(data);
+    // }, [data])
     
 
 

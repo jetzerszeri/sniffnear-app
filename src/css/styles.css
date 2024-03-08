@@ -2637,6 +2637,10 @@ main.blog{
         margin: auto;
     }
     
+    .singUpView form{
+        max-width: 500px;
+        margin: auto;
+    }
 
 }
 

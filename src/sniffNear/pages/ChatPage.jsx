@@ -125,7 +125,7 @@ export const ChatPage = () => {
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
-        navigate('/inbox');
+        navigate('/inbox', { replace: true });
     } catch (error) {
         console.error('Error al eliminar el chat:', error);
     }

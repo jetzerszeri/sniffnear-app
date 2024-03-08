@@ -36,3 +36,5 @@ export * from './FilterPostsModal';
 export * from './AuthFormModal';
 export * from './ChangePasswordModal';
 export * from './NoResultsFound';
+export * from './AdoptionsCard';
+export * from './AdoptionPetProfile';

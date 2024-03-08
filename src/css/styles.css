@@ -2513,6 +2513,16 @@ ul.message-list {
         height: 500px;
     }
 
+    .petProfile .data{
+        max-width: 800px;
+        margin: -100px auto;
+        padding: 50px;
+        width: 100%;
+    }
+
+    .postDetails > img, .petProfile > img{
+        height: 500px;
+    }
     .alertList{
         flex-direction: row;
         flex-wrap: wrap;

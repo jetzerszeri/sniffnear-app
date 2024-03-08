@@ -26,7 +26,7 @@ export const WelcomeCard = () => {
                 {
                     address &&
                     <p>
-                        <i className="bi bi-geo-alt"></i> <span>{`${address.city}, ${address.state}`}</span>
+                        <i className="bi bi-geo-alt"></i> <span>{`${address.city}, ${address.state && address.state}`}</span>
                     </p>
                 }
             </div>

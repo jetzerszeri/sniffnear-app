@@ -5,7 +5,7 @@ import { AuthContext } from '../../auth/context';
 import { useMultiSteps } from '../hooks';
 import { Loader, Modal, MultiStepsIndicator } from '../../ui';
 import { useFetchSniffNearApi, useForm, usePreviewAndUploadImg } from '../../hooks';
-import { getCurrentDate } from '../helpers';
+import { getCurrentDate, getCurrentTime } from '../helpers';
 // import {getCurrentUserId, createLoader, removeLoader} from '../../js/functions';
 
 export const AdoptionNewPage = () => {
@@ -45,7 +45,7 @@ export const AdoptionNewPage = () => {
             }
         } else if (currentStep === 3) {
             if ( imageSelected ) {
-                const link = await uploadImg( 'adoptions/avatars/', `${user.id}-${breedType}-${content}` );
+                const link = await uploadImg( 'adoptions/avatars/', `${user.id}-${breedType}-${content}-${getCurrentTime()}` );
                 console.log('link:', link);
                 const data = {
                     ...formState,

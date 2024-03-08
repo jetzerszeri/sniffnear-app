@@ -103,7 +103,7 @@ export const AccountEditPage = () => {
         <h1>Datos personales</h1>
 
         <form onSubmit={ onUpdateSubmit }>
-          {errors.credentials && <p className='errorInput'>{errors.credentials}</p>}
+          {errors.credentials && <p className='errorInput credential'>{errors.credentials}</p>}
 
           <ImgInput imageSelected={ imageSelected } setImgFile={ setImgFile } resetImg={ resetImg } />
 

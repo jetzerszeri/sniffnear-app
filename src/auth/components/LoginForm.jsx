@@ -55,7 +55,7 @@ export const LoginForm = ( { authFlow = true, label, onPrevFunction, onNextFunct
     return (
         <>
         <form onSubmit={ onLoginSubmit }>
-            {errors.credentials && <p className='errorInput'>{errors.credentials}</p>}
+            {errors.credentials && <p className='errorInput credential'>{errors.credentials}</p>}
 
             <EmailInput
                 value={ email }

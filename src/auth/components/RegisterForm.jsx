@@ -58,7 +58,7 @@ export const RegisterForm = ( { accountStatus, authFlow = true, label = 'Registr
     return (
     <>
         <form onSubmit={ onRegisterSubmit }>
-            {errors.credentials && <p className='errorInput'>{errors.credentials}</p>}
+            {errors.credentials && <p className='errorInput credential'>{errors.credentials}</p>}
 
             <TextInput 
                 name="name"

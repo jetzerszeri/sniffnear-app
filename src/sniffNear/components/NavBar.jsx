@@ -7,7 +7,7 @@ import { useContext } from 'react';
 import { AuthContext } from '../../auth/context';
 import { SidebarBlogIcon  } from '../../ui/customIcons';
 import { DogPawPrintIcon, AlertIcon, NewPostIcon } from '../../ui/customIcons';
-export const NavBar = ( { sidebar = false, title = null, rightIcon={display: false, link: "/", icon: ""}, img= false, children, forChat = false } ) => {
+export const NavBar = ( { sidebar = false, title = null, rightIcon={display: false, link: "/", icon: ""}, img= false, children, forChat = false, backBtnTo = -1 } ) => {
 
     const navigate = useNavigate();
     const [displaySidebar, setDisplaySidebar] = useState({
@@ -53,7 +53,7 @@ export const NavBar = ( { sidebar = false, title = null, rightIcon={display: fal
                     {
                         sidebar
                         ? <i className="bi bi-list menubtn" onClick={ showSidebar }></i>
-                        : <i className="bi bi-chevron-left" onClick={ () => navigate(-1) }></i>
+                        : <i className="bi bi-chevron-left" onClick={ () => navigate(backBtnTo) }></i>
                     }
 
                 </div>

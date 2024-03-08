@@ -51,7 +51,7 @@ export const AlertDetailPage = () => {
 
     return (
     <>
-        <NavBar title="Detalle de alerta" >
+        <NavBar title="Detalle de alerta" backBtnTo={'/alerts'} >
             {
                 user?.id === alert.creator?._id &&
                 <i className="bi bi-trash3" onClick={ondisplayModal}></i>

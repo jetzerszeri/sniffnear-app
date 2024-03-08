@@ -6,7 +6,7 @@ import {  SidebarChatIcon, SidebarLogoutIcon } from '../../ui/customIcons';
 import { useContext } from 'react';
 import { AuthContext } from '../../auth/context';
 import { SidebarBlogIcon  } from '../../ui/customIcons';
-import { DogPawPrintIcon, AlertIcon, NewPostIcon } from '../../ui/customIcons';
+import { DogPawPrintIcon, AlertIcon, NewPostIcon, AdoptionIcon } from '../../ui/customIcons';
 export const NavBar = ( { sidebar = false, title = null, rightIcon={display: false, link: "/", icon: ""}, img= false, children, forChat = false, backBtnTo = -1 } ) => {
 
     const navigate = useNavigate();
@@ -177,6 +177,10 @@ export const NavBar = ( { sidebar = false, title = null, rightIcon={display: fal
                                     <Link to="/blog/new">
                                         <NewPostIcon/>
                                         Publicación
+                                    </Link>
+                                    <Link to="/adoptions/new">
+                                        <AdoptionIcon/>
+                                        Adopción
                                     </Link>
                                 </div>
                             )}

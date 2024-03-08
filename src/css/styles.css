@@ -2462,8 +2462,13 @@ ul.message-list {
     .dropdown-content a > svg {
         width: 24px; 
         height: 24px;
-        margin-right: 8px; 
+        margin-right: 8px;
     }
+
+    .adoptionIcon svg{
+        fill: var(--color-darkblue);
+    }
+
     .dropdown-btn:hover{
         color: var(--color-green);
     }

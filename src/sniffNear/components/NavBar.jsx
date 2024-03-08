@@ -178,7 +178,7 @@ export const NavBar = ( { sidebar = false, title = null, rightIcon={display: fal
                                         <NewPostIcon/>
                                         Publicación
                                     </Link>
-                                    <Link to="/adoptions/new">
+                                    <Link to="/adoptions/new" className='adoptionIcon'>
                                         <AdoptionIcon/>
                                         Adopción
                                     </Link>

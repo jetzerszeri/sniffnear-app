@@ -2325,6 +2325,76 @@ ul.message-list {
 
 
 
+.changePasswordModal{
+    padding: 10px;
+    width: 80vw;
+    max-width: 450px;
+}
+
+.changePasswordModal h2{
+    font-size: 1.5em;
+    font-weight: 500;
+    color: var(--color-green);
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.errorInput.credential{
+    background-color: var(--color-oragne-background);
+    padding: 12px;
+    border-radius: 6px;
+    margin: 5px 0;
+}
+
+.textModal{
+    margin-top: 16px;
+}
+
+
+.noResultsFound{
+    color: var(--color-neutral-50);
+    text-align: center;
+    margin: 30px;
+    font-weight: 400;
+    font-size: 0.9em;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 80px;
+}
+
+.noResultsFound h2{
+    font-size: 1.2em;
+    color: var(--color-green);
+
+}
+
+
+main.blog{
+    padding: 0;
+}
+
+.noResultsFound.alerts h2{
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.noResultsFound.alerts{
+    margin: 10px 10px 50px 10px;
+    padding: 20px;
+}
+
+
+
+
+
+
+
+
+
+
+
 @media screen and (min-width: 768px) {
     .topNavBar{
         display: none;
@@ -2563,6 +2633,9 @@ ul.message-list {
         align-items: flex-start;
     }
 
+    .noResultsFound.alerts{
+        margin: auto;
+    }
     
 
 }
@@ -2574,62 +2647,3 @@ ul.message-list {
 
 
 
-.changePasswordModal{
-    padding: 10px;
-    width: 80vw;
-    max-width: 450px;
-}
-
-.changePasswordModal h2{
-    font-size: 1.5em;
-    font-weight: 500;
-    color: var(--color-green);
-    margin-bottom: 30px;
-    text-align: center;
-}
-
-.errorInput.credential{
-    background-color: var(--color-oragne-background);
-    padding: 12px;
-    border-radius: 6px;
-    margin: 5px 0;
-}
-
-.textModal{
-    margin-top: 16px;
-}
-
-
-.noResultsFound{
-    color: var(--color-neutral-50);
-    text-align: center;
-    margin: 30px;
-    font-weight: 400;
-    font-size: 0.9em;
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding-bottom: 80px;
-}
-
-.noResultsFound h2{
-    font-size: 1.2em;
-    color: var(--color-green);
-
-}
-
-
-main.blog{
-    padding: 0;
-}
-
-.noResultsFound.alerts h2{
-    font-weight: 500;
-    margin-bottom: 10px;
-}
-
-.noResultsFound.alerts{
-    margin: 10px 10px 50px 10px;
-    padding: 20px;
-}

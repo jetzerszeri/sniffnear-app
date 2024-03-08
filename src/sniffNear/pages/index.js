@@ -20,3 +20,4 @@ export * from './AdoptionsPage';
 export * from './AdoptionNewPage';
 export * from './AdoptionsDetailPage';
 export * from './AdoptionEditPage';
+export * from './LandingPage';

@@ -1,5 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
-import { HomePage, PetsAddPage, PetsProfilePage } from '../sniffNear';
+import { HomePage, LandingPage, PetsAddPage, PetsProfilePage } from '../sniffNear';
 import { PublicRoutes } from './PublicRoutes';
 import { AccountRoutes, AlertsRoutes, InboxRoutes, BlogRoutes, PetsRoutes, AdoptionsRoutes } from '../sniffNear/routes';
 import { AuthRoutes } from '../auth/routes/AuthRoutes';
@@ -19,6 +19,7 @@ export const AppRouter = () => {
             <Route path='inbox/*' element={ <InboxRoutes /> } />
             <Route path='blog/*' element={ <BlogRoutes /> } />
             <Route path='adoptions/*' element={ <AdoptionsRoutes /> } />
+            <Route path='landing' element={ <LandingPage /> } />
 
             <Route path="auth/*" element={
               <PublicRoutes>

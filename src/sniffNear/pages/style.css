@@ -1,0 +1,79 @@
+
+.nosotros{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 100px;
+    margin-bottom: 50px;
+}
+.banner{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.footer{
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.footerImg{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: -24px;
+}
+.servicios{
+    margin-bottom: 100px;
+    margin-top: 40px;
+}
+
+.vision{
+    margin-top: 60px;
+    text-align: center;
+}
+.custom-secondary-text {
+    color: #006667 !important; 
+}
+
+.custom-secondary-bg {
+    background-color: #006667 !important; 
+    color: white;
+    border-color: #006667;
+}
+
+.photo{
+    width: 50%;
+}
+.textcenter{
+    text-align: center;
+    margin-bottom: 70px;
+}
+body {
+    overflow-x: hidden;
+}
+h3{
+font-size: 40px;
+}
+.desktop-img {
+    display: block;
+}
+.mobile-img{
+    display: none;
+}
+@media only screen and (max-width: 600px) {
+    .footerImg {
+        max-width: 100%;
+        margin-top: 50px;
+        margin-bottom: -15px;
+    }
+    .desktop-img {
+        display: none; 
+    }
+    .mobile-img{
+        display: block;
+    }
+    .vision{
+        display: none !important;
+    }
+}

@@ -70,7 +70,7 @@ export const SidebarLogoutIcon = () => {
     return(
         <>
             <i className="bi bi-box-arrow-left"></i>
-            <span>Cerrar sesión</span>
+            <span className="logOut">Cerrar sesión</span>
         </>
     )
 };

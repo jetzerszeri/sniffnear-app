@@ -21,7 +21,7 @@ export const AdoptionsPage = () => {
     }
 
     const handleEditClick = (adoptionToEdit) => {
-        console.log('Editar adopción:', adoptionToEdit);
+        // console.log('Editar adopción:', adoptionToEdit);
     };
 
     return (

@@ -75,7 +75,7 @@ export const AlertFoundForm = () => {
 
     useEffect(() => {
         if ( data?.alert){
-            console.log(data)
+            // console.log(data)
             setIsCreated(true);
         }
     }, [ data ]);
@@ -94,7 +94,7 @@ export const AlertFoundForm = () => {
     useEffect(() => {
 
         if ( totalSteps === 6 && currentStep === 6 && (formState.creator !== '')) {
-            console.log('estoy en el effect y tengo que subir la imagen y publucar la alerta')
+            // console.log('estoy en el effect y tengo que subir la imagen y publucar la alerta')
             uploadImgandCreateAlert( formState );
         }
 
@@ -131,7 +131,7 @@ export const AlertFoundForm = () => {
         }
         setLoaderLabel('Publicando alerta...');
         await create('alerts', alertData);
-        console.log('alerta creada');
+        // console.log('alerta creada');
 
         // setManualValue( 'img', link );
     }, [ uploadImg ]);

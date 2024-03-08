@@ -33,7 +33,7 @@ export const AdoptionPetProfile = ( { pet }) => {
     const onEditPetProfile = () => {
         editPet( pet );
         navigate(`/adoptions/${_id}/edit`);
-        console.log('tomó boton pet', pet)
+        // console.log('tomó boton pet', pet)
     }
 
     return (

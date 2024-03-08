@@ -26,10 +26,10 @@ export const MapSniffNear = ( { position, alertForm = false, drag = false, updat
         const { latLng } = coord;
         const lat = latLng.lat();
         const lng = latLng.lng();
-        console.log(`Coordenadas: ${lat}, ${lng}`);
+        // console.log(`Coordenadas: ${lat}, ${lng}`);
 
         if ( updateCoords ) {
-            console.log('actualizando coordenadas');
+            // console.log('actualizando coordenadas');
             updateCoords( lat, lng);
         }
     // setCurrentLocation( {lat, lng})

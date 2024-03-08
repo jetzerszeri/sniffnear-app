@@ -3,7 +3,7 @@ import { PetBreedInput, PetSexInput, TextAreaInput, TextInput } from '../../ui';
 export const AlertFoundFormPart2 = ( { onInputChange, formState, nextStep, prevStep, errors, checkErrors, setErrors, setManualValue, setCheckErrors }) => {
 
     const onNextStep = ( ) => {
-        console.log('onNextStep');
+        // console.log('onNextStep');
         setCheckErrors( true );
         if ( errors.length > 0 || formState.breedType === '' || formState.description === '') return;
         nextStep();

@@ -47,18 +47,18 @@ const onUpdateSubmit = async (e) => {
 
     if ( !formState.type || !formState.birthdate || !formState.breedType ){
         setCheckErrors( false );
-        console.log('hay errores')
-        console.log(formState)
+        // console.log('hay errores')
+        // console.log(formState)
         return;
     } 
 
     const dataToUpdate = {
         ...formState
     }
-    console.log('estoy dentro 2')
+    // console.log('estoy dentro 2')
     if ( pet.img !== imageSelected ) {
         if ( imageSelected === null ){
-            console.log('imageSelected === null ')
+            // console.log('imageSelected === null ')
             dataToUpdate.deleteImg = true;
         } else {
             const link = await uploadImg( 'pets/avatars/', `${user.id}-${name}` );
@@ -72,11 +72,11 @@ const onUpdateSubmit = async (e) => {
 }
 
 
-useEffect(() => {
-    if (error){
-        console.log(error);
-    }
-}, [error ])
+// useEffect(() => {
+//     if (error){
+//         console.log(error);
+//     }
+// }, [error ])
 
 
     return (

@@ -47,13 +47,13 @@ export const AdoptionNewPage = () => {
         } else if (currentStep === 3) {
             if ( imageSelected ) {
                 const link = await uploadImg( 'adoptions/avatars/', `${user.id}-${breedType}-${content}-${getCurrentTime()}` );
-                console.log('link:', link);
+                // console.log('link:', link);
                 const data = {
                     ...formState,
                     img: link,
                     owner: user.id,
                 }
-                console.log('data:', data);
+                // console.log('data:', data);
                 await create('adoption', data);
 
                 // createAdoptionProfile( formState, user.id );

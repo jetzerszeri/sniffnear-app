@@ -54,7 +54,7 @@ export const ChatPage = () => {
                   setMsgHistory(data)
               }
           }catch (error){
-              console.log('Error al obtener el historial de mensajes', error)
+            //   console.log('Error al obtener el historial de mensajes', error)
           }
       }
       getHistorial()
@@ -86,7 +86,7 @@ export const ChatPage = () => {
                       }
 
                   } else {
-                      console.log('La sala de chat no tiene participantes.');
+                    //   console.log('La sala de chat no tiene participantes.');
                   }
               } else {
                   console.error('Error al obtener los detalles de la sala de chat');

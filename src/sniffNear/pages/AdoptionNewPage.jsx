@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { NavBar, PetFormPart1, PetFormPart2, PetFormPart3 } from '../components'
+import { AuthFormModal, NavBar, PetFormPart1, PetFormPart2, PetFormPart3 } from '../components'
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../auth/context';
 import { useMultiSteps } from '../hooks';
@@ -31,6 +31,7 @@ export const AdoptionNewPage = () => {
     const { imageSelected, uploadStatus, setImgFile, resetImg, uploadImg, imgFile } = usePreviewAndUploadImg();
     const [ imgError, setImgError ] = useState(false);
     const { data, isLoading, error, create, onResetFetchState } = useFetchSniffNearApi();
+    const [ displayAuthModal, setDisplayAuthModal ] = useState( false );
     
     const onNext = async () => {
         if (currentStep === 1){
@@ -93,6 +94,10 @@ export const AdoptionNewPage = () => {
     const redirectToPetProfile = () => {
         navigate(`/adoptions`);
     }
+
+    useEffect(() => {
+        user ? setDisplayAuthModal(false) : setDisplayAuthModal(true);   
+    }, [ user ])
 
     return (
     <>
@@ -177,6 +182,14 @@ export const AdoptionNewPage = () => {
                 data && <Modal heading={`Mascota para dar en adopción creada con éxito`} type='success' icon={ true }>
                     <button className="btn" onClick={ redirectToPetProfile }>Ver adopciones</button>
                 </Modal>
+            }
+
+            {
+                displayAuthModal &&
+                <AuthFormModal
+                    prevStep={ () => { navigate(-1)} }
+                    onNextFunction={ () => { setDisplayAuthModal(false) } }
+                />
             }
 
         </main>
